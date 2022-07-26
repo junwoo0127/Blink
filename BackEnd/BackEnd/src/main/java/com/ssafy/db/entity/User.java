@@ -7,6 +7,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,6 +22,7 @@ import lombok.*;
 @NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
+@EntityListeners(AuditingEntityListener.class)
 
 public class User {
 	
@@ -62,7 +64,7 @@ public class User {
 	private char gender;
 	
 	@Column(name = "mbti")
-	private int mbti;
+	private String mbti;
 	
 	@Column(name ="type")
 	private String type;
@@ -83,10 +85,10 @@ public class User {
 	private int match_size;
 	
 	@Column (name= "certi")
-	private char certi;
+	private int certi;
 	
 	
-	@Column (name= "certy_key")
+	@Column (name= "certi_key")
 	private String certi_key;
 	
 
