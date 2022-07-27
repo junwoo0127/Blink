@@ -72,10 +72,10 @@ public class Player {
 	private Player finalChoice;
 
 	@Column(name = "is_first_match")
-	private int is_firstMatch;
+	private int isfirstMatch;
 	
 	@Column(name ="is_final_match")
-	private int is_finalMatch;
+	private int isfinalMatch;
 	
 	@Column(name ="liar")
 	private int liar;
