@@ -62,14 +62,15 @@ public class Player {
 	@CreatedDate
 	private LocalDateTime regDate;
 	
+
 	@OneToOne
 	@JoinColumn(name ="first_choice" , insertable = false, updatable = false)
 	private Player firstChoice;
-	
+
 	@OneToOne
 	@JoinColumn(name ="final_choice", insertable = false, updatable = false)
 	private Player finalChoice;
-	
+
 	@Column(name = "is_first_match")
 	private int is_firstMatch;
 	
