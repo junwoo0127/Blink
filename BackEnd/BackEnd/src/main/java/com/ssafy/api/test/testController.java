@@ -27,7 +27,7 @@ public class testController {
 	@GetMapping
 	public void test() {
 		System.out.println("SS");
-		User user = User.builder().user_id("dbwowo").password("1234").email("dbwowo@naver.com").build();	
+		User user = User.builder().userId("dbwowo").password("1234").email("dbwowo@naver.com").build();	
 		userRepo.save(user);
 
 		

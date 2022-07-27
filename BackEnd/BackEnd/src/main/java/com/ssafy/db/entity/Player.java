@@ -36,11 +36,11 @@ public class Player {
 	private Long id;
 	
 	@Column(name= "room_seq")
-	private Long room_seq;
+	private Long roomSeq;
 	
 
 	@Column(name= "user_seq")
-	private Long user_seq;
+	private Long userSeq;
 
 	@Column(name = "nickname")
 	private String nickname;
@@ -60,21 +60,21 @@ public class Player {
 	
 	@Column(name ="reg_date",updatable = false)
 	@CreatedDate
-	private LocalDateTime reg_date;
+	private LocalDateTime regDate;
 	
 	@OneToOne
 	@JoinColumn(name ="first_choice" , insertable = false, updatable = false)
-	private Player first_choice;
+	private Player firstChoice;
 	
 	@OneToOne
 	@JoinColumn(name ="final_choice", insertable = false, updatable = false)
-	private Player final_choice;
+	private Player finalChoice;
 	
 	@Column(name = "is_first_match")
-	private int is_first_match;
+	private int is_firstMatch;
 	
 	@Column(name ="is_final_match")
-	private int is_final_match;
+	private int is_finalMatch;
 	
 	@Column(name ="liar")
 	private int liar;
