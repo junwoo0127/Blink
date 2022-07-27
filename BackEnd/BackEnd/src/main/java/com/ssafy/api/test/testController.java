@@ -27,13 +27,9 @@ public class testController {
 	@GetMapping
 	public void test() {
 		System.out.println("SS");
-		User user = User.builder().user_id("dbwowo").password("1234").email("dbwowo@naver.com").build();
-		User user2 = User.builder().user_id("dbwowo1").password("1234").email("dbwowo@naver.com").build();
-		User user3 = User.builder().user_id("dbwowo1").password("1234").email("dbwowo@naver.com").gender('z').build();
-		
-		userRepo.save(user3);
-		Player p =playerRepo.findById(1l).get();
-//		
+		User user = User.builder().user_id("dbwowo").password("1234").email("dbwowo@naver.com").build();	
+		userRepo.save(user);
+
 		
 		
 		

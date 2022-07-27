@@ -90,7 +90,8 @@ public class User {
 	
 	@Column (name= "certi_key")
 	private String certi_key;
-	
+
+
 
 	
 	
