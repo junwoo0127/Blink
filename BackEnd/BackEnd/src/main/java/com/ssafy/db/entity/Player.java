@@ -62,12 +62,13 @@ public class Player {
 	@CreatedDate
 	private LocalDateTime reg_date;
 	
-	@OneToOne
-	@JoinColumn(name ="first_choice" , insertable = false, updatable = false)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name ="first_choice")
+	
 	private Player first_choice;
 	
-	@OneToOne
-	@JoinColumn(name ="final_choice", insertable = false, updatable = false)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name ="final_choice")
 	private Player final_choice;
 	
 	@Column(name = "is_first_match")
