@@ -1,10 +1,9 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../../_actions/user_action";
+import { registerUser } from "../../_actions/user_action";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
-function LoginPage(props) {
+function RegisterPage(props) {
   const params = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -12,29 +11,45 @@ function LoginPage(props) {
   const dispatch = useDispatch();
 
   const [Email, setEmail] = useState("");
+  const [Name, setName] = useState("");
   const [Password, setPassword] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
 
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
+  };
+
+  const onNameHandler = (event) => {
+    setName(event.currentTarget.value);
   };
 
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
   };
 
+  const onConfirmPasswordHandler = (event) => {
+    setConfirmPassword(event.currentTarget.value);
+  };
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
+    if (Password !== ConfirmPassword) {
+      return alert("비밀번호와 비밀번호 확인 불일치");
+    }
+
     let body = {
       email: Email,
+      name: Name,
       password: Password,
+      confirmpassword: ConfirmPassword,
     };
 
-    dispatch(loginUser(body)).then((response) => {
-      if (response.payload.loginSuccess) {
-        props.navigate("/");
+    dispatch(registerUser(body)).then((response) => {
+      if (response.payload.Success) {
+        props.navigate("/login");
       } else {
-        alert('Error"');
+        alert('회원가입 실패용"');
       }
     });
   };
@@ -55,6 +70,10 @@ function LoginPage(props) {
       >
         <label>Email</label>
         <input type="email" value={Email} onChange={onEmailHandler}></input>
+
+        <label>Name</label>
+        <input type="text" value={Name} onChange={onNameHandler}></input>
+
         <label>Password</label>
         <input
           type="password"
@@ -62,23 +81,18 @@ function LoginPage(props) {
           onChange={onPasswordHandler}
         ></input>
 
+        <label>confirm Password</label>
+        <input
+          type="password"
+          value={ConfirmPassword}
+          onChange={onConfirmPasswordHandler}
+        ></input>
+
         <br></br>
-        <button type="submit">Login</button>
+        <button type="submit">회원 가입</button>
       </form>
     </div>
   );
 }
 
-export default LoginPage;
-// withRouter 잘모르겠다
-// 원래는 39번줄 props.history.push 에러 문제로 withRouter강의에서씀
-// v6에서 사라짐    랜딩페이지도 마찬가지
-//  https://11001.tistory.com/176   https://kyung-a.tistory.com/36 https://adjh54.tistory.com/48
-//  데이터 없어서 이해못하고 그냥 비슷하게했는데 맞는지는 나중에 알듯?
-
-// withRouter 를 사용하는 이유는 history 객체에 접근할 수 있게 해서
-// props.history 이런식으로 가능하게 해줌
-//  auth.js 같은  첫번째 부모 컴포넌트같은경우는
-// 이미 history 객체에 접근이 가능 그러기에 withRouter가 필요 X
-
-//  강의 출처 https://inf.run/JZyR
+export default RegisterPage;

@@ -5,9 +5,9 @@ import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import LandingPage from "./components/views/LandingPage/LandingPage";
-import LoginPage from "./components/views/LoginPage/LoginPage";
-import RegisterPage from "./components/views/RegisterPage/RegisterPage";
+import LandingPage from "./components/LandingPage/LandingPage";
+import LoginPage from "./components/LoginPage/LoginPage";
+import RegisterPage from "./components/RegisterPage/RegisterPage";
 import Auth from "./hoc/auth";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/login">About</Link>
+            <Link to="/login">Login</Link>
           </li>
           <li>
             <Link to="/join">Join</Link>
