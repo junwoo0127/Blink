@@ -35,7 +35,7 @@ public class User {
 	private String hobby;
 	
 	@Column(name = "id")
-	private String user_id;
+	private String userId;
 	
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "pw")
@@ -52,10 +52,10 @@ public class User {
 	private String social;
 	
 	@Column(name="sign_out")
-	private char sign_out;
+	private char signOut;
 	
 	@Column(name = "out_date")
-	private LocalDateTime out_date;
+	private LocalDateTime outDate;
 	
 	@Column(name = "nickname")
 	private String nickname;
@@ -70,26 +70,26 @@ public class User {
 	private String type;
 	
 	@Column(name = "first_match")
-	private int first_match;
+	private int firstMatch;
 	
 	@Column(name= "first_chosen")
-	private int first_chosen;
+	private int firstChosen;
 	
 	@Column (name= "final_match")
-	private int final_match;
+	private int finalMatch;
 	
 	@Column (name= "final_chosen")
-	private int final_chosen;
+	private int finalChosen;
 	
 	@Column (name= "match_size")
-	private int match_size;
+	private int matchSize;
 	
 	@Column (name= "certi")
 	private int certi;
 	
 	
 	@Column (name= "certi_key")
-	private String certi_key;
+	private String certiKey;
 
 
 

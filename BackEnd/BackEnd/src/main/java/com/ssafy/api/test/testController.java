@@ -38,11 +38,17 @@ public class testController {
 	@GetMapping
 	public void test() {
 		System.out.println("SS");
+<<<<<<< HEAD
 		User user = User.builder().user_id("dbwowo11").password("1234").email("dbwowo@naver.com").build();	
 		Room room = Room.builder().admin(user).build();
 		Player player1 = Player.builder().nickname("test1").gender('M').build();
 		Player player2 = Player.builder().nickname("test1").gender('M').build();
 		Player player3 = Player.builder().nickname("test1").gender('M').build();
+=======
+		User user = User.builder().userId("dbwowo").password("1234").email("dbwowo@naver.com").build();	
+		userRepo.save(user);
+
+>>>>>>> refs/heads/DbSetting
 		
 		List<Player> t = new ArrayList<Player>();
 		t.add(player1);
