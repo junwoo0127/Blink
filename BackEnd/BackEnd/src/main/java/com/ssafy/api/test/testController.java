@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -37,9 +39,7 @@ public class testController {
 	public void test() {
 		System.out.println("SS");
 		User user = User.builder().user_id("dbwowo11").password("1234").email("dbwowo@naver.com").build();	
-		userRepo.save(user);
 		Room room = Room.builder().admin(user).build();
-		
 		Player player1 = Player.builder().nickname("test1").gender('M').build();
 		Player player2 = Player.builder().nickname("test1").gender('M').build();
 		Player player3 = Player.builder().nickname("test1").gender('M').build();
@@ -50,12 +50,13 @@ public class testController {
 		t.add(player3);
 		room.setPlayers(t);
 		roomRepo.save(room);
-
 		
-		
-		
+	}
 	
-
+	@PostMapping
+	public void roomtest(@RequestBody Player player) {
+		System.out.println("SSS");
+		System.out.println(player.getNickname());
 		
 		
 	}

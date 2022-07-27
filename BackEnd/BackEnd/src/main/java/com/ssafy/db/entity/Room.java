@@ -54,13 +54,13 @@ public class Room {
 	
 	@Column(name ="reg_date",updatable = false)
 	@CreatedDate
-	private LocalDateTime reg_date;
+	private LocalDateTime regDate;
 	
 	@Column(name = "out_date")
 	private LocalDateTime out_date;
 	
 	@Column(name = "couple_size")
-	private int couple_size;
+	private int coupleSize;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "room_seq")
