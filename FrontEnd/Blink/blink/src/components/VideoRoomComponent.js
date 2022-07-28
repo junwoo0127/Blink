@@ -15,12 +15,14 @@ var localUser = new UserModel();
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
-    // this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
-    //     ? this.props.openviduServerUrl
-    //     : 'https://' + window.location.hostname + ':4443';
-    this.OPENVIDU_SERVER_URL = "i7a402.p.ssafy.io";
-    // this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret ? this.props.openviduSecret : 'MY_SECRET';
-    this.OPENVIDU_SERVER_SECRET = "ssafy47ssafy47";
+    this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
+      ? this.props.openviduServerUrl
+      : "https://" + window.location.hostname + ":4443";
+    // this.OPENVIDU_SERVER_URL = "i7a402.p.ssafy.io";
+    this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
+      ? this.props.openviduSecret
+      : "MY_SECRET";
+    // this.OPENVIDU_SERVER_SECRET = "ssafy47ssafy47";
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     let sessionName = this.props.sessionName
@@ -414,7 +416,7 @@ class VideoRoomComponent extends Component {
           // In mobile devices the default and first camera is the front one
           var newPublisher = this.OV.initPublisher(undefined, {
             audioSource: undefined,
-            videoSource: newVideoDevice[0].deviceId,
+            videoSource: undefined,
             publishAudio: localUser.isAudioActive(),
             publishVideo: localUser.isVideoActive(),
             mirror: true,
