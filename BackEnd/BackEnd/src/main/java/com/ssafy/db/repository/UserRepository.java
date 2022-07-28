@@ -9,4 +9,5 @@ import com.ssafy.db.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findUserByUserId(@Param("user_id") String userId);
+	boolean existsByUserId(@Param("user_id") String userId);
 }

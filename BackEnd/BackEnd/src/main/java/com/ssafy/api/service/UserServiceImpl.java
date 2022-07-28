@@ -38,4 +38,13 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findUserByUserId(userId);
 		return user;
 	}
+
+	public boolean idcheck(String userId) {
+
+		boolean count = userRepository.existsByUserId(userId);
+		System.out.println(count);
+		return false;
+	}
+
+	
 }
