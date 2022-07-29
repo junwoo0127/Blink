@@ -50,6 +50,9 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         // If header does not contain BEARER or is null delegate to Spring impl and exit
         if (header == null || !header.startsWith(JwtTokenUtil.TOKEN_PREFIX)) {
+        	System.out.println("없음");
+        	
+        	System.out.println(header);
             filterChain.doFilter(request, response);
             return;
         }

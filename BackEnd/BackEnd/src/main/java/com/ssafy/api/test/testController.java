@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.ssafy.api.dto.roomPlayer;
 import com.ssafy.db.entity.Player;
 import com.ssafy.db.entity.Room;
 import com.ssafy.db.entity.User;
@@ -39,17 +41,46 @@ public class testController {
 	public void test() {
 		System.out.println("SS");
 
-		User user = User.builder().userId("dbwowo").password("1234").email("dbwowo@naver.com").build();	
-		userRepo.save(user);
+//		User user = User.builder().userId("dbwowo").password("1234").email("dbwowo@naver.com").build();	
+//		Room root = Room.builder().admin(user).build();
+//		Player p1= Player.builder().gender('M').nickname("김").build();
+//		Player p2= Player.builder().gender('M').nickname("이").build();
+//		Player p3= Player.builder().gender('M').nickname("박").build();
+//		List<Player> p = new ArrayList<Player>();
+//		p.add(p1);
+//		p.add(p2);
+//		p.add(p3);
+//		root.setPlayers(p);
+//		roomRepo.save(root);
+		Room t =roomRepo.findById(6l).get();
+		System.out.println(t.getPlayers().get(0).getNickname());
+		t.getPlayers().get(0).setNickname("dd");
+		
+		System.out.println(t.getPlayers().get(0).getNickname());
+		roomRepo.save(t);
+		
+		
 
 
 		
 	}
 	
 	@PostMapping
-	public void roomtest(@RequestBody Player player) {
+	public void roomtest(@RequestBody roomPlayer player ) {
 		System.out.println("SSS");
-		System.out.println(player.getNickname());
+		
+		
+		
+		Room t =roomRepo.findById(player.getRoouNum()).get();
+		List<Player>temp =t.getPlayers();
+		temp.add(player.getPlayer());
+		t.setPlayers(temp);
+		roomRepo.save(t);
+		
+		
+
+		
+		
 		
 		
 	}
