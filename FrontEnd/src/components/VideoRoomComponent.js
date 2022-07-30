@@ -5,26 +5,26 @@ import { OpenVidu } from "openvidu-browser";
 import StreamComponent from "./stream/StreamComponent";
 import DialogExtensionComponent from "./dialog-extension/DialogExtension";
 import ChatComponent from "./chat/ChatComponent";
-
+import Ready from "./readybutton/Ready";
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent";
-
+import MusicPlayer from "./MusicPlayer/MusicPlayer";
 var localUser = new UserModel();
 
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
-    // this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
-    //   ? this.props.openviduServerUrl
-    //   : "https://" + window.location.hostname + ":4443";
-    this.OPENVIDU_SERVER_URL = "https://i7a402.p.ssafy.io:8443";
-    // this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
-    //   ? this.props.openviduSecret
-    //   : "MY_SECRET";
+    this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
+      ? this.props.openviduServerUrl
+      : "https://" + window.location.hostname + ":4443";
+    // this.OPENVIDU_SERVER_URL = "https://i7a402.p.ssafy.io:8443";
     this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
       ? this.props.openviduSecret
-      : "ssafy47ssafy47";
+      : "MY_SECRET";
+    // this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
+    // ? this.props.openviduSecret
+    // : "ssafy47ssafy47";
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     let sessionName = this.props.sessionName
@@ -577,6 +577,8 @@ class VideoRoomComponent extends Component {
         />
 
         <div id="layout" className="bounds">
+          <Ready />
+          <MusicPlayer />
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div className="OT_root OT_publisher custom-class" id="localUser">
