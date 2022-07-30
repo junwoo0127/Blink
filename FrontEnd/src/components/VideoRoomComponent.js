@@ -125,7 +125,7 @@ class VideoRoomComponent extends Component {
           if (this.props.error) {
             this.props.error({
               error: error.error,
-              messgae: error.message,
+              message: error.message,
               code: error.code,
               status: error.status,
             });
