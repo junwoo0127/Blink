@@ -15,7 +15,8 @@ const style = {
   p: 4,
 };
 
-function Ready() {
+function Ready(data) {
+  console.log(data);
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
