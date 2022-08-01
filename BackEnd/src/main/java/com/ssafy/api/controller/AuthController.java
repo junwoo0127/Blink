@@ -50,7 +50,7 @@ public class AuthController {
 		if(user==null) {
 			return ResponseEntity.status(404).body(UserLoginPostRes.of(404, "Invalid Id", null));
 		}
-		if(user.getSignOut()!='N') {
+		if(user.getSignOut()!='N') { // 탈퇴회원일때
 			return ResponseEntity.status(404).body(UserLoginPostRes.of(404, "Invalid Id", null));
 		}
 		// 로그인 요청한 유저로부터 입력된 패스워드 와 디비에 저장된 유저의 암호화된 패스워드가 같은지 확인.(유효한 패스워드인지 여부 확인)
