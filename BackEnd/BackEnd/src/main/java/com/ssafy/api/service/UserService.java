@@ -10,4 +10,7 @@ public interface UserService {
 	User createUser(UserRegisterPostReq userRegisterInfo);
 	User getUserByUserId(String userId);
 	boolean idcheck(String userId);
+	void emailStatusUpdate(String userId);
 }
+
+
