@@ -28,6 +28,8 @@ public class UserServiceImpl implements UserService {
 		user.setUserId(userRegisterInfo.getId());
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
+		user.setEmail(userRegisterInfo.getEmail());
+		user.setSignOut('N');
 		return userRepository.save(user);
 	}
 
@@ -49,6 +51,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void emailStatusUpdate(String userId) {
 		
+	}
+
+	@Override
+	public boolean siginOut(User user) {
+		// TODO Auto-generated method stub
+		userRepository.save(user);
+		return true;
 	}
 
 	
