@@ -46,5 +46,10 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	@Override
+	public void emailStatusUpdate(String userId) {
+		
+	}
+
 	
 }
