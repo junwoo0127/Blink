@@ -1,33 +1,56 @@
-//package com.ssafy.api.service;
+package com.ssafy.api.service;
+
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.stereotype.Service;
+
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+
+import com.ssafy.db.entity.EmailAuth;
+import com.ssafy.db.repository.EmailAuthRepository;
+
+//@EnableAsync
+//@Service("mailAuthService")
+public class MailAuthServiceImpl implements MailAuthService {
+
+	private JavaMailSender mailSender;
+	private EmailAuthRepository emailRepository;
+
+//	private test_email saveNewAccount(String email) {
+//		test_email account = test_email.builder().email(email).build();
 //
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.scheduling.annotation.Async;
-//import org.springframework.scheduling.annotation.EnableAsync;
-//import org.springframework.stereotype.Service;
-//
-//import org.springframework.mail.SimpleMailMessage;
-//import org.springframework.mail.javamail.JavaMailSender;
-//
-//import com.ssafy.db.repository.EmailAuthRepository;
-//
-////@EnableAsync
-////@Service("mailAuthService")
-//public class MailAuthServiceImpl implements MailAuthService {
-//
-//	@Autowired
-//	EmailAuthRepository emailAuthRepository;
-//	
-//	private final JavaMailSender javaMailSender = null;
-//	
-//	@Async //메일 전송할 때까지 기다리기 싫으니까 비동기
-//	@Override
-//	public void sendMailAuth(String email, String authToken) {
-//		SimpleMailMessage smm = new SimpleMailMessage();
-//		smm.setTo(email+"@gmail.com");
-//		smm.setSubject("이메일 인증을 진행합니다.");
-//		smm.setText("http://localhost:8080/sign/confirm-email?email="+email+"&authToken="+authToken);
-//		
-//		javaMailSender.send(smm);
+//		return test_EmailRepository.save(account);
 //	}
-//
-//}
+
+	public void fromController(String email) {
+		// 컨트롤러부터 처음 응답을 받는 곳
+		EmailAuth ret = saveEmail(email);
+		sendVerificationEmail(ret);
+	}
+
+	public EmailAuth saveEmail(String email) {
+		EmailAuth account = EmailAuth.builder()
+				.email(email)
+				.authToken(UUID.randomUUID().toString())
+				.build();
+		return emailRepository.save(account);
+	}
+
+	public void sendVerificationEmail(EmailAuth newAccount) {
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		mailMessage.setTo(newAccount.getEmail());
+		mailMessage.setSubject("Webluxible 회원 가입 인증");
+		mailMessage.setText(String.format("/check-email-token?token=%s&email=%s", newAccount.getAuthToken(),
+				newAccount.getEmail()));
+		mailSender.send(mailMessage);
+	}
+
+	public EmailAuth findAccountByEmail(String email) {
+		return emailRepository.findByEmail(email);
+	}
+
+}
