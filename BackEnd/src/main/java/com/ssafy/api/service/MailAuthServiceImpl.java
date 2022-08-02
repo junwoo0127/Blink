@@ -17,14 +17,11 @@ import com.ssafy.db.repository.EmailAuthRepository;
 @Service("mailAuthService")
 public class MailAuthServiceImpl implements MailAuthService {
 
+	@Autowired
 	private JavaMailSender mailSender;
-	private static EmailAuthRepository emailRepository;
 
-//	private test_email saveNewAccount(String email) {
-//		test_email account = test_email.builder().email(email).build();
-//
-//		return test_EmailRepository.save(account);
-//	}
+	@Autowired
+	EmailAuthRepository emailRepository;
 
 	public void fromController(String email) {
 		// 컨트롤러부터 처음 응답을 받는 곳
@@ -33,10 +30,7 @@ public class MailAuthServiceImpl implements MailAuthService {
 	}
 
 	public EmailAuth saveEmail(String email) {
-		EmailAuth account = EmailAuth.builder()
-				.email(email)
-				.authToken(UUID.randomUUID().toString())
-				.build();
+		EmailAuth account = EmailAuth.builder().email(email).authToken(UUID.randomUUID().toString()).build();
 		return emailRepository.save(account);
 	}
 
@@ -44,8 +38,8 @@ public class MailAuthServiceImpl implements MailAuthService {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(newAccount.getEmail());
 		mailMessage.setSubject("Webluxible 회원 가입 인증");
-		mailMessage.setText(String.format("/check-email-token?token=%s&email=%s", newAccount.getAuthToken(),
-				newAccount.getEmail()));
+		mailMessage.setText(String.format("http://localhost:8080/blink/api/v1/mailAuth/check-email-token?token=%s&email=%s",
+				newAccount.getAuthToken(), newAccount.getEmail()));
 		mailSender.send(mailMessage);
 	}
 
