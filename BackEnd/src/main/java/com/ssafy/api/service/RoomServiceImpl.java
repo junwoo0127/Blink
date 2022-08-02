@@ -12,16 +12,15 @@ public class RoomServiceImpl implements RoomService {
 	@Autowired
 	RoomRepository roomRepository;
 	
-	
+	@Override
 	public Room makeRoom(User user, int size) {
 		
 		Room temp = Room.builder().admin(user).size(size).build();
 		roomRepository.save(temp);
 		
 		return temp;
-		
-		
-		
 	}
 
+	
+	
 }
