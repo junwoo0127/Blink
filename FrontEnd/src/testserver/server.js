@@ -10,7 +10,6 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
   socket.on("getReady", (count) => {
-    count++;
     socket.emit("getStart", count);
   });
 });

@@ -17,7 +17,12 @@ const style = {
   p: 4,
 };
 
-let count = 0;
+let count = [];
+socket.on("getStart", (cnt) => {
+  count.push(cnt);
+  console.log(count);
+  console.log(count.length);
+});
 function Ready() {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -26,13 +31,7 @@ function Ready() {
 
   const handleOpen = () => {
     setOpen(true);
-    socket.emit("getReady", count);
-    socket.on("getStart", (cnt) => {
-      count = cnt;
-    });
-    if (count === 8) {
-      console.log("getStart");
-    }
+    socket.emit("getReady", 1);
   };
   return (
     <div>
