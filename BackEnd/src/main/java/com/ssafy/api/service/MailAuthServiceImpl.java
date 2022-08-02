@@ -13,8 +13,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import com.ssafy.db.entity.EmailAuth;
 import com.ssafy.db.repository.EmailAuthRepository;
 
-//@EnableAsync
-//@Service("mailAuthService")
+@EnableAsync
+@Service("mailAuthService")
 public class MailAuthServiceImpl implements MailAuthService {
 
 	private JavaMailSender mailSender;
