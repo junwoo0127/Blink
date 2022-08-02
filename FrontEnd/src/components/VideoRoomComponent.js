@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./VideoRoomComponent.css";
 import { OpenVidu } from "openvidu-browser";
-import StreamComponent from "./stream/StreamComponent";
 
+import StreamComponent from "./stream/StreamComponent";
 import ChatComponent from "./chat/ChatComponent";
 import Ready from "./readybutton/Ready";
 import OpenViduLayout from "../layout/openvidu-layout";
@@ -96,7 +96,7 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
-    console.log("show me the OV");
+    
     this.setState(
       {
         session: this.OV.initSession(),
