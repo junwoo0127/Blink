@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import io from 'socket.io-client';
-import { getContrastRatio } from "@mui/material";
-import { CenterFocusStrong } from "@mui/icons-material";
+import io from "socket.io-client";
 
 const socket = io.connect("http://localhost:4000");
 const style = {
@@ -21,30 +19,21 @@ const style = {
 
 let count = 0;
 function Ready() {
-  const getStart = (cnt) => {
-    if(cnt === 8){
-      console.log("getStart!");
-      return;
-    }
-    else(socket.emit("getReady",cnt))
-  }
   const [open, setOpen] = useState(false);
   const handleClose = () => {
-    setOpen(false)
-    }
-   
-  
+    setOpen(false);
+  };
+
   const handleOpen = () => {
-    setOpen(true)
+    setOpen(true);
     socket.emit("getReady", count);
-    socket.on("getStart", (cnt)=> {
+    socket.on("getStart", (cnt) => {
       count = cnt;
-     
-    })
-    if(count === 8){
-      console.log("getStart")
+    });
+    if (count === 8) {
+      console.log("getStart");
     }
-  }
+  };
   return (
     <div>
       <button onClick={handleOpen}>준비완료</button>
