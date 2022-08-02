@@ -39,9 +39,9 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findUserByUserId(userId);
 		return user;
 	}
-
+	
+	@Override
 	public boolean idcheck(String userId) {
-
 		boolean count = userRepository.existsByUserId(userId);
 		System.out.println(count);
 		return false;
@@ -51,7 +51,8 @@ public class UserServiceImpl implements UserService {
 	public void emailStatusUpdate(String userId) {
 		
 	}
-
+	
+	@Override
 	public User findUserByEmail(String email) {
 		return userRepository.findUserByEmail(email);
 	}
