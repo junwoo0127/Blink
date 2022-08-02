@@ -11,6 +11,7 @@ public interface UserService {
 	User getUserByUserId(String userId);
 	boolean idcheck(String userId);
 	void emailStatusUpdate(String userId);
+	User findUserByEmail(String email);
 }
 
 

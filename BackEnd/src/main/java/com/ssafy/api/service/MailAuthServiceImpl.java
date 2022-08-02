@@ -18,7 +18,7 @@ import com.ssafy.db.repository.EmailAuthRepository;
 public class MailAuthServiceImpl implements MailAuthService {
 
 	private JavaMailSender mailSender;
-	private EmailAuthRepository emailRepository;
+	private static EmailAuthRepository emailRepository;
 
 //	private test_email saveNewAccount(String email) {
 //		test_email account = test_email.builder().email(email).build();

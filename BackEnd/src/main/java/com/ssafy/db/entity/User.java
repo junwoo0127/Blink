@@ -92,8 +92,9 @@ public class User {
 	private String certiKey;
 
 
-
-	
+	public void certificated() {
+		this.certi = 1;
+	}
 	
 	
 	

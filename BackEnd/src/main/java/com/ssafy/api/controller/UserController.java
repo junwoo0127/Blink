@@ -17,6 +17,7 @@ import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.response.UserRes;
+import com.ssafy.api.service.MailAuthServiceImpl;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -41,6 +42,8 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	MailAuthServiceImpl mailAuthServiceImpl;
+	
 	@PostMapping("/")
 	@ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.") 
     @ApiResponses({
@@ -53,6 +56,7 @@ public class UserController {
 			@RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterPostReq registerInfo) {
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
 		User user = userService.createUser(registerInfo);
+		mailAuthServiceImpl.fromController(user.getEmail());
 		
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
