@@ -57,7 +57,7 @@ public class Room {
 	private LocalDateTime regDate;
 	
 	@Column(name = "out_date")
-	private LocalDateTime out_date;
+	private LocalDateTime outDate;
 	
 	@Column(name = "couple_size")
 	private int coupleSize;
