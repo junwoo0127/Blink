@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import io from "socket.io-client";
-
-const socket = io.connect("http://localhost:4000");
+import Timer from "../common/timer/timer";
 const style = {
   position: "absolute",
   top: "50%",
@@ -17,28 +15,35 @@ const style = {
   p: 4,
 };
 
-let count = [];
-socket.on("getStart", (cnt) => {
-  count.push(cnt);
-  console.log(count);
-  console.log(count.length);
-});
-function Ready() {
+function Ready(props) {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
-
   const handleOpen = () => {
     setOpen(true);
-    socket.emit("getReady", 1);
   };
+
+  // useEffect(() => {
+  //   let timer = setTimeout(() => {
+  //     setOpen(false);
+  //   }, 5000);
+
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [open]);
+  if (props.count === 3) {
+    setTimeout(handleOpen, 3000);
+  }
+
   return (
     <div>
-      <button onClick={handleOpen}>준비완료</button>
+      <button disabled={true}>준비완료({props.count}/8)</button>
+
       <Modal
         open={open}
-        onClose={handleClose}
+        onClick={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -51,6 +56,7 @@ function Ready() {
             지금부터 블라인드 소개팅 Blink를 시작하도록 하겠습니다. 설명을
             끝까지 잘 들으시고 열심히 참여하시어 좋은 인연을 만드시기
             바라겠습니다.
+            <Timer sec="10" />
           </Typography>
         </Box>
       </Modal>

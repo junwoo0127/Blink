@@ -44,6 +44,7 @@ class VideoRoomComponent extends Component {
       subscribers: [],
       chatDisplay: "none",
       currentVideoDevice: undefined,
+      participantNum: 1,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -96,7 +97,7 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
-    
+
     this.setState(
       {
         session: this.OV.initSession(),
@@ -170,7 +171,7 @@ class VideoRoomComponent extends Component {
       audioSource: undefined,
       videoSource: undefined,
       //videoSource: videoDevices[0].deviceId,
-      publishAudio: localUser.isAudioActive(),
+      publishAudio: !localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
       resolution: "640x480",
       frameRate: 30,
@@ -290,6 +291,7 @@ class VideoRoomComponent extends Component {
     this.state.session.on("streamCreated", (event) => {
       const subscriber = this.state.session.subscribe(event.stream, undefined);
       // var subscribers = this.state.subscribers;
+      this.setState({ participantNum: (this.state.participantNum += 1) });
       subscriber.on("streamPlaying", (e) => {
         console.log("here!!!");
         console.log(subscriber.videos[0].video.parentElement.classList);
@@ -314,6 +316,7 @@ class VideoRoomComponent extends Component {
     // On every Stream destroyed...
     this.state.session.on("streamDestroyed", (event) => {
       // Remove the stream from 'subscribers' array
+      this.setState({ participantNum: (this.state.participantNum -= 1) });
       this.deleteSubscriber(event.stream);
       setTimeout(() => {}, 20);
       event.preventDefault();
@@ -416,7 +419,7 @@ class VideoRoomComponent extends Component {
         />
 
         <div id="layout" className="bounds">
-          <Ready />
+          <Ready count={this.state.participantNum} />
           <MusicPlayer />
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (

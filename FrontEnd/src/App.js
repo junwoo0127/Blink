@@ -10,6 +10,7 @@ import Footer from "./components/Footer/Footer";
 import LandingPage from "./components/LandingPage/LandingPage";
 import LoginPage from "./components/LoginPage/LoginPage";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
+import VideoRoomComponent2 from "./components/VideoRoomComponent2";
 import ResponsiveAppBar from "./components/ResponsiveAppBar/ResponsiveAppBar";
 import Auth from "./hoc/auth";
 // 고려할만할듯 로딩페이지 처럼
@@ -28,7 +29,7 @@ function App() {
     // 푸터 랑 네브바 특정 페이지만 if문주기 안되면 각각연결
     <Router>
       <div>
-        <ResponsiveAppBar></ResponsiveAppBar>
+        {/* <ResponsiveAppBar></ResponsiveAppBar> */}
         <Routes>
           <Route path="/*" element={<NLandinPage />} />
 
