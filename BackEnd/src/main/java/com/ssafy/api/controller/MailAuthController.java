@@ -26,20 +26,19 @@ public class MailAuthController {
 	
 	
 	@GetMapping("/check-email-token")
-	public String verifyEmail(String token, String email) {
+	public User verifyEmail(String token, String email) {
 		EmailAuth account = mailAuthService.findAccountByEmail(email);
 		User certing_user = userService.findUserByEmail(email);
 
 		if (account == null) {
 			System.out.println("account is null");
-			return "account is null";
+			return null;
 		}
 		if (!token.equals(account.getAuthToken())) {
 			System.out.println("wrong token");
-			return "wrong token";
+			return null;
 		}
 
-		certing_user.certificated();
-		return "certificated OK";
+		return userService.certificated(certing_user);
 	}
 }

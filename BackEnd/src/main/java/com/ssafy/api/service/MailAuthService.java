@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.mail.SimpleMailMessage;
 
 import com.ssafy.db.entity.EmailAuth;
+import com.ssafy.db.entity.User;
 
 public interface MailAuthService {
 	
@@ -16,5 +17,6 @@ public interface MailAuthService {
 	public void sendVerificationEmail(EmailAuth newAccount);
 	
 	public EmailAuth findAccountByEmail(String email);
+
 	
 }

@@ -11,7 +11,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import com.ssafy.db.entity.EmailAuth;
+import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.EmailAuthRepository;
+import com.ssafy.db.repository.UserRepository;
 
 @EnableAsync
 @Service("mailAuthService")
@@ -22,6 +24,9 @@ public class MailAuthServiceImpl implements MailAuthService {
 
 	@Autowired
 	EmailAuthRepository emailRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	public void fromController(String email) {
 		// 컨트롤러부터 처음 응답을 받는 곳
@@ -46,5 +51,7 @@ public class MailAuthServiceImpl implements MailAuthService {
 	public EmailAuth findAccountByEmail(String email) {
 		return emailRepository.findByEmail(email);
 	}
+
+
 
 }

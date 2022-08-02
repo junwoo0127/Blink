@@ -57,5 +57,10 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findUserByEmail(email);
 	}
 
+	@Override
+	public User certificated(User user) {
+		user.setCerti(1);
+		return userRepository.save(user);
+	}
 	
 }
