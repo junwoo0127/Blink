@@ -50,7 +50,7 @@ const ResponsiveAppBar = () => {
       position="sticky"
       style={{ background: "transparent", boxShadow: "none" }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="false">
         <Toolbar disableGutters>
           <Link to="/">
             <Logo
