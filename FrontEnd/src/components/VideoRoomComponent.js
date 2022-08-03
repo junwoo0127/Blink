@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./VideoRoomComponent.css";
 import { OpenVidu } from "openvidu-browser";
-
+import $ from 'jquery'; 
 import StreamComponent from "./stream/StreamComponent";
 import ChatComponent from "./chat/ChatComponent";
 import Ready from "./readybutton/Ready";
@@ -58,6 +58,38 @@ class VideoRoomComponent extends Component {
     this.toggleChat = this.toggleChat.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
+    this.initializeSessionView =this.initializeSessionView.bind(this);
+  }
+
+   initializeSessionView() {
+    // Tooltips
+    // $('[data-toggle="tooltip"]').tooltip();
+    // Input clipboard
+    $('#copy-input').val(window.location.href);
+    $('#copy-button').bind('click', function () {
+      var input = document.getElementById('copy-input');
+      input.focus();
+      input.setSelectionRange(0, input.value.length);
+      try {
+        var success = document.execCommand('copy');
+        if (success) {
+          $('#copy-button').trigger('copied', ['Copied!']);
+        } else {
+          $('#copy-button').trigger('copied', ['Copy with Ctrl-c']);
+        }
+      } catch (err) {
+        $('#copy-button').trigger('copied', ['Copy with Ctrl-c']);
+      }
+    });
+  
+    // Handler for updating the tooltip message.
+    // $('#copy-button').bind('copied', function (event, message) {
+    //   $(this).attr('title', message)
+    //     .tooltip('fixTitle')
+    //     .tooltip('show')
+    //     .attr('title', "Copy to Clipboard")
+    //     .tooltip('fixTitle');
+    // });
   }
 
   componentDidMount() {
@@ -166,6 +198,9 @@ class VideoRoomComponent extends Component {
   async connectWebCam() {
     var devices = await this.OV.getDevices();
     var videoDevices = devices.filter((device) => device.kind === "videoinput");
+    var path = (window.location.pathname.slice(-1) == "/" ? window.location.pathname : window.location.pathname + "/");
+				window.history.pushState("", "", path + '#' + this.state.mySessionId);
+        
 
     let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
@@ -195,7 +230,7 @@ class VideoRoomComponent extends Component {
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
     this.subscribeToStreamDestroyed();
-
+    this.initializeSessionView();
     this.setState(
       { currentVideoDevice: videoDevices[0], localUser: localUser },
       () => {

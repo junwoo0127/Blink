@@ -3,6 +3,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Timer from "../common/timer/timer";
+import Introduce from "../modals/Introduce"
 const style = {
   position: "absolute",
   top: "50%",
@@ -17,9 +18,16 @@ const style = {
 
 function Ready(props) {
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const handleClose = () => {
     setOpen(false);
+    setOpen2(true)
+    
   };
+  const onClose = () => {
+    setOpen2(true);
+    console.log(open2)
+  }
   const handleOpen = () => {
     setOpen(true);
   };
@@ -33,33 +41,34 @@ function Ready(props) {
   //     clearTimeout(timer);
   //   };
   // }, [open]);
+  useEffect(()=> {
   if (props.count === 3) {
-    setTimeout(handleOpen, 3000);
-  }
-
+    setTimeout(handleOpen, 10000);
+  }},[props.count])
+  if(open===true){
+  setTimeout(handleClose, 14000);}
   return (
     <div>
-      <button disabled={true}>준비완료({props.count}/8)</button>
-
+      <button disabled={true}>참가자 수: ({props.count}/8)</button>
+      
       <Modal
         open={open}
-        onClick={handleClose}
+        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            블라인드 소개팅 Blink에 오신 여러분 환영합니다.
+            참가가 모두 완료되었습니다.
           </Typography>
 
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            지금부터 블라인드 소개팅 Blink를 시작하도록 하겠습니다. 설명을
-            끝까지 잘 들으시고 열심히 참여하시어 좋은 인연을 만드시기
-            바라겠습니다.
-            <Timer sec="10" />
+            <Timer sec="10" /> 후 시작됩니다!
+            즐거운 시간 되세요!
           </Typography>
         </Box>
-      </Modal>
+      </Modal> 
+      <Introduce open={open2}/>
     </div>
   );
 }
