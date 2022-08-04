@@ -31,10 +31,12 @@ function App() {
           <Route path="/login" element={<NLoginPage />} />
 
           <Route path="/join" element={<Main />} />
-
+          
           <Route path="/videoroom" element={<VideoRoomComponent />} />
 
           <Route path="/register" element={<NRegisterPage />} />
+
+          <Route path="/lobby" element={<Lobby/>}/>
         </Routes>
       </div>
     </Router>

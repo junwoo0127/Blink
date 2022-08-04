@@ -35,7 +35,8 @@ export default class StreamComponent extends Component {
   }
 
   render() {
-    return (
+    return (<div>
+      
       <div
         className="OT_widget-container"
         onMouseOver={this.onMouseOver}
@@ -80,6 +81,6 @@ export default class StreamComponent extends Component {
           </div>
         ) : null}
       </div>
-    );
+   </div> );
   }
 }

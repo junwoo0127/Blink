@@ -2,15 +2,17 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./VideoRoomComponent.css";
 import { OpenVidu } from "openvidu-browser";
+import $ from 'jquery'; 
 
-import StreamComponent from "./stream/StreamComponent";
 import ChatComponent from "./chat/ChatComponent";
-import Ready from "./readybutton/Ready";
+import GameRoom from "./VideoRooms/GameRoom/GameRoom"
+import ReadyButton from "./readybutton/ReadyButton"
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
-
+import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom"
+import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom"
 var localUser = new UserModel();
 
 class VideoRoomComponent extends Component {
@@ -44,6 +46,8 @@ class VideoRoomComponent extends Component {
       subscribers: [],
       chatDisplay: "none",
       currentVideoDevice: undefined,
+      participantNum: 1,
+      mode: 1,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -53,10 +57,46 @@ class VideoRoomComponent extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.nicknameChanged = this.nicknameChanged.bind(this);
-
+    this.setMode = this.setMode.bind(this)
     this.toggleChat = this.toggleChat.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
+    this.initializeSessionView =this.initializeSessionView.bind(this);
+  }
+    setMode(num){
+      this.setState({mode: num})
+      this.updateLayout()
+      console.log("this is mode about" ,this.state.mode)
+    }
+   initializeSessionView() {
+    // Tooltips
+    // $('[data-toggle="tooltip"]').tooltip();
+    // Input clipboard
+    $('#copy-input').val(window.location.href);
+    $('#copy-button').bind('click', function () {
+      var input = document.getElementById('copy-input');
+      input.focus();
+      input.setSelectionRange(0, input.value.length);
+      try {
+        var success = document.execCommand('copy');
+        if (success) {
+          $('#copy-button').trigger('copied', ['Copied!']);
+        } else {
+          $('#copy-button').trigger('copied', ['Copy with Ctrl-c']);
+        }
+      } catch (err) {
+        $('#copy-button').trigger('copied', ['Copy with Ctrl-c']);
+      }
+    });
+  
+    // Handler for updating the tooltip message.
+    // $('#copy-button').bind('copied', function (event, message) {
+    //   $(this).attr('title', message)
+    //     .tooltip('fixTitle')
+    //     .tooltip('show')
+    //     .attr('title', "Copy to Clipboard")
+    //     .tooltip('fixTitle');
+    // });
   }
 
   componentDidMount() {
@@ -96,7 +136,7 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
-    
+
     this.setState(
       {
         session: this.OV.initSession(),
@@ -165,12 +205,15 @@ class VideoRoomComponent extends Component {
   async connectWebCam() {
     var devices = await this.OV.getDevices();
     var videoDevices = devices.filter((device) => device.kind === "videoinput");
+    var path = (window.location.pathname.slice(-1) == "/" ? window.location.pathname : window.location.pathname + "/");
+				window.history.pushState("", "", path + '#' + this.state.mySessionId);
+        
 
     let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
       videoSource: undefined,
       //videoSource: videoDevices[0].deviceId,
-      publishAudio: localUser.isAudioActive(),
+      publishAudio: !localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
       resolution: "640x480",
       frameRate: 30,
@@ -194,7 +237,7 @@ class VideoRoomComponent extends Component {
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
     this.subscribeToStreamDestroyed();
-
+    this.initializeSessionView();
     this.setState(
       { currentVideoDevice: videoDevices[0], localUser: localUser },
       () => {
@@ -290,6 +333,7 @@ class VideoRoomComponent extends Component {
     this.state.session.on("streamCreated", (event) => {
       const subscriber = this.state.session.subscribe(event.stream, undefined);
       // var subscribers = this.state.subscribers;
+      this.setState({ participantNum: (this.state.participantNum += 1) });
       subscriber.on("streamPlaying", (e) => {
         console.log("here!!!");
         console.log(subscriber.videos[0].video.parentElement.classList);
@@ -314,6 +358,7 @@ class VideoRoomComponent extends Component {
     // On every Stream destroyed...
     this.state.session.on("streamDestroyed", (event) => {
       // Remove the stream from 'subscribers' array
+      this.setState({ participantNum: (this.state.participantNum -= 1) });
       this.deleteSubscriber(event.stream);
       setTimeout(() => {}, 20);
       event.preventDefault();
@@ -416,29 +461,17 @@ class VideoRoomComponent extends Component {
         />
 
         <div id="layout" className="bounds">
-          <Ready />
+          {/* <Ready count={this.state.participantNum} /> */}
+          <ReadyButton participantNum = {this.state.participantNum} setMode = {this.setMode}/>
           <MusicPlayer />
-          {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
-              <div className="OT_root OT_publisher custom-class" id="localUser">
-                <StreamComponent
-                  user={localUser}
-                  handleNickname={this.nicknameChanged}
-                />
-              </div>
-            )}
-          {this.state.subscribers.map((sub, i) => (
-            <div
-              key={i}
-              className="OT_root OT_publisher custom-class"
-              id="remoteUsers"
-            >
-              <StreamComponent
-                user={sub}
-                streamId={sub.streamManager.stream.streamId}
-              />
-            </div>
-          ))}
+          {this.state.mode === 1? <WaitingRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
+close = {this.toggleChat} messageReceived = {this.checkNotification}/> : this.state.mode===2 ?
+(<SelectRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
+close = {this.toggleChat} messageReceived = {this.checkNotification} setMode={this.setMode}/>) :
+<GameRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
+close = {this.toggleChat} messageReceived = {this.checkNotification} /> }
+             
+
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
@@ -452,9 +485,10 @@ class VideoRoomComponent extends Component {
                   messageReceived={this.checkNotification}
                 />
               </div>
-            )}
+            )} 
+            </div>
         </div>
-      </div>
+
     );
   }
 
