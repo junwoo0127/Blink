@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import springfox.documentation.annotations.ApiIgnore;
 
 @Api(value = "방만들기 API" )
@@ -49,10 +49,6 @@ public class RoomController {
 		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
 		String userId = userDetails.getUsername();
 		User user = userService.getUserByUserId(userId);
-		
-		System.out.println("------------------------");
-		System.out.println("contoller : "+roomMakePostReq.getUrl());
-		
 		Room room = roomService.makeRoom(roomMakePostReq, user);
 		return ResponseEntity.status(200).body(RoomRes.of(room));
 	}
@@ -67,7 +63,7 @@ public class RoomController {
     })
 	public ResponseEntity<Room> deactiveRoomByUser(@ApiIgnore Authentication authentication,
 			@RequestBody RoomEndPostReq endRoom) {
-		Room room = roomService.findRoomByRoomSeq(endRoom.getRoomSeq());
+		Room room = roomService.endRoom(endRoom);
 		return ResponseEntity.status(200).body(room);
 	}
 

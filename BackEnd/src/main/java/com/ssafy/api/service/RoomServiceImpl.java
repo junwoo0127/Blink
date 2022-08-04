@@ -21,29 +21,23 @@ public class RoomServiceImpl implements RoomService {
 				.url(tmp.getUrl())
 				.size(tmp.getRoomSize())
 				.admin(user)
+				.isActive(1)
 				.build();
-		System.out.println("-------------------------");
-		System.out.println(tmp.getUrl());
-		System.out.println(tmp.getRoomSize());
-		System.out.println("temp : "+temp.getUrl());
 		roomRepository.save(temp);
 		return temp;
 	}
 
 	@Override
 	public Room findRoomByRoomSeq(Long roomSeq) {
-		Room room = roomRepository.findRoomByRoomSeq(roomSeq);
+		Room room = roomRepository.findByRoomSeq(roomSeq);
 		return room;
 	}
 
 	@Override
 	public Room endRoom(RoomEndPostReq eRoom) {
-		Room room = Room.builder()
-				.roomSeq(eRoom.getRoomSeq())
-				.coupleSize(eRoom.getCoupleSize())
-				.isActive(0)
-				.build();
-		
+		Room room = roomRepository.findByRoomSeq(eRoom.getRoomSeq());
+		room.setCoupleSize(eRoom.getCoupleSize());
+		room.setIsActive(0);
 		roomRepository.save(room);
 		return room;
 	}

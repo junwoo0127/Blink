@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long>{
-	Room findRoomByRoomSeq(@Param("room_seq") Long roomSeq);
+	Room findByRoomSeq(Long roomSeq);
 }
