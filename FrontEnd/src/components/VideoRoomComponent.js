@@ -5,7 +5,8 @@ import { OpenVidu } from "openvidu-browser";
 import $ from 'jquery'; 
 import StreamComponent from "./stream/StreamComponent";
 import ChatComponent from "./chat/ChatComponent";
-import Ready from "./readybutton/Ready";
+// import Ready from "./readybutton/Ready";
+import ReadyButton from "./readybutton/ReadyButton"
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent";
@@ -226,7 +227,7 @@ class VideoRoomComponent extends Component {
     }
     localUser.setNickname(this.state.myUserName);
     localUser.setConnectionId(this.state.session.connection.connectionId);
-    localUser.setScreenShareActive(false);
+    
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
     this.subscribeToStreamDestroyed();
@@ -256,7 +257,7 @@ class VideoRoomComponent extends Component {
             isAudioActive: this.state.localUser.isAudioActive(),
             isVideoActive: this.state.localUser.isVideoActive(),
             nickname: this.state.localUser.getNickname(),
-            isScreenShareActive: this.state.localUser.isScreenShareActive(),
+            
           });
         }
         this.updateLayout();
@@ -375,9 +376,7 @@ class VideoRoomComponent extends Component {
           if (data.nickname !== undefined) {
             user.setNickname(data.nickname);
           }
-          if (data.isScreenShareActive !== undefined) {
-            user.setScreenShareActive(data.isScreenShareActive);
-          }
+          
         }
       });
       this.setState({
@@ -454,7 +453,8 @@ class VideoRoomComponent extends Component {
         />
 
         <div id="layout" className="bounds">
-          <Ready count={this.state.participantNum} />
+
+          <ReadyButton />
           <MusicPlayer />
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (

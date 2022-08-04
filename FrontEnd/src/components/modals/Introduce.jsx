@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export default function ScrollDialog(props) {
-  const [open, setOpen] = useState(props.open);
+  const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
 
   const handleClickOpen = (scrollType) => () => {
@@ -34,7 +34,7 @@ export default function ScrollDialog(props) {
     <div>
      
       <Dialog
-        open={open}
+        open={props.open}
         onClose={handleClose}
         scroll={scroll}
         aria-labelledby="scroll-dialog-title"
