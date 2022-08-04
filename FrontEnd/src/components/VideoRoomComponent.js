@@ -227,7 +227,7 @@ class VideoRoomComponent extends Component {
     }
     localUser.setNickname(this.state.myUserName);
     localUser.setConnectionId(this.state.session.connection.connectionId);
-    
+    localUser.setScreenShareActive(false);
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
     this.subscribeToStreamDestroyed();
@@ -257,7 +257,7 @@ class VideoRoomComponent extends Component {
             isAudioActive: this.state.localUser.isAudioActive(),
             isVideoActive: this.state.localUser.isVideoActive(),
             nickname: this.state.localUser.getNickname(),
-            
+            isScreenShareActive: this.state.localUser.isScreenShareActive(),
           });
         }
         this.updateLayout();
@@ -376,7 +376,9 @@ class VideoRoomComponent extends Component {
           if (data.nickname !== undefined) {
             user.setNickname(data.nickname);
           }
-          
+          if (data.isScreenShareActive !== undefined) {
+            user.setScreenShareActive(data.isScreenShareActive);
+          }
         }
       });
       this.setState({
@@ -453,8 +455,8 @@ class VideoRoomComponent extends Component {
         />
 
         <div id="layout" className="bounds">
-
-          <ReadyButton />
+          {/* <Ready count={this.state.participantNum} /> */}
+          <ReadyButton participantNum = {this.state.participantNum}/>
           <MusicPlayer />
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (

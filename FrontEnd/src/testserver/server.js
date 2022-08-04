@@ -7,16 +7,19 @@ const io = require("socket.io")(server, {
     credentials: true,
   },
 });
-let count =0;
+let count=0;
+let modalshow = false;
 io.on("connection", (socket) => {
-  socket.on("getReady", () => {
-    
+  socket.on("getReady", (parNum)=> {
     ++count;
-    
-    socket.emit("getStart", {count:count});
-  });
-  
+    if(count === parNum){
+      modalshow = true;
+    }
+    socket.emit("getStart", {count:count}, {modalshow: modalshow});
+  })
+
 });
+  
 // server.use(cors())s
 // server.get("/", function(req, res) {
 //     res.send("hello world")

@@ -1,5 +1,3 @@
-
-import io from 'socket.io-client';
 import React, { useState, useEffect, useRef } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -18,37 +16,42 @@ const style = {
   p: 4,
 };
 
-const socket = io.connect("http://localhost:4000");
-
-function ReadyButton(props){
-    const [count, setCount] = useState(0);
-    const [disable, setDisable] = useState(false)
-    const [open, setOpen] = useState(false);
+function Ready(props) {
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+    setOpen2(true)
     
-    const onClick = (e) => {
-        e.preventDefault();
-        socket.emit("getReady", props.participantNum)
-        console.log("clicked")
-        setDisable(true)
-       
-    }
-    socket.on("getStart", (cnt,modal)=> {
-        setCount(cnt.count)
-        console.log(cnt.count)
-        console.log(modal.modalshow)
-        setOpen(modal.modalshow)
-    })
-    useEffect(()=> {
-        setOpen(open)
-    },[open])
-    const handleClose = () => {
-        setOpen(false)
-    }
+  };
+  const onClose = () => {
+    setOpen2(true);
+    console.log(open2)
+  }
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-    return(
-        <>
-        <button onClick={onClick} disabled={disable}>참가자 수 : {count}</button>
-        <Modal
+  // useEffect(() => {
+  //   let timer = setTimeout(() => {
+  //     setOpen(false);
+  //   }, 5000);
+
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [open]);
+  useEffect(()=> {
+  if (props.count === 3) {
+    setTimeout(handleOpen, 10000);
+  }},[props.count])
+  if(open===true){
+  setTimeout(handleClose, 14000);}
+  return (
+    <div>
+      <button disabled={true}>참가자 수: ({props.count}/8)</button>
+      
+      <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -65,8 +68,9 @@ function ReadyButton(props){
           </Typography>
         </Box>
       </Modal> 
-      </>
-    )
+      <Introduce open={open2}/>
+    </div>
+  );
 }
 
-export default ReadyButton;
+export default Ready;
