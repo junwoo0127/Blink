@@ -3,15 +3,16 @@ import axios from "axios";
 import "./VideoRoomComponent.css";
 import { OpenVidu } from "openvidu-browser";
 import $ from 'jquery'; 
-import StreamComponent from "./stream/StreamComponent";
+
 import ChatComponent from "./chat/ChatComponent";
-// import Ready from "./readybutton/Ready";
+import GameRoom from "./VideoRooms/GameRoom/GameRoom"
 import ReadyButton from "./readybutton/ReadyButton"
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
-
+import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom"
+import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom"
 var localUser = new UserModel();
 
 class VideoRoomComponent extends Component {
@@ -46,6 +47,7 @@ class VideoRoomComponent extends Component {
       chatDisplay: "none",
       currentVideoDevice: undefined,
       participantNum: 1,
+      mode: 1,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -55,13 +57,17 @@ class VideoRoomComponent extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.nicknameChanged = this.nicknameChanged.bind(this);
-
+    this.setMode = this.setMode.bind(this)
     this.toggleChat = this.toggleChat.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
     this.initializeSessionView =this.initializeSessionView.bind(this);
   }
-
+    setMode(num){
+      this.setState({mode: num})
+      this.updateLayout()
+      console.log("this is mode about" ,this.state.mode)
+    }
    initializeSessionView() {
     // Tooltips
     // $('[data-toggle="tooltip"]').tooltip();
@@ -456,29 +462,16 @@ class VideoRoomComponent extends Component {
 
         <div id="layout" className="bounds">
           {/* <Ready count={this.state.participantNum} /> */}
-          <ReadyButton participantNum = {this.state.participantNum}/>
+          <ReadyButton participantNum = {this.state.participantNum} setMode = {this.setMode}/>
           <MusicPlayer />
-          {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
-              <div className="OT_root OT_publisher custom-class" id="localUser">
-                <StreamComponent
-                  user={localUser}
-                  handleNickname={this.nicknameChanged}
-                />
-              </div>
-            )}
-          {this.state.subscribers.map((sub, i) => (
-            <div
-              key={i}
-              className="OT_root OT_publisher custom-class"
-              id="remoteUsers"
-            >
-              <StreamComponent
-                user={sub}
-                streamId={sub.streamManager.stream.streamId}
-              />
-            </div>
-          ))}
+          {this.state.mode === 1? <WaitingRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
+close = {this.toggleChat} messageReceived = {this.checkNotification}/> : this.state.mode===2 ?
+(<SelectRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
+close = {this.toggleChat} messageReceived = {this.checkNotification} setMode={this.setMode}/>) :
+<GameRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
+close = {this.toggleChat} messageReceived = {this.checkNotification} /> }
+             
+
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
@@ -492,9 +485,10 @@ class VideoRoomComponent extends Component {
                   messageReceived={this.checkNotification}
                 />
               </div>
-            )}
+            )} 
+            </div>
         </div>
-      </div>
+
     );
   }
 

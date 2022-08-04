@@ -10,8 +10,9 @@ import Footer from "./components/Footer/Footer";
 import LandingPage from "./components/LandingPage/LandingPage";
 import LoginPage from "./components/LoginPage/LoginPage";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
-import VideoRoomComponent2 from "./components/VideoRoomComponent2";
+
 import ResponsiveAppBar from "./components/ResponsiveAppBar/ResponsiveAppBar";
+import Lobby from './components/Lobby/Lobby'
 import Auth from "./hoc/auth";
 // 고려할만할듯 로딩페이지 처럼
 // import Error404 from '../common/error/Error404';
@@ -36,10 +37,12 @@ function App() {
           <Route path="/login" element={<NLoginPage />} />
 
           <Route path="/join" element={<Main />} />
-
+          
           <Route path="/videoroom" element={<VideoRoomComponent />} />
 
           <Route path="/register" element={<NRegisterPage />} />
+
+          <Route path="/lobby" element={<Lobby/>}/>
         </Routes>
         <Footer sx={{ mt: "130px", mb: 3 }} />
       </div>

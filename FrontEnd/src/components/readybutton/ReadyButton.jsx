@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Timer from "../common/timer/timer";
-import Introduce from "../modals/Introduce"
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -24,48 +24,76 @@ function ReadyButton(props){
     const [count, setCount] = useState(0);
     const [disable, setDisable] = useState(false)
     const [open, setOpen] = useState(false);
-    
+   
     const onClick = (e) => {
         e.preventDefault();
-        socket.emit("getReady", props.participantNum)
+        socket.emit("getReady")
         console.log("clicked")
         setDisable(true)
        
     }
-    socket.on("getStart", (cnt,modal)=> {
+    socket.on("getStart", (cnt)=> {
         setCount(cnt.count)
         console.log(cnt.count)
-        console.log(modal.modalshow)
-        setOpen(modal.modalshow)
+        // console.log(modal.modalshow)
+        // setOpen(modal.modalshow)
     })
-    useEffect(()=> {
-        setOpen(open)
-    },[open])
+   
+    const interval = useRef(null);
+    useEffect(() => {
+        interval.current=setInterval(()=> {
+    
+        socket.emit("getCount")
+        console.log("setinterver")
+    },1000);
+    return () => clearInterval(interval.current);},[])
+
+    socket.on("getCount", (cnt)=> {
+        console.log("getCOunt")
+        setCount(cnt.count)
+        
+       
+    })
+    useEffect(()=>{
+        if(count ==3){
+            clearInterval(interval.current)
+        }
+    },[count])
+  
     const handleClose = () => {
-        setOpen(false)
+        setOpen(false);
+        props.setMode(2);
+        
     }
+    useEffect(()=> {
+        if(count===3){
+            setOpen(true);
+        }
+    },[count])
 
     return(
         <>
-        <button onClick={onClick} disabled={disable}>참가자 수 : {count}</button>
+        <button onClick={onClick} disabled={disable}>준비완료 : {count}/8</button>
         <Modal
+        
         open={open}
-        onClose={handleClose}
+        
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            참가가 모두 완료되었습니다.
+            모든 사람의 준비가 완료 되었습니다.
           </Typography>
 
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <Timer sec="10" /> 후 시작됩니다!
-            즐거운 시간 되세요!
+            첫인상 선택시간이 시작됩니다. 마음에 드는 사람을 선택하여 주세요. 한 번 선택하시면 변경하실 수 없습니다!
           </Typography>
-        </Box>
+          <button onClick = {handleClose}>선택하기</button>
+                  </Box>
       </Modal> 
       </>
+      
     )
 }
 

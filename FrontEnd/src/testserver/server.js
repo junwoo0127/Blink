@@ -8,16 +8,26 @@ const io = require("socket.io")(server, {
   },
 });
 let count=0;
-let modalshow = false;
+let firstCount = 0;
+// let modalshow = false;
 io.on("connection", (socket) => {
-  socket.on("getReady", (parNum)=> {
+  console.log("data")
+  socket.on("getReady" , ()=> {
     ++count;
-    if(count === parNum){
-      modalshow = true;
-    }
-    socket.emit("getStart", {count:count}, {modalshow: modalshow});
+  
+    socket.emit("getStart", {count:count});
   })
+  socket.on("getCount",()=> {
+    socket.emit("getCount", {count:count})
+  })
+  socket.on("selectFirst", ()=> {
+    ++firstCount;
+    socket.emit("selectFirst", {firstCount: firstCount})
+  })
+  socket.on("getLoveCount", () => {
 
+    socket.emit("getLoveCount", {firstCount:firstCount})
+  })
 });
   
 // server.use(cors())s
