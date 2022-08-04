@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import style from "./LandingPage.css";
 // import { useNavigate } from "react-router-dom";
 
 import { Typography } from "@mui/material";
+import MemberPage from "../Common/MemberPage";
+import Footer from "../Common/Footer";
 
 function LandingPage(props) {
   // const navigate = useNavigate();
@@ -23,22 +24,23 @@ function LandingPage(props) {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100vh",
-      }}
-    >
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <Typography component="h1" variant="h5">
-        안녕하세요 ~~ 홍길동님
-        <button onClick={onClickHandler}>로그아웃</button>
-      </Typography>
+    <div>
+      <MemberPage></MemberPage>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100vh",
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          안녕하세요 ~~ 홍길동님
+          <button onClick={onClickHandler}>로그아웃</button>
+        </Typography>
+      </div>
+      <Footer sx={{ mt: 5, mb: 3 }} />;
     </div>
   );
 }
