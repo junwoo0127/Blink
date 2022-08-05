@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import org.checkerframework.checker.units.qual.s;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +30,19 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Override
 	public Player updatePlayer(Player player) {
-		Player selectedPlayer = playerRepository.findByPlayerSeq(player.getId());
-		
+		selectedPlayer.setFirstChoice(player.getFirstChoice());
+		selectedPlayer.setFinalChoice(player.getFinalChoice());
+		selectedPlayer.setIsfinalMatch(player.getIsfinalMatch());
+		selectedPlayer.setIsfirstMatch(player.getIsfirstMatch());
+		playerRepository.save(selectedPlayer);
 		return null;
+	}
+
+	@Override
+	public void liarUpdate(Player player) {
+		Player tmp = playerRepository.findByPlayerSeq(player.getId());
+		tmp.setLiar(player.getLiar());
+		playerRepository.save(tmp);
 	}
 
 }
