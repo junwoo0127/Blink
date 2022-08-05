@@ -79,8 +79,6 @@ public class Player {
 	@Column(name ="liar")
 	private int liar;
 	
-	
-	
-	
-
+	@Column(name ="score")
+	private int score;
 }

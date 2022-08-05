@@ -32,18 +32,18 @@ public class Quiz {
 	@Id
 	@Column(name = "quiz_seq")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int quizSeq;
 	
 	@Column(name = "question")
 	private String question;
 
 
 	@Column(name = "answer_a")
-	private String answer_a;
+	private String answerA;
 
 
 	@Column(name = "answer_b")
-	private String answer_b;
+	private String answerB;
 	
 	@Column(name = "type")
 	private String type;
