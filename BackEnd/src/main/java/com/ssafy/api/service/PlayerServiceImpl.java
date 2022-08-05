@@ -34,10 +34,10 @@ public class PlayerServiceImpl implements PlayerService {
 		Player selectedPlayer = playerRepository.findByPlayerSeq(player.getPlayerSeq());
 		selectedPlayer.setFirstChoice(player.getFirstChoice());
 		selectedPlayer.setFinalChoice(player.getFinalChoice());
-		selectedPlayer.setIsfinalMatch(player.getIsfinalMatch());
-		selectedPlayer.setIsfirstMatch(player.getIsfirstMatch());
+		selectedPlayer.setIsFinalMatch(player.getIsFinalMatch());
+		selectedPlayer.setIsFirstMatch(player.getIsFirstMatch());
 		playerRepository.save(selectedPlayer);
-		return null;
+		return selectedPlayer;
 	}
 
 	@Override

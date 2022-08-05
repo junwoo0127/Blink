@@ -45,7 +45,7 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public Player voteFirstUpdate(Long playerSeq, Long voteSeq) {
 		Player player = playerRepository.findByPlayerSeq(playerSeq);
-		player.setFirstChoice(playerRepository.findByPlayerSeq(voteSeq));
+		player.setFirstChoice(voteSeq);
 		playerRepository.save(player);
 		return player;
 	}
@@ -53,7 +53,7 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public Player voteFinalUpdate(Long playerSeq, Long voteSeq) {
 		Player player = playerRepository.findByPlayerSeq(playerSeq);
-		player.setFinalChoice(playerRepository.findByPlayerSeq(voteSeq));
+		player.setFinalChoice(voteSeq);
 		playerRepository.save(player);
 		return player;
 	}
@@ -61,8 +61,14 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public Player liarUpdate(Long playerSeq, int isLiar) {
 		Player player = playerRepository.findByPlayerSeq(playerSeq);
-		if(isLiar == 1) player.setScore(1);
-		else player.setScore(0);
+		if(isLiar == 1) {
+			player.setScore(1);
+			player.setLiar(isLiar);
+		}
+		else {
+			player.setScore(0);
+			player.setLiar(isLiar);
+		}
 		
 		player.setLiar(isLiar);
 		playerRepository.save(player);
@@ -72,21 +78,33 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public int isFirstMatch(Long playerSeq) {
 		Player originPlayer = playerRepository.findByPlayerSeq(playerSeq);
-		Player nextPlayer = originPlayer.getFirstChoice();
-		if (playerSeq == nextPlayer.getPlayerSeq())
+		Player nextPlayer = playerRepository.findByPlayerSeq(originPlayer.getFirstChoice());
+		if (playerSeq == nextPlayer.getFirstChoice()) {
+			originPlayer.setIsFirstMatch(1);
+			playerRepository.save(originPlayer);
 			return 1;
-		else
+		}
+		else {
+			originPlayer.setIsFirstMatch(0);
+			playerRepository.save(originPlayer);
 			return 0;
+		}
 	}
 
 	@Override
 	public int isFinalMatch(Long playerSeq) {
 		Player originPlayer = playerRepository.findByPlayerSeq(playerSeq);
-		Player nextPlayer = originPlayer.getFinalChoice();
-		if (playerSeq == nextPlayer.getPlayerSeq())
+		Player nextPlayer = playerRepository.findByPlayerSeq(originPlayer.getFinalChoice());
+		if (playerSeq == nextPlayer.getFinalChoice()) {
+			originPlayer.setIsFinalMatch(1);
+			playerRepository.save(originPlayer);
 			return 1;
-		else
+		}
+		else {
+			originPlayer.setIsFinalMatch(0);
+			playerRepository.save(originPlayer);
 			return 0;
+		}
 	}
 
 	@Override
