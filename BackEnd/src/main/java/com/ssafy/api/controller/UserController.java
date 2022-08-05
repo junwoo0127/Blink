@@ -61,8 +61,6 @@ public class UserController {
 		mailAuthService.fromController(registerInfo.getEmail());
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
-	
-	
 
 	@PostMapping("/check")
 	@ApiOperation(value = "아이디중복체크", notes = "<strong>아이디중복체크</strong>") 
@@ -82,7 +80,22 @@ public class UserController {
 		}else {
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "fail"));
 		}
-		
+	}
+	
+	@PostMapping("/introduce")
+	@ApiOperation(value = "자기 소개 입력", notes = "<strong>자기 소개를 합시다</strong>") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "인증 실패"),
+        @ApiResponse(code = 404, message = "사용자 없음"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<UserRes> writeUserInfo(@ApiIgnore Authentication authentication,
+			@RequestBody UserRes userInfo) {
+		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
+		String userId = userDetails.getUsername();
+		User user = userService.getUserByUserId(userId);
+		return ResponseEntity.status(200).body(userService.setUserInfo(user, userInfo));
 	}
 	
 	@GetMapping("/me")
