@@ -36,7 +36,7 @@ function App() {
 
           <Route path="/register" element={<NRegisterPage />} />
 
-          <Route path="/lobby" element={<Lobby/>}/>
+          
         </Routes>
       </div>
     </Router>
