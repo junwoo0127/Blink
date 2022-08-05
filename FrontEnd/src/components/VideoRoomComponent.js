@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, useRef} from "react";
 import axios from "axios";
 import "./VideoRoomComponent.css";
 import { OpenVidu } from "openvidu-browser";
 import $ from 'jquery'; 
-
+import io from 'socket.io-client'
 import ChatComponent from "./chat/ChatComponent";
 import GameRoom from "./VideoRooms/GameRoom/GameRoom"
 import ReadyButton from "./readybutton/ReadyButton"
@@ -14,7 +14,7 @@ import MusicPlayer from "./MusicPlayer/MusicPlayer";
 import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom"
 import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom"
 var localUser = new UserModel();
-
+const socket = io.connect("http://localhost:4000")
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
@@ -38,6 +38,7 @@ class VideoRoomComponent extends Component {
       : "OpenVidu_User" + Math.floor(Math.random() * 100);
     this.remotes = [];
     this.localUserAccessAllowed = false;
+   
     this.state = {
       mySessionId: sessionName,
       myUserName: userName,
@@ -48,6 +49,7 @@ class VideoRoomComponent extends Component {
       currentVideoDevice: undefined,
       participantNum: 1,
       mode: 1,
+     
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -62,7 +64,18 @@ class VideoRoomComponent extends Component {
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
     this.initializeSessionView =this.initializeSessionView.bind(this);
+    this.setRole = this.setRole.bind(this)
   }
+    setRole() {
+     
+      socket.emit("setRole");
+      socket.on("setRole", (role)=> {
+        localUser.setRole(role.role)
+        
+      })
+  
+
+    }
     setMode(num){
       this.setState({mode: num})
       this.updateLayout()
@@ -144,6 +157,7 @@ class VideoRoomComponent extends Component {
       () => {
         this.subscribeToStreamCreated();
         this.connectToSession();
+        this.setRole();
       }
     );
   }
@@ -462,21 +476,20 @@ class VideoRoomComponent extends Component {
 
         <div id="layout" className="bounds">
           {/* <Ready count={this.state.participantNum} /> */}
-          <ReadyButton participantNum = {this.state.participantNum} setMode = {this.setMode}/>
           <MusicPlayer />
           {this.state.mode === 1? <WaitingRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
 close = {this.toggleChat} messageReceived = {this.checkNotification}/> : this.state.mode===2 ?
 (<SelectRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
-close = {this.toggleChat} messageReceived = {this.checkNotification} setMode={this.setMode}/>) :
-<GameRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
+  close = {this.toggleChat} messageReceived = {this.checkNotification} setMode={this.setMode}/>) :
+<GameRoom participantNum = {this.state.participantNum} localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
 close = {this.toggleChat} messageReceived = {this.checkNotification} /> }
              
 
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
-                className="OT_root OT_publisher custom-class"
-                style={chatDisplay}
+              className="OT_root OT_publisher custom-class"
+              style={chatDisplay}
               >
                 <ChatComponent
                   user={localUser}
@@ -486,8 +499,9 @@ close = {this.toggleChat} messageReceived = {this.checkNotification} /> }
                 />
               </div>
             )} 
+<ReadyButton participantNum = {this.state.participantNum} setMode = {this.setMode}/>
             </div>
-        </div>
+            </div>
 
     );
   }

@@ -9,9 +9,13 @@ const io = require("socket.io")(server, {
 });
 let count=0;
 let firstCount = 0;
+let mafiaCount = 0;
+let citizenCount = 0;
+let roles = ['mafia', 'citizen']
+let gameReady = 0;
 // let modalshow = false;
 io.on("connection", (socket) => {
-  console.log("data")
+  
   socket.on("getReady" , ()=> {
     ++count;
   
@@ -27,6 +31,33 @@ io.on("connection", (socket) => {
   socket.on("getLoveCount", () => {
 
     socket.emit("getLoveCount", {firstCount:firstCount})
+  })
+  socket.on("setRole", ()=> {
+    let rand = Math.floor(Math.random()*roles.length);
+    let role = roles[rand];
+    if(role === "mafia"){
+      
+      mafiaCount++;
+    }
+    else {
+      citizenCount++;
+    }
+    if(mafiaCount === 3){
+      roles.shift()
+    }
+    else if(citizenCount === 5){
+      roles.pop()
+    }
+    socket.emit("setRole", {role: role});
+    console.log("mafia : ", mafiaCount, "citizen : ", citizenCount)
+  })
+  socket.on("gameReady", ()=> {
+    ++gameReady;
+    socket.emit("gameReady", {gameReady:gameReady});
+  })
+  socket.on("gameReadyCount", () => {
+    socket.emit("gameReadyCount", {gameReady:gameReady}
+    );
   })
 });
   

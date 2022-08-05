@@ -3,8 +3,8 @@ import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 
 import { Typography } from "@mui/material";
-import MemberPage from "../Common/MemberPage";
-import Footer from "../Common/Footer";
+import MemberPage from "../common/MemberPage";
+import Footer from "../common/Footer";
 
 function LandingPage(props) {
   // const navigate = useNavigate();

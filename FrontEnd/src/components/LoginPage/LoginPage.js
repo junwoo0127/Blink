@@ -8,8 +8,8 @@ import { loginUser } from "../../_actions/user_action";
 import { alpha, styled } from "@mui/material/styles";
 import logo_ani from "../../assets/logo_ani.gif";
 
-import MemberPage from "../Common/MemberPage";
-import Footer from "../Common/Footer";
+import MemberPage from "../common/MemberPage";
+import Footer from "../common/Footer";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
