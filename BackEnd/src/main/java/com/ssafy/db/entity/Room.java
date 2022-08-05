@@ -40,7 +40,7 @@ public class Room {
 	@Id
 	@Column(name = "room_seq")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long roomSeq;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name ="user_seq")
@@ -61,6 +61,9 @@ public class Room {
 	
 	@Column(name = "couple_size")
 	private int coupleSize;
+	
+	@Column(name = "is_active")
+	private int isActive;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "room_seq")
