@@ -5,11 +5,13 @@ import com.ssafy.db.entity.User;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @ApiModel("RoomResponse")
 public class RoomRes {
 	
@@ -24,12 +26,12 @@ public class RoomRes {
 	@ApiModelProperty(name = "활성화 여부")
 	int isActive;
 	public static RoomRes of(Room room) {
-		RoomRes res = new RoomRes();
-		res.setRoomSeq(room.getRoomSeq());
-		res.setUser(room.getAdmin());
-		res.setUrl(room.getUrl());
-		res.setRoomSize(room.getSize());
-		res.setIsActive(1);
+		RoomRes res = RoomRes.builder()
+				.roomSeq(room.getRoomSeq())
+				.user(room.getAdmin())
+				.url(room.getUrl())
+				.isActive(1)
+				.build();
 		return res;
 	}
 }
