@@ -33,11 +33,10 @@ public class Player {
 	@Id
 	@Column(name = "player_seq")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long playerSeq;
 	
 	@Column(name= "room_seq")
 	private Long roomSeq;
-	
 
 	@Column(name= "user_seq")
 	private Long userSeq;
