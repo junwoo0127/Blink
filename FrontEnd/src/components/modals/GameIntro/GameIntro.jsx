@@ -31,16 +31,8 @@ export default function GameIntro(props) {
   };
   const onClick2 = () => {
     socket.emit("gameReady");
-    socket.on("gameReady", (cnt) => {
-      setGameReady(cnt.gameReady);
-    });
   };
-  useEffect(() => {
-    if (gameReady === props.participantNum) {
-      setOpen2(false);
-      props.setGameStart();
-    }
-  });
+
   const interval = useRef(null);
   useEffect(() => {
     interval.current = setInterval(() => {
@@ -54,7 +46,9 @@ export default function GameIntro(props) {
   });
 
   useEffect(() => {
-    if (gameReady == props.participantNum) {
+    if (gameReady === props.participantNum) {
+      setOpen2(false);
+      props.setGameStart();
       clearInterval(interval.current);
     }
   }, [gameReady]);

@@ -1,20 +1,23 @@
-import React, { Component, useRef} from "react";
+import React, { Component, useRef } from "react";
 import axios from "axios";
 import "./VideoRoomComponent.css";
 import { OpenVidu } from "openvidu-browser";
-import $ from 'jquery'; 
-import io from 'socket.io-client'
+import $ from "jquery";
+import io from "socket.io-client";
 import ChatComponent from "./chat/ChatComponent";
-import GameRoom from "./VideoRooms/GameRoom/GameRoom"
-import ReadyButton from "./readybutton/ReadyButton"
+import GameRoom from "./VideoRooms/GameRoom/GameRoom";
+import ReadyButton from "./Buttons/ReadyButton";
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
-import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom"
-import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom"
+import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom";
+import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
+import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
+import GameIntroRoom from "./VideoRooms/GameRoom/GameIntroRoom";
+import LiarSelectRoom from "./VideoRooms/LiarSelectRoom/LiarSelectRoom";
 var localUser = new UserModel();
-const socket = io.connect("http://localhost:4000")
+const socket = io.connect("http://localhost:4000");
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +41,7 @@ class VideoRoomComponent extends Component {
       : "OpenVidu_User" + Math.floor(Math.random() * 100);
     this.remotes = [];
     this.localUserAccessAllowed = false;
-   
+
     this.state = {
       mySessionId: sessionName,
       myUserName: userName,
@@ -49,7 +52,6 @@ class VideoRoomComponent extends Component {
       currentVideoDevice: undefined,
       participantNum: 1,
       mode: 1,
-     
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -59,49 +61,45 @@ class VideoRoomComponent extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.nicknameChanged = this.nicknameChanged.bind(this);
-    this.setMode = this.setMode.bind(this)
+    this.setMode = this.setMode.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
-    this.initializeSessionView =this.initializeSessionView.bind(this);
-    this.setRole = this.setRole.bind(this)
+    this.initializeSessionView = this.initializeSessionView.bind(this);
+    this.setRole = this.setRole.bind(this);
   }
-    setRole() {
-     
-      socket.emit("setRole");
-      socket.on("setRole", (role)=> {
-        localUser.setRole(role.role)
-        
-      })
-  
-
-    }
-    setMode(num){
-      this.setState({mode: num})
-      this.updateLayout()
-      console.log("this is mode about" ,this.state.mode)
-    }
-   initializeSessionView() {
+  setRole() {
+    socket.emit("setRole");
+    socket.on("setRole", (role) => {
+      localUser.setRole(role.role);
+    });
+  }
+  setMode(num) {
+    this.setState({ mode: num });
+    this.updateLayout();
+    console.log("this is mode about", this.state.mode);
+  }
+  initializeSessionView() {
     // Tooltips
     // $('[data-toggle="tooltip"]').tooltip();
     // Input clipboard
-    $('#copy-input').val(window.location.href);
-    $('#copy-button').bind('click', function () {
-      var input = document.getElementById('copy-input');
+    $("#copy-input").val(window.location.href);
+    $("#copy-button").bind("click", function () {
+      var input = document.getElementById("copy-input");
       input.focus();
       input.setSelectionRange(0, input.value.length);
       try {
-        var success = document.execCommand('copy');
+        var success = document.execCommand("copy");
         if (success) {
-          $('#copy-button').trigger('copied', ['Copied!']);
+          $("#copy-button").trigger("copied", ["Copied!"]);
         } else {
-          $('#copy-button').trigger('copied', ['Copy with Ctrl-c']);
+          $("#copy-button").trigger("copied", ["Copy with Ctrl-c"]);
         }
       } catch (err) {
-        $('#copy-button').trigger('copied', ['Copy with Ctrl-c']);
+        $("#copy-button").trigger("copied", ["Copy with Ctrl-c"]);
       }
     });
-  
+
     // Handler for updating the tooltip message.
     // $('#copy-button').bind('copied', function (event, message) {
     //   $(this).attr('title', message)
@@ -219,9 +217,11 @@ class VideoRoomComponent extends Component {
   async connectWebCam() {
     var devices = await this.OV.getDevices();
     var videoDevices = devices.filter((device) => device.kind === "videoinput");
-    var path = (window.location.pathname.slice(-1) == "/" ? window.location.pathname : window.location.pathname + "/");
-				window.history.pushState("", "", path + '#' + this.state.mySessionId);
-        
+    var path =
+      window.location.pathname.slice(-1) == "/"
+        ? window.location.pathname
+        : window.location.pathname + "/";
+    window.history.pushState("", "", path + "#" + this.state.mySessionId);
 
     let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
@@ -477,19 +477,70 @@ class VideoRoomComponent extends Component {
         <div id="layout" className="bounds">
           {/* <Ready count={this.state.participantNum} /> */}
           <MusicPlayer />
-          {this.state.mode === 1? <WaitingRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
-close = {this.toggleChat} messageReceived = {this.checkNotification}/> : this.state.mode===2 ?
-(<SelectRoom localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
-  close = {this.toggleChat} messageReceived = {this.checkNotification} setMode={this.setMode}/>) :
-<GameRoom participantNum = {this.state.participantNum} localUser = {localUser} subscribers = {this.state.subscribers} chatDisplay ={this.state.chatDisPlay}
-close = {this.toggleChat} messageReceived = {this.checkNotification} /> }
-             
+          {this.state.mode === 1 ? (
+            <WaitingRoom
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+            />
+          ) : this.state.mode === 2 ? (
+            <SelectRoom
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 3 ? (
+            <GameIntroRoom
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 4 ? (
+            <DiscussRoom
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 5 ? (
+            <GameRoom
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 6 ? (
+            <LiarSelectRoom
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : null}
 
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
-              className="OT_root OT_publisher custom-class"
-              style={chatDisplay}
+                className="OT_root OT_publisher custom-class"
+                style={chatDisplay}
               >
                 <ChatComponent
                   user={localUser}
@@ -498,11 +549,13 @@ close = {this.toggleChat} messageReceived = {this.checkNotification} /> }
                   messageReceived={this.checkNotification}
                 />
               </div>
-            )} 
-<ReadyButton participantNum = {this.state.participantNum} setMode = {this.setMode}/>
-            </div>
-            </div>
-
+            )}
+          <ReadyButton
+            participantNum={this.state.participantNum}
+            setMode={this.setMode}
+          />
+        </div>
+      </div>
     );
   }
 

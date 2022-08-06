@@ -86,11 +86,11 @@ function VideoRoomComponent2(props) {
   };
 
   useEffect(() => {
-    if (sessionRef.current) {
+    if (session) {
       subscribeToStreamCreated();
       connectToSession();
     }
-  }, [sessionRef]);
+  }, [session]);
 
   const connectToSession = () => {
     if (props.token !== undefined) {
@@ -253,7 +253,7 @@ function VideoRoomComponent2(props) {
     }
   };
   const subscribeToStreamCreated = () => {
-    sessionRef.current.on("streamCreated", (event) => {
+    session.on("streamCreated", (event) => {
       const subscriber = sessionRef.current.subscribe(event.stream, undefined);
       subscriber.on("streamPlaying", (e) => {
         subscriber.videos[0].video.parentElement.calssList.remove(
