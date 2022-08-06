@@ -1,31 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import "./GameRoom.css";
-import GameIntro from "../../modals/GameIntro/GameIntro";
+import "./DiscussRoom.css";
+import Timer from "../../common/timer/timer";
 import StreamComponent from "../../stream/StreamComponent";
-import Game from "../../modals/Game/Game";
-function GameRoom(props) {
+import DiscussStart from "../../modals/DiscussStart/DiscussStart";
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:4000");
+function DiscussRoom(props) {
   //variables
   const localUser = props.localUser;
 
-  const [gameOpen, setGameOpen] = useState(true);
   //function
-
   const setMode = (num) => {
     props.setMode(num);
-  };
-  const setGameEnd = () => {
-    setGameOpen(false);
   };
 
   return (
     <>
-      <Game
-        participantNum={props.participantNum}
-        open={gameOpen}
-        setMode={setMode}
-        setGameEnd={setGameEnd}
-      />
+      <DiscussStart />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser">
           <StreamComponent user={localUser} />
@@ -43,8 +36,9 @@ function GameRoom(props) {
           />
         </div>
       ))}
+      <Timer min={1} setMode={setMode} />
     </>
   );
 }
 
-export default GameRoom;
+export default DiscussRoom;
