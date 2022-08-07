@@ -5,6 +5,7 @@ import "./LiarSelectRoom.css";
 import GameSelectStream from "../../stream/GameSelectStream";
 import StreamComponent from "../../stream/StreamComponent";
 import SendButton from "../../Buttons/SendButton/SendButton";
+
 function LiarSelectRoom(props) {
   //variables
   const localUser = props.localUser;
@@ -13,19 +14,24 @@ function LiarSelectRoom(props) {
   const [disabled, setDisabled] = useState(true);
   //function
   const plusLiar = () => {
-    setLiarSelect(liarSelect + 1); //거짓말장이 선택할때마다 증가 후, 자식에 넘겨서 그 값이 사용자의 역할에 따라 2 혹은 3이 되면 select를 할 수 없게 됨.
+    const value = liarSelect + 1;
+    setLiarSelect(value); //거짓말장이 선택할때마다 증가 후, 자식에 넘겨서 그 값이 사용자의 역할에 따라 2 혹은 3이 되면 select를 할 수 없게 됨.
+
+    if (value === 2) {
+      setDisabled(false);
+      setSelected(true);
+    }
   };
   const minusLiar = () => {
     setLiarSelect(liarSelect - 1); //선택했다가 취소하면 -1
   };
-  const onSelect = () => {
-    setDisabled(false);
-    setSelected(true);
-    console.log("hi");
-  };
+
   const setMode = (mode) => {
     props.setMode(mode);
     console.log("modeChanged", mode);
+  };
+  const onClose = () => {
+    setDisabled(true);
   };
   return (
     <>
@@ -41,7 +47,6 @@ function LiarSelectRoom(props) {
           id="remoteUsers"
         >
           <GameSelectStream
-            onSelect={onSelect}
             user={sub}
             streamId={sub.streamManager.stream.streamId}
             disabled={selected}
@@ -53,7 +58,11 @@ function LiarSelectRoom(props) {
           />
         </div>
       ))}
-      <SendButton disabled={disabled} />
+      <SendButton
+        disabled={disabled}
+        onClose={onClose}
+        participantNum={props.participantNum}
+      />
     </>
   );
 }

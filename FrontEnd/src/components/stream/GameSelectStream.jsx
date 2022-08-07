@@ -31,42 +31,31 @@ function GameSelectStream(props) {
     if (selected === true) {
       setSelected(false);
       props.minusLiar();
-      console.log("How many mafia selected? : ", props.liarSelect);
+
+      console.log("How many mafia selected minus? : ", props.liarSelect);
     } else {
       setSelected(true);
       props.plusLiar();
-      console.log("How many mafia are selected? :", props.liarSelect);
+
+      console.log("How many mafia are selected plus? :", props.liarSelect);
     }
 
-    if (props.localUser.getRole() === "mafia") {
-      console.log("iam maifa");
-      if (props.liarSelect === 1) {
-        console.log("mafia selected other 2 mafias");
-        props.onSelect();
-      }
-    } else {
-      console.log("im citizen");
-      if (props.liarSelect === 1) {
-        console.log("citizen selected 3 mafias");
-        props.onSelect();
-      }
-    }
+    // if (props.localUser.getRole() === "mafia") {
+    //   console.log("iam maifa");
+    //   if (props.liarSelect === 2) {
+    //     console.log("mafia selected other 2 mafias");
+    //     props.onSelect();
+    //   }
+    // } else {
+    //   console.log("im citizen");
+    //   if (props.liarSelect === 2) {
+    //     console.log("citizen selected 3 mafias");
+    //     props.onSelect();
+    //   }
+    // }
 
     setShowForm(true);
   };
-
-  //라이어 선택 몇명이 했는지 신호 계속 받기
-  const interval = useRef(null);
-  useEffect(() => {
-    interval.current = setInterval(() => {
-      socket.emit("getLoveCount");
-    }, 3000);
-    return () => clearInterval(interval.current);
-  }, []);
-
-  //참가자 수만큼 카운트 쌓였으면 신호 그만 보내기
-
-  //참가자 모두 선택했다면 모드 변경
 
   const onMouseLeave = () => {
     if (selected) {

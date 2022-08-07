@@ -81,10 +81,10 @@ io.on("connection", (socket) => {
   });
   socket.on("gameSet", () => {
     ++gameSetCount;
+    io.sockets.emit("gameSet", { gameSetCount: gameSetCount });
   });
-  socket.on("setCount", () => {
-    socket.emit("setCount", { gameSetCount: gameSetCount });
-  });
+
+  //게임 결과 받는 페이지
 });
 
 // server.use(cors())s
