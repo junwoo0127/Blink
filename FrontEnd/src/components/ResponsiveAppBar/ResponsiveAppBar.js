@@ -18,8 +18,15 @@ import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 
-const pages = ["login", "join", "register", "videoroom"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = ["login", "register", "join", "videoroom"];
+const settings = [
+  "profile",
+  "changepassword",
+  "findid",
+  "findpassword",
+  "lobby",
+  "lobbysetting",
+];
 
 const Logo = styled.img`
   width: 75px;
@@ -147,7 +154,14 @@ const ResponsiveAppBar = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography textAlign="center">
+                    <Link
+                      style={{ textDecoration: "none", color: "black" }}
+                      to={`/${setting}`}
+                    >
+                      {setting}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
