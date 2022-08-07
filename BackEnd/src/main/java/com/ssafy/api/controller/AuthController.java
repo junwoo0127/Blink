@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
+import com.ssafy.api.service.MailAuthService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
@@ -30,6 +31,9 @@ import io.swagger.annotations.ApiResponse;
 public class AuthController {
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	MailAuthService mailService;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -53,9 +57,17 @@ public class AuthController {
 		if(passwordEncoder.matches(password, user.getPassword())) {
 			// 유효한 패스워드가 맞는 경우, 로그인 성공으로 응답.(액세스 토큰을 포함하여 응답값 전달)
 			if(user.getCerti()==0) {
+				System.out.println(user.getEmail());
+				mailService.resend(user.getEmail());
+				
 				return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Email", null));
 			}else {
+<<<<<<< HEAD
+				System.out.println("성공");
+				return ResponseEntity.status(200).body(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(userId)));
+=======
 				return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", "Bearer "+JwtTokenUtil.getToken(userId)));
+>>>>>>> dbdfb2612c85f13a5579cdae81b66077023357da
 			}
 			
 		}

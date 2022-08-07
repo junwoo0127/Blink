@@ -1,5 +1,8 @@
 package com.ssafy.api.response;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ssafy.db.entity.User;
 
 import io.swagger.annotations.ApiModel;
@@ -46,4 +49,6 @@ public class UserRes{
 				.build();
 		return res;
 	}
+	
+	
 }

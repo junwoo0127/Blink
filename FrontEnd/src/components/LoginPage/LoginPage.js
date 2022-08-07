@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_action";
-// import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { token } from "../../_actions/user_action";
+import { useSelector } from "react-redux";
+
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 
 import { alpha, styled } from "@mui/material/styles";
 import logo_ani from "../../assets/logo_ani.gif";
@@ -83,14 +86,16 @@ const TextFieldLogin = styled(TextField)({
 });
 
 function LoginPage(props) {
-  // const params = useParams();
-  // const location = useLocation();
-  // const navigate = useNavigate();
+  const params = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  const user = useSelector((state) => state.user);
+  console.log(user);
 
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
@@ -102,13 +107,38 @@ function LoginPage(props) {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+<<<<<<< HEAD
+    console.log("DDDD");
+=======
     console.log("발싸ㅣ");
+>>>>>>> dbdfb2612c85f13a5579cdae81b66077023357da
 
     let body = {
       id: Email,
       password: Password,
     };
+    console.log(body);
 
+<<<<<<< HEAD
+    dispatch(loginUser(body))
+      .then((response) => {
+        console.log(response.payload.data.accessToken);
+        localStorage.setItem("token", response.payload.data.accessToken);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        let error_code = error.response.data.message;
+        if (error_code === "Invalid Id") {
+          alert("잘못된 아이디입니다");
+          window.location.replace("/login");
+        } else {
+          alert("이메일 인증을 진행해 주세요!");
+          // window.location.replace("/login");
+        }
+        console.log(error.response.data.message);
+      });
+=======
     dispatch(loginUser(body)).then((response) => {
       console.log("DDD0");
       console.log(response.payload.message);
@@ -120,7 +150,9 @@ function LoginPage(props) {
         alert('Error"');
       }
     });
+>>>>>>> dbdfb2612c85f13a5579cdae81b66077023357da
   };
+  console.log(user);
 
   return (
     <div>
@@ -202,6 +234,43 @@ function LoginPage(props) {
                     label="로그인 정보 저장"
                     style={{ marginLeft: "5px" }}
                   />
+<<<<<<< HEAD
+                  <TextFieldLogin
+                    margin="normal"
+                    fullWidth
+                    value={Password}
+                    onChange={onPasswordHandler}
+                    id="password"
+                    name="password"
+                    label="비밀번호"
+                    type="password"
+                    autoComplete="current-password"
+                  />
+                  <Grid1 container>
+                    <Grid item xs>
+                      <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="로그인 정보 저장"
+                        style={{ marginLeft: "5px" }}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Link
+                        href="#"
+                        underline="hover"
+                        variant="subtitle2"
+                        color="inherit"
+                      >
+                        도움이 필요하신가요?
+                      </Link>
+                    </Grid>
+                  </Grid1>
+                  <ButtonCo
+                    onClick={onSubmitHandler}
+                    fullWidth
+                    variant="contained"
+                    sx={{ mb: 3 }}
+=======
                 </Grid>
                 <Grid item>
                   <Link
@@ -209,6 +278,7 @@ function LoginPage(props) {
                     underline="hover"
                     variant="subtitle2"
                     color="inherit"
+>>>>>>> dbdfb2612c85f13a5579cdae81b66077023357da
                   >
                     도움이 필요하신가요?
                   </Link>
