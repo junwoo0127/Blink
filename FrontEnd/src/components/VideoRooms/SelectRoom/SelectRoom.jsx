@@ -6,6 +6,7 @@ import SelectStreamComponent from "../../stream/SelectStreamComponent";
 import StreamComponent from "../../stream/StreamComponent";
 function SelectRoom(props) {
   //variables
+  
   const localUser = props.localUser;
   const [selected, setSelected] = useState(false);
 
@@ -32,6 +33,8 @@ function SelectRoom(props) {
           id="remoteUsers"
         >
           <SelectStreamComponent
+
+            localUser ={localUser}
             participantNum={props.participantNum}
             onSelect={onSelect}
             user={sub}
