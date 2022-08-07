@@ -23,35 +23,27 @@ export default function GameIntro(props) {
   const [open, setOpen] = useState(props.open);
   const [open2, setOpen2] = useState(false);
   const [gameReady, setGameReady] = useState(0);
-  const [openGame, setOpenGame] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   //function
   const onClick = () => {
     setOpen(false);
     setOpen2(true);
+    socket.emit("gameReadyCount");
   };
-  const onClick2 = () => {
-    socket.emit("gameReady");
-  };
-
-  const interval = useRef(null);
-  useEffect(() => {
-    interval.current = setInterval(() => {
-      socket.emit("gameReadyCount");
-    }, 2000);
-    return () => clearInterval(interval.current);
-  }, []);
   socket.on("gameReadyCount", (cnt) => {
-    console.log("참가자 수 ", props.participantNum);
     setGameReady(cnt.gameReady);
   });
-
-  useEffect(() => {
-    if (gameReady === props.participantNum) {
+  const onClick2 = () => {
+    socket.emit("gameReady");
+    setDisabled(true);
+  };
+  socket.on("gameReady", (cnt) => {
+    setGameReady(cnt.gameReady);
+    if (cnt.gameReady === props.participantNum) {
       setOpen2(false);
       props.setGameStart();
-      clearInterval(interval.current);
     }
-  }, [gameReady]);
+  });
 
   return (
     <div>
@@ -83,7 +75,9 @@ export default function GameIntro(props) {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {role} 입니다!
           </Typography>
-          <button onClick={onClick2}>준비완료 {gameReady}/8</button>
+          <button onClick={onClick2} disabled={disabled}>
+            준비완료 {gameReady}/{props.participantNum}
+          </button>
         </Box>
       </Modal>
     </div>

@@ -21,18 +21,18 @@ io.on("connection", (socket) => {
   socket.on("getReady", () => {
     ++count;
 
-    socket.emit("getStart", { count: count });
+    io.sockets.emit("getReady", { count: count });
   });
   socket.on("getCount", () => {
+    //들어왔을 때 들어온 사람만 현재 준비완료 값을 받으면 됨으로 io 안씀
     socket.emit("getCount", { count: count });
   });
+
   socket.on("selectFirst", () => {
     ++firstCount;
-    socket.emit("selectFirst", { firstCount: firstCount });
+    io.sockets.emit("selectFirst", { firstCount: firstCount });
   });
-  socket.on("getLoveCount", () => {
-    socket.emit("getLoveCount", { firstCount: firstCount });
-  });
+
   socket.on("setRole", () => {
     let rand = Math.floor(Math.random() * roles.length);
     let role = roles[rand];
@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
   });
   socket.on("gameReady", () => {
     ++gameReady;
-    socket.emit("gameReady", { gameReady: gameReady });
+    io.sockets.emit("gameReady", { gameReady: gameReady });
   });
   socket.on("gameReadyCount", () => {
     socket.emit("gameReadyCount", { gameReady: gameReady });
