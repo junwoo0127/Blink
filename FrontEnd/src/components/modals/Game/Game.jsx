@@ -31,8 +31,6 @@ function Game(props) {
   //     });
   //   });
 
-  const interval = useRef(null);
-
   //function
 
   // useEffect(() => {

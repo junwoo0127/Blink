@@ -36,7 +36,7 @@ function DiscussRoom(props) {
           />
         </div>
       ))}
-      <Timer min={1} setMode={setMode} />
+      <Timer sec={10} setMode={setMode} />
     </>
   );
 }

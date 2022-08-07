@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import io from "socket.io-client";
+
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
@@ -21,15 +21,15 @@ const style = {
 
 function GameSet(props) {
   //variables
-  const [open, setOpen] = useState(props.open);
+
   setTimeout(() => {
-    setOpen(false);
-  }, 5000);
+    props.onClose();
+  }, 4000);
 
   return (
     <div>
       <Modal
-        open={open}
+        open={props.open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >

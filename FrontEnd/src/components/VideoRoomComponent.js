@@ -52,6 +52,7 @@ class VideoRoomComponent extends Component {
       currentVideoDevice: undefined,
       participantNum: 1,
       mode: 1,
+      display: "block",
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -67,6 +68,10 @@ class VideoRoomComponent extends Component {
     this.checkSize = this.checkSize.bind(this);
     this.initializeSessionView = this.initializeSessionView.bind(this);
     this.setRole = this.setRole.bind(this);
+    this.onHandleDisplay = this.onHandleDisplay.bind(this);
+  }
+  onHandleDisplay() {
+    this.setState({ display: "none" });
   }
   setRole() {
     socket.emit("setRole");
@@ -475,7 +480,6 @@ class VideoRoomComponent extends Component {
         />
 
         <div id="layout" className="bounds">
-          {/* <Ready count={this.state.participantNum} /> */}
           <MusicPlayer />
           {this.state.mode === 1 ? (
             <WaitingRoom
@@ -487,6 +491,7 @@ class VideoRoomComponent extends Component {
             />
           ) : this.state.mode === 2 ? (
             <SelectRoom
+              participantNum={this.state.participantNum}
               localUser={localUser}
               subscribers={this.state.subscribers}
               chatDisplay={this.state.chatDisplay}
@@ -551,6 +556,8 @@ class VideoRoomComponent extends Component {
               </div>
             )}
           <ReadyButton
+            onHandleDisplay={this.onHandleDisplay}
+            display={this.state.display}
             participantNum={this.state.participantNum}
             setMode={this.setMode}
           />
