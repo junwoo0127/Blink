@@ -17,6 +17,8 @@ public interface MailAuthService {
 	public void sendVerificationEmail(EmailAuth newAccount);
 	
 	public EmailAuth findAccountByEmail(String email);
+	
+	public void resend(String email);
 
 	
 }

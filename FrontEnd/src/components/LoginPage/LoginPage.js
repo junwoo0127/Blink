@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_action";
-// import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { token } from "../../_actions/user_action";
+import { useSelector } from "react-redux";
+
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 
 // import LandingPage from "./components/LandingPage/LandingPage";
 
@@ -80,14 +83,16 @@ const TextFieldLogin = styled(TextField)({
 });
 
 function LoginPage(props) {
-  // const params = useParams();
-  // const location = useLocation();
-  // const navigate = useNavigate();
+  const params = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  const user = useSelector((state) => state.user);
+  console.log(user);
 
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
@@ -99,20 +104,34 @@ function LoginPage(props) {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    console.log("DDDD");
 
     let body = {
-      email: Email,
+      id: Email,
       password: Password,
     };
+    console.log(body);
 
-    dispatch(loginUser(body)).then((response) => {
-      if (response.payload.loginSuccess) {
-        props.navigate("/");
-      } else {
-        alert('Error"');
-      }
-    });
+    dispatch(loginUser(body))
+      .then((response) => {
+        console.log(response.payload.data.accessToken);
+        localStorage.setItem("token", response.payload.data.accessToken);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        let error_code = error.response.data.message;
+        if (error_code === "Invalid Id") {
+          alert("잘못된 아이디입니다");
+          window.location.replace("/login");
+        } else {
+          alert("이메일 인증을 진행해 주세요!");
+          // window.location.replace("/login");
+        }
+        console.log(error.response.data.message);
+      });
   };
+  console.log(user);
 
   return (
     <div>
@@ -197,7 +216,7 @@ function LoginPage(props) {
                     </Grid>
                   </Grid1>
                   <ButtonCo
-                    type="submit"
+                    onClick={onSubmitHandler}
                     fullWidth
                     variant="contained"
                     sx={{ mb: 3 }}

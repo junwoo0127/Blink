@@ -33,6 +33,24 @@ public class MailAuthServiceImpl implements MailAuthService {
 		EmailAuth ret = saveEmail(email);
 		sendVerificationEmail(ret);
 	}
+	public void resend(String email) {
+		// 컨트롤러부터 처음 응답을 받는 곳
+		boolean count = emailRepository.existsByEmail(email);
+		System.out.println(count);
+		if(!count) {
+			EmailAuth ret = saveEmail(email);
+			sendVerificationEmail(ret);
+		}else {
+			EmailAuth temp=emailRepository.findByEmail(email);
+			System.out.println(temp.getId());
+			temp.updateExpireDate();
+//			EmailAuth update = EmailAuth.builder().id(temp.getId()).email(temp.getEmail()).authToken(UUID.randomUUID().toString()).build();
+			emailRepository.save(temp);
+			sendVerificationEmail(temp);
+			
+		}
+
+	}
 
 	public EmailAuth saveEmail(String email) {
 		EmailAuth account = EmailAuth.builder().email(email).authToken(UUID.randomUUID().toString()).build();
