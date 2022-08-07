@@ -6,11 +6,8 @@ import { useSelector } from "react-redux";
 
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
-// import LandingPage from "./components/LandingPage/LandingPage";
-
 import { alpha, styled } from "@mui/material/styles";
 import logo_ani from "../../assets/logo_ani.gif";
-
 import MemberPage from "../Common/MemberPage";
 import Footer from "../Common/Footer";
 
@@ -21,24 +18,30 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
-// import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-// 검  #141414v
-// 흰글씨 #F3F3F3
-// 회글씨#686868
+// css 참고 근본 페이지
+
+// 칸칸 24px
+
+// 검      #141414v
+// 흰글씨  #F3F3F3
+// 회글씨  #686868
 
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#A6095D"),
   lineHeight: "44px",
   borderRadius: "30px",
   fontSize: "22px",
+  padding: "9.5px 16px",
+  // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   backgroundColor: "#A6095D",
   "&:hover": {
-    backgroundColor: "#A6095D",
+    // backgroundColor: "#A6095D",
+    background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   },
 }));
 
@@ -104,7 +107,11 @@ function LoginPage(props) {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+<<<<<<< HEAD
     console.log("DDDD");
+=======
+    console.log("발싸ㅣ");
+>>>>>>> dbdfb2612c85f13a5579cdae81b66077023357da
 
     let body = {
       id: Email,
@@ -112,6 +119,7 @@ function LoginPage(props) {
     };
     console.log(body);
 
+<<<<<<< HEAD
     dispatch(loginUser(body))
       .then((response) => {
         console.log(response.payload.data.accessToken);
@@ -130,6 +138,19 @@ function LoginPage(props) {
         }
         console.log(error.response.data.message);
       });
+=======
+    dispatch(loginUser(body)).then((response) => {
+      console.log("DDD0");
+      console.log(response.payload.message);
+
+      if (response.payload.message === "Success") {
+        props.navigate("/");
+        // 토큰을 세선저장소에 저장
+      } else {
+        alert('Error"');
+      }
+    });
+>>>>>>> dbdfb2612c85f13a5579cdae81b66077023357da
   };
   console.log(user);
 
@@ -150,15 +171,27 @@ function LoginPage(props) {
             height: "100vh",
           }}
         >
-          <img
-            alt="logo_ani"
-            src={logo_ani}
+          <div
             style={{
-              maxWidth: "200px",
-              width: "40vw",
+              // width: "40vw",
+              maxWidth: "175px",
+              // height: "40vw",
+              maxHeight: "175px",
+              overflow: "hidden",
               borderRadius: "50%",
             }}
-          />
+          >
+            <img
+              alt="logo_ani"
+              src={logo_ani}
+              style={{
+                maxWidth: "350px",
+                width: "350px",
+                marginLeft: "-50%",
+                marginTop: "-10%",
+              }}
+            />
+          </div>
 
           <form
             style={{ display: "flex", flexDirection: "column" }}
@@ -170,21 +203,38 @@ function LoginPage(props) {
               noValidate
               sx={{ mt: 1 }}
             >
-              {1 === 1 ? (
-                <div>
-                  <TextFieldLogin
-                    margin="normal"
-                    fullWidth
-                    value={Email}
-                    onChange={onEmailHandler}
-                    id="email"
-                    label="아이디"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    autoFocus
-                    // sx={{ mx: "auto" }}
+              <TextFieldLogin
+                margin="normal"
+                fullWidth
+                value={Email}
+                onChange={onEmailHandler}
+                id="email"
+                label="아이디"
+                name="email"
+                type="email"
+                autoComplete="email"
+                autoFocus
+                // sx={{ mx: "auto" }}
+              />
+              <TextFieldLogin
+                margin="normal"
+                fullWidth
+                value={Password}
+                onChange={onPasswordHandler}
+                id="password"
+                name="password"
+                label="비밀번호"
+                type="password"
+                autoComplete="current-password"
+              />
+              <Grid1 container>
+                <Grid item xs>
+                  <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="로그인 정보 저장"
+                    style={{ marginLeft: "5px" }}
                   />
+<<<<<<< HEAD
                   <TextFieldLogin
                     margin="normal"
                     fullWidth
@@ -220,91 +270,51 @@ function LoginPage(props) {
                     fullWidth
                     variant="contained"
                     sx={{ mb: 3 }}
+=======
+                </Grid>
+                <Grid item>
+                  <Link
+                    href="#"
+                    underline="hover"
+                    variant="subtitle2"
+                    color="inherit"
+>>>>>>> dbdfb2612c85f13a5579cdae81b66077023357da
                   >
-                    <b>로그인</b>
-                  </ButtonCo>
-                  <Typography align="center">
-                    <Link
-                      href="#"
-                      underline="hover"
-                      variant="h6"
-                      color="inherit"
-                    >
-                      회원이 아니신가요? <b>지금 가입하세요</b>
-                    </Link>
-                    <br></br>
-                    <Link
-                      href="#"
-                      underline="hover"
-                      variant="subtitle2"
-                      color="inherit"
-                    >
-                      아이디 혹은 비밀번호 찾기
-                    </Link>
-                  </Typography>
-                </div>
-              ) : (
-                <div>
-                  <Typography
-                    component="h3"
-                    variant="h5"
-                    style={{ textAlign: "center", margin: "30px auto 0px" }}
-                  >
-                    안녕하세요 ~~ 홍길동님
-                  </Typography>
-                  <TextFieldLogin
-                    margin="normal"
-                    fullWidth
-                    // value={}
-                    // onChange={onEmailHandler}
-                    id="link"
-                    label="참가링크"
-                    name="link"
-                    type="link"
-                    autoComplete="link"
-                    autoFocus
-                  />
-                  <ButtonCo
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mb: 3 }}
-                  >
-                    <b>참가</b>
-                  </ButtonCo>{" "}
-                  <ButtonCo
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mb: 3 }}
-                  >
-                    <b>방 생성하기</b>
-                  </ButtonCo>
-                </div>
-              )}
+                    도움이 필요하신가요?
+                  </Link>
+                </Grid>
+              </Grid1>
+              <ButtonCo
+                onClick={onSubmitHandler}
+                fullWidth
+                variant="contained"
+                sx={{ mb: 3 }}
+              >
+                <b>로그인</b>
+              </ButtonCo>
             </Box>
           </form>
+          <Typography align="center">
+            <Link href="#" underline="hover" variant="h6" color="inherit">
+              회원이 아니신가요? <b>지금 가입하세요</b>
+            </Link>
+            <br></br>
+            <Link
+              href="#"
+              underline="hover"
+              variant="subtitle2"
+              color="inherit"
+            >
+              아이디 혹은 비밀번호 찾기
+            </Link>
+          </Typography>
         </Box>
       </Container>
       <Footer sx={{ mt: 5, mb: 3 }} />;
     </div>
   );
 }
-{
-  /*  나란히 링크 만들때 참고 
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  아이디 혹은 비밀번호 찾기
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid> */
-}
+
 export default LoginPage;
 // withRouter 잘모르겠다
 // 원래는 39번줄 props.history.push 에러 문제로 withRouter강의에서씀
@@ -318,3 +328,19 @@ export default LoginPage;
 // 이미 history 객체에 접근이 가능 그러기에 withRouter가 필요 X
 
 //  강의 출처 https://inf.run/JZyR
+
+// {1 === 1 ? (   1 === 1 ? (  ) : (   )   ) : (       )}
+
+//  나란히 링크 만들때 참고
+//             <Grid container>
+//               <Grid item xs>
+//                 <Link href="#" variant="body2">
+//                   아이디 혹은 비밀번호 찾기
+//                 </Link>
+//               </Grid>
+//               <Grid item>
+//                 <Link href="#" variant="body2">
+//                   {"Don't have an account? Sign Up"}
+//                 </Link>
+//               </Grid>
+//             </Grid>

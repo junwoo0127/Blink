@@ -7,6 +7,7 @@ const ButtonC = styled(Button)(({ theme }) => ({
   lineHeight: "44px",
   borderRadius: "30px",
   fontSize: "22px",
+  padding: "9.5px 16px",
   backgroundColor: "#A6095D",
   "&:hover": {
     backgroundColor: "#A6095D",

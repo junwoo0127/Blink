@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.response.UserRes;
 import com.ssafy.db.entity.User;
 
 /**
@@ -13,6 +14,8 @@ public interface UserService {
 	void emailStatusUpdate(String userId);
 	User findUserByEmail(String email);
 	
+	UserRes setUserInfo(User user, UserRes userRes);
+	UserRes getUserInfo(String userId);
 	public User certificated(User user);
 }
 

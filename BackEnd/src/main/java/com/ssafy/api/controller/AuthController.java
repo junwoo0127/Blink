@@ -62,8 +62,12 @@ public class AuthController {
 				
 				return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Email", null));
 			}else {
+<<<<<<< HEAD
 				System.out.println("성공");
 				return ResponseEntity.status(200).body(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(userId)));
+=======
+				return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", "Bearer "+JwtTokenUtil.getToken(userId)));
+>>>>>>> dbdfb2612c85f13a5579cdae81b66077023357da
 			}
 			
 		}

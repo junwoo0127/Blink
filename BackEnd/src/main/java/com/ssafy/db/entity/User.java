@@ -43,7 +43,7 @@ public class User {
 	
 	@Column(name ="reg_date",updatable = false)
 	@CreatedDate
-	private LocalDateTime reg_date;
+	private LocalDateTime regDate;
 	
 	@Column(name ="email")
 	private String email;
