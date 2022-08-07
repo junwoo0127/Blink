@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "./DiscussRoom.css";
-import Timer from "../../common/timer/timer";
+import Timer from "../../Common/timer/timer";
 import StreamComponent from "../../stream/StreamComponent";
 import DiscussStart from "../../modals/DiscussStart/DiscussStart";
 import io from "socket.io-client";
@@ -10,6 +10,7 @@ const socket = io.connect("http://localhost:4000");
 function DiscussRoom(props) {
   //variables
   const localUser = props.localUser;
+  const participantNum = props.participantNum
 
   //function
   const setMode = (num) => {
@@ -36,7 +37,7 @@ function DiscussRoom(props) {
           />
         </div>
       ))}
-      <Timer sec={10} setMode={setMode} />
+      <Timer sec={10} participantNum={participantNum} setMode={setMode} />
     </>
   );
 }
