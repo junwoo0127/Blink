@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 
 const useAudio = (url) => {
   const [audio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
 
   const toggle = () => setPlaying(!playing);
-  audio.play();
+
   useEffect(() => {
     playing ? audio.play() : audio.pause();
   }, [audio, playing]);
