@@ -38,9 +38,9 @@ function ReadyButton(props) {
   };
   socket.on("getReady", (cnt) => {
     setCount(cnt.count);
-    console.log("how many clicked", cnt.count);
+    console.log("how many clicked", count);
     console.log("how many participants", participantNum);
-    if (cnt.count === participantNum && participantNum > 1) {
+    if (cnt.count === participantNum && count > 1) {
       //비교 값이 참가자 수가 아니라 정해놓은 인원수로 해야함
       console.log("start")
       setOpen(true);
