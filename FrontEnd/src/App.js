@@ -45,7 +45,7 @@ function App() {
           <Route path="/lobby" element={<Lobby />} />
           <Route path="/lobbysetting" element={<LobbySetting />} />
           <Route path="/join" element={<Main />} />
-          
+
           <Route path="/videoroom" element={<VideoRoomComponent />} />
         </Routes>
       </div>

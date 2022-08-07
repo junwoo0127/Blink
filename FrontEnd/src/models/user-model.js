@@ -6,7 +6,6 @@ class UserModel {
     nickname;
     streamManager;
     type; // 'remote' | 'local'
-    role;
 
     constructor() {
         this.connectionId = '';
@@ -16,7 +15,6 @@ class UserModel {
         this.nickname = '';
         this.streamManager = null;
         this.type = 'local';
-        this.role='';
     }
 
     isAudioActive() {
@@ -26,12 +24,9 @@ class UserModel {
     isVideoActive() {
         return this.videoActive;
     }
-    
+
     isScreenShareActive() {
         return this.screenShareActive;
-    }
-    getRole(){
-        return this.role;
     }
 
     getConnectionId() {
@@ -51,9 +46,6 @@ class UserModel {
     }
     isRemote() {
         return !this.isLocal();
-    }
-    setRole(role){
-        this.role = role;
     }
     setAudioActive(isAudioActive) {
         this.audioActive = isAudioActive;
