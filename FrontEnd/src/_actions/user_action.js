@@ -1,5 +1,11 @@
 import axios from "axios";
-import { LOGIN_USER, REGISTER_USER, AUTH_USER, GET_USER } from "./types";
+import {
+  LOGIN_USER,
+  REGISTER_USER,
+  AUTH_USER,
+  GET_USER,
+  CHECK_ID,
+} from "./types";
 
 export function loginUser(dataToSubmit) {
   const request = axios
@@ -27,6 +33,17 @@ export function auth() {
 
   return {
     type: AUTH_USER,
+    payload: request,
+  };
+}
+
+export function check_id(dataToSubmit) {
+  const request = axios
+    .post("http://localhost:8080/blink/api/v1/users/check", dataToSubmit)
+    .then((response) => response.data);
+
+  return {
+    type: CHECK_ID,
     payload: request,
   };
 }
