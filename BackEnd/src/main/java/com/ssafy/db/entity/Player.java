@@ -33,11 +33,10 @@ public class Player {
 	@Id
 	@Column(name = "player_seq")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long playerSeq;
 	
 	@Column(name= "room_seq")
 	private Long roomSeq;
-	
 
 	@Column(name= "user_seq")
 	private Long userSeq;
@@ -61,27 +60,22 @@ public class Player {
 	@Column(name ="reg_date",updatable = false)
 	@CreatedDate
 	private LocalDateTime regDate;
-	
 
-	@OneToOne
-	@JoinColumn(name ="first_choice" , insertable = false, updatable = false)
-	private Player firstChoice;
+	@Column(name ="first_choice")
+	private Long firstChoice;
 
-	@OneToOne
-	@JoinColumn(name ="final_choice", insertable = false, updatable = false)
-	private Player finalChoice;
+	@Column(name ="final_choice")
+	private Long finalChoice;
 
 	@Column(name = "is_first_match")
-	private int isfirstMatch;
+	private int isFirstMatch;
 	
 	@Column(name ="is_final_match")
-	private int isfinalMatch;
+	private int isFinalMatch;
 	
 	@Column(name ="liar")
 	private int liar;
 	
-	
-	
-	
-
+	@Column(name ="score")
+	private int score;
 }

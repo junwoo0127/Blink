@@ -55,7 +55,7 @@ public class AuthController {
 			if(user.getCerti()==0) {
 				return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Email", null));
 			}else {
-				return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(userId)));
+				return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", "Bearer "+JwtTokenUtil.getToken(userId)));
 			}
 			
 		}
