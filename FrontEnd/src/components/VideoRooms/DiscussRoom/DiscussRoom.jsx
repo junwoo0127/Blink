@@ -10,6 +10,7 @@ const socket = io.connect("http://localhost:4000");
 function DiscussRoom(props) {
   //variables
   const localUser = props.localUser;
+  const participantNum = props.participantNum
 
   //function
   const setMode = (num) => {
@@ -36,7 +37,7 @@ function DiscussRoom(props) {
           />
         </div>
       ))}
-      <Timer sec={10} setMode={setMode} />
+      <Timer sec={10} participantNum={participantNum} setMode={setMode} />
     </>
   );
 }

@@ -37,7 +37,7 @@ const Timer = (props) => {
     if (initialTime.current <= 0) {
       clearInterval(interval.current);
 
-      if (discussCount === 12) {
+      if (discussCount === props.participantNum*4) {
         props.setMode(6);
         console.log("go to 6");
       } else {

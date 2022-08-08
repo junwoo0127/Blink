@@ -42,6 +42,7 @@ function ReadyButton(props) {
     console.log("how many participants", participantNum);
     if (cnt.count === participantNum && count > 1) {
       //비교 값이 참가자 수가 아니라 정해놓은 인원수로 해야함
+      console.log("start")
       setOpen(true);
       props.onHandleDisplay();
     }
