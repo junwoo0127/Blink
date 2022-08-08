@@ -478,9 +478,14 @@ class VideoRoomComponent extends Component {
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />
-
-        <div id="layout" className="bounds">
-          <MusicPlayer />
+        <MusicPlayer
+          style={{ position: "absolute", top: "10px", left: "10px" }}
+        />
+        <div
+          id="layout"
+          className="bounds"
+          style={{ width: "90%", height: "90%", left: "5%", bottom: "5%" }}
+        >
           {this.state.mode === 1 ? (
             <WaitingRoom
               localUser={localUser}
@@ -488,7 +493,7 @@ class VideoRoomComponent extends Component {
               chatDisplay={this.state.chatDisplay}
               close={this.toggleChat}
               messageReceived={this.checkNotification}
-            />
+            ></WaitingRoom>
           ) : this.state.mode === 2 ? (
             <SelectRoom
               participantNum={this.state.participantNum}
