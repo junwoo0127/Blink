@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "./DiscussRoom.css";
-import Timer from "../../common/timer/timer";
+import Timer from "../../Common/timer/timer";
 import StreamComponent from "../../stream/StreamComponent";
 import DiscussStart from "../../modals/DiscussStart/DiscussStart";
 import io from "socket.io-client";
