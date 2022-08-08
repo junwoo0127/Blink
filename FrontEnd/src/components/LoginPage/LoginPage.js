@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_action";
-// import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 import { alpha, styled } from "@mui/material/styles";
 import logo_ani from "../../assets/logo_ani.gif";
@@ -83,9 +85,9 @@ const TextFieldLogin = styled(TextField)({
 });
 
 function LoginPage(props) {
-  // const params = useParams();
-  // const location = useLocation();
-  // const navigate = useNavigate();
+  const params = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -109,16 +111,23 @@ function LoginPage(props) {
       password: Password,
     };
 
-    dispatch(loginUser(body)).then((response) => {
-      console.log("DDD0");
-      console.log(response.payload.message);
-
-      if (response.payload.message === "Success") {
-        props.navigate("/");
-        // 토큰을 세선저장소에 저장
+    dispatch(loginUser(body))
+    .then((response) => {
+      console.log(response.payload.data.accessToken);
+      localStorage.setItem("token", response.payload.data.accessToken);
+      navigate("/");
+    })
+    .catch((error) => {
+      console.log(error);
+      let error_code = error.response.data.message;
+      if (error_code === "Invalid Id") {
+        alert("잘못된 아이디입니다");
+        window.location.replace("/login");
       } else {
-        alert('Error"');
+        alert("이메일 인증을 진행해 주세요!");
+        // window.location.replace("/login");
       }
+      console.log(error.response.data.message);
     });
   };
 

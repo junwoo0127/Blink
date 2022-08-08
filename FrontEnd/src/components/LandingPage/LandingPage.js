@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState } from "react";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { alpha, styled } from "@mui/material/styles";
 import logo_ani from "../../assets/logo_ani.gif";
 import MemberPage from "../Common/MemberPage";
 import Footer from "../Common/Footer";
+import { useDispatch } from "react-redux";
+import { getUser } from "../../_actions/user_action";
 
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,6 +17,8 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+
+
 
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#A6095D"),
@@ -68,21 +72,46 @@ const TextFieldLogin = styled(TextField)({
 });
 
 function LandingPage(props) {
+  
+  const token = localStorage.getItem("token");
+  const [info, setinfo] = useState("");
+  const [link, setlink] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onclickGologin = () => {
+    navigate("/login")
+  };
+  const onLinkHandler = (event) => {
+    setlink(event.currentTarget.value);
+  };
+  const onclickin = () => {
+    console.log("방참가")
+  };
+  const onclickMakeRoom= () => {
+    console.log("방생성")
+  };
+  console.log(token);
+  if (token != null) {
+    let token_me = "Bearer " + token;
+    dispatch(getUser(token_me)).then((response) => {
+      console.log(response.payload.data.userId);
+      setinfo(response.payload.data.userId);
+      console.log(info);
+    });
+  }
+
   // const navigate = useNavigate();
 
   // useEffect(() => {
   //   axios.get("/api/hello");
   // }, []);
 
-  // const onClickHandler = () => {
-  //   axios.get("/api/users/logout").then((response) => {
-  //     if (response.data.success) {
-  //       props.navigate("/login");
-  //     } else {
-  //       alert("로그아웃실패!");
-  //     }
-  //   });
-  // };
+  const onClickHandler = () => {
+    localStorage.removeItem("token");
+    setinfo("");
+    alert("로그아웃되었습니다");
+  };
   // <div
   //   style={{
   //     display: "flex",
@@ -138,10 +167,10 @@ function LandingPage(props) {
 
           <form
             style={{ display: "flex", flexDirection: "column" }}
-            // onSubmit={onSubmitHandler}
+           
           >
             {/* 로그인 x : 로그인 o 상태 */}
-            {1 === 1 ? (
+            {info === "" ? (
               <div>
                 <Box
                   component="form"
@@ -152,18 +181,18 @@ function LandingPage(props) {
                   <TextFieldLogin
                     margin="normal"
                     fullWidth
-                    // value={Email}
-                    // onChange={onEmailHandler}
-                    id="email"
+                    value={link}
+                    onChange={onLinkHandler}
+                    id="link"
                     label="참가링크"
-                    name="email"
-                    type="email"
+                    name="link"
+                    type="text"
                     autoComplete="email"
                     autoFocus
                   />
 
                   <ButtonCo
-                    type="submit"
+                    onClick={onClickHandler}
                     fullWidth
                     variant="contained"
                     sx={{ mt: 2, mb: 3 }}
@@ -173,17 +202,19 @@ function LandingPage(props) {
 
                   <Typography align="center">
                     <Link
-                      href="#"
+                      onClick={onclickGologin}
                       underline="hover"
                       variant="h6"
                       color="inherit"
+                    
                     >
                       방을 만들고 싶으세요? <b>로그인하기</b>
                     </Link>
                   </Typography>
+                  
                 </Box>
               </div>
-            ) : 1 === 1 ? (
+            ) :(
               // 이메일 인증완료
               <div>
                 {" "}
@@ -192,13 +223,13 @@ function LandingPage(props) {
                   variant="h5"
                   style={{ textAlign: "center", margin: "30px auto 0px" }}
                 >
-                  어서오세요, 홍길동 님!
+                  어서오세요, {info} 님!
                 </Typography>
                 <TextFieldLogin
                   margin="normal"
                   fullWidth
-                  // value={}
-                  // onChange={onEmailHandler}
+                  value={link}
+                  onChange={onLinkHandler}
                   id="link"
                   label="참가링크"
                   name="link"
@@ -207,7 +238,7 @@ function LandingPage(props) {
                   autoFocus
                 />
                 <ButtonCo
-                  type="submit"
+                  onClick={onclickin}
                   fullWidth
                   variant="contained"
                   sx={{ mt: 2, mb: 2 }}
@@ -215,7 +246,7 @@ function LandingPage(props) {
                   <b>참가</b>
                 </ButtonCo>{" "}
                 <ButtonCo
-                  type="submit"
+                  onClick={onclickMakeRoom}
                   fullWidth
                   variant="contained"
                   sx={{ mt: 1, mb: 3 }}
@@ -223,49 +254,12 @@ function LandingPage(props) {
                   <b>방 생성하기</b>
                 </ButtonCo>
                 <Typography align="center">
-                  <Link href="#" underline="hover" variant="h6" color="inherit">
+                  <Link onClick={onClickHandler} underline="hover" variant="h6" color="inherit">
                     로그아웃
                   </Link>
                 </Typography>
               </div>
-            ) : (
-              // 이메일 인증 안됨
-              <div>
-                <Typography
-                  component="h3"
-                  variant="h5"
-                  style={{ textAlign: "center", margin: "30px auto 0px" }}
-                >
-                  어서오세요, 홍길동 님!
-                </Typography>
-                <TextFieldLogin
-                  margin="normal"
-                  fullWidth
-                  // value={}
-                  // onChange={onEmailHandler}
-                  id="link"
-                  label="회원가입시 작성한 이메일"
-                  name="link"
-                  type="link"
-                  autoComplete="link"
-                  autoFocus
-                />
-
-                <ButtonCo
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mb: 3 }}
-                >
-                  <b>인증하기</b>
-                </ButtonCo>
-                <Typography align="center">
-                  <Link href="#" underline="hover" variant="h6" color="inherit">
-                    로그아웃
-                  </Link>
-                </Typography>
-              </div>
-            )}
+            ) }
           </form>
         </Box>
       </Container>
