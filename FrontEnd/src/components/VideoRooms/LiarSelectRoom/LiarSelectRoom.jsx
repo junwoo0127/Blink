@@ -17,7 +17,7 @@ function LiarSelectRoom(props) {
     const value = liarSelect + 1;
     setLiarSelect(value); //거짓말장이 선택할때마다 증가 후, 자식에 넘겨서 그 값이 사용자의 역할에 따라 2 혹은 3이 되면 select를 할 수 없게 됨.
 
-    if (value === 2) {
+    if (value === 1) { //참가자 수에 따른 마피아 수에 따른 조정 필요
       setDisabled(false);
       setSelected(true);
     }
