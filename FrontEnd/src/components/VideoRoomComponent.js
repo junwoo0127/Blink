@@ -478,9 +478,9 @@ class VideoRoomComponent extends Component {
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />
-        <MusicPlayer
+        {/* <MusicPlayer
           style={{ position: "absolute", top: "10px", left: "10px" }}
-        />
+        /> */}
         <div
           id="layout"
           className="bounds"
