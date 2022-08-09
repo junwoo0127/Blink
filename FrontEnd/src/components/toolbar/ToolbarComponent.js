@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./ToolbarComponent.css";
 
+import Filter from "../Filter/Filter"
+
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 
@@ -35,7 +37,7 @@ export default class ToolbarComponent extends Component {
 
   camStatusChanged() {
     this.props.camStatusChanged();
-  }
+  }  
 
   leaveSession() {
     this.props.leaveSession();
@@ -114,6 +116,19 @@ export default class ToolbarComponent extends Component {
               <Tooltip title="Chat">
                 <QuestionAnswer />
               </Tooltip>
+            </IconButton>
+
+            <IconButton
+              color="inherit"
+              className="FilterButton"
+              id="FilterCamButton"
+              onClick={Filter}
+            >
+              {localUser !== undefined && localUser.isVideoActive() ? (
+                <VideocamIcon />
+              ) : (
+                <VideocamOffIcon color="secondary" />
+              )}
             </IconButton>
           </div>
         </Toolbar>
