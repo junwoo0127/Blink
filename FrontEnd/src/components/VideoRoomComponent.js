@@ -16,6 +16,15 @@ import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
 import GameIntroRoom from "./VideoRooms/GameRoom/GameIntroRoom";
 import LiarSelectRoom from "./VideoRooms/LiarSelectRoom/LiarSelectRoom";
+import Grid from "@mui/material/Grid";
+import { alpha, styled } from "@mui/material/styles";
+
+const Grid1 = styled(Grid)({
+  "& .MuiGrid-root": {
+    margin: "auto 10px auto 0px ",
+  },
+});
+
 var localUser = new UserModel();
 const socket = io.connect("http://localhost:4000");
 class VideoRoomComponent extends Component {
@@ -478,14 +487,8 @@ class VideoRoomComponent extends Component {
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />
-        <MusicPlayer
-          style={{ position: "absolute", top: "10px", left: "10px" }}
-        />
-        <div
-          id="layout"
-          className="bounds"
-          style={{ width: "90%", height: "90%", left: "5%", bottom: "5%" }}
-        >
+
+        <div id="layout" className="bounds" style={{}}>
           {this.state.mode === 1 ? (
             <WaitingRoom
               localUser={localUser}
@@ -545,7 +548,7 @@ class VideoRoomComponent extends Component {
               setMode={this.setMode}
             />
           ) : null}
-
+          {/* 채팅 없애기 ??? */}
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
@@ -559,14 +562,30 @@ class VideoRoomComponent extends Component {
                   messageReceived={this.checkNotification}
                 />
               </div>
-            )}
-          <ReadyButton
+            )}{" "}
+          {/* <ReadyButton
             onHandleDisplay={this.onHandleDisplay}
             display={this.state.display}
             participantNum={this.state.participantNum}
             setMode={this.setMode}
-          />
+          /> */}
         </div>
+
+        <MusicPlayer
+          style={{
+            position: "absolute",
+            bottom: "0",
+            left: "1%",
+            maxWidth: "30%",
+          }}
+        />
+
+        <ReadyButton
+          onHandleDisplay={this.onHandleDisplay}
+          display={this.state.display}
+          participantNum={this.state.participantNum}
+          setMode={this.setMode}
+        />
       </div>
     );
   }
