@@ -16,6 +16,7 @@ let gameReady = 0;
 let answerCount = 0;
 let discussCount = 0;
 let gameSetCount = 0;
+let finalCount = 0;
 // let modalshow = false;
 io.on("connection", (socket) => {
   socket.on("getReady", () => {
@@ -84,7 +85,10 @@ io.on("connection", (socket) => {
     io.sockets.emit("gameSet", { gameSetCount: gameSetCount });
   });
 
-  //게임 결과 받는 페이지
+  socket.emit("selectFinal", () => {
+    ++finalCount;
+    io.sockets.emit("selectFinal", { finalCount: finalCount });
+  });
 });
 
 // server.use(cors())s

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import "./DiscussRoom.css";
-import Timer from "../../Common/timer/DiscussTimer";
+import "./FreeTalkRoom.css";
+import Timer from "../../Common/timer/FreeTalkTimer";
 import StreamComponent from "../../stream/StreamComponent";
-import DiscussStart from "../../modals/DiscussStart/DiscussStart";
+import FreeTalkStart from "../../modals/FreeTalkStart/FreeTalkStart";
 import io from "socket.io-client";
 
 const socket = io.connect("http://localhost:4000");
-function DiscussRoom(props) {
+function FreeTalkRoom(props) {
   //variables
   const localUser = props.localUser;
   const participantNum = props.participantNum;
@@ -19,7 +19,7 @@ function DiscussRoom(props) {
 
   return (
     <>
-      <DiscussStart />
+      <FreeTalkStart />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser">
           <StreamComponent user={localUser} />
@@ -37,9 +37,9 @@ function DiscussRoom(props) {
           />
         </div>
       ))}
-      <Timer sec={10} participantNum={participantNum} setMode={setMode} />
+      <Timer min={5} participantNum={participantNum} setMode={setMode} />
     </>
   );
 }
 
-export default DiscussRoom;
+export default FreeTalkRoom;
