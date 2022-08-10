@@ -11,6 +11,7 @@ public interface UserService {
 	User createUser(UserRegisterPostReq userRegisterInfo);
 	User getUserByUserId(String userId);
 	boolean idcheck(String userId);
+	boolean emailcheck(String userId);
 	void emailStatusUpdate(String userId);
 	User findUserByEmail(String email);
 	

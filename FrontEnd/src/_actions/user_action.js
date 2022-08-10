@@ -10,8 +10,8 @@ const apiurl = "http://localhost:8080/blink";
 export function loginUser(dataToSubmit) {
   const request = axios
     .post(apiurl + "/api/v1/auth/login", dataToSubmit)
-    .then((response) => response)
- 
+    .then((response) => response);
+
   return {
     type: LOGIN_USER,
     payload: request,
@@ -20,7 +20,7 @@ export function loginUser(dataToSubmit) {
 
 export function registerUser(dataToSubmit) {
   const request = axios
-    .post("/api/user/register", dataToSubmit)
+    .post(apiurl + "/api/v1/users/", dataToSubmit)
     .then((response) => response.data);
 
   return {
@@ -30,7 +30,7 @@ export function registerUser(dataToSubmit) {
 }
 
 export function auth(dataToSubmit) {
-    const request = axios
+  const request = axios
     .get("http://localhost:8080/blink/api/v1/users/me", {
       headers: {
         Authorization: dataToSubmit,
