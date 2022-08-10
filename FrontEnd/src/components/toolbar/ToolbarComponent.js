@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./ToolbarComponent.css";
 
-import Filter from "../Filter/Filter"
+import Filter from "../Filter/Filter";
 
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -37,7 +37,7 @@ export default class ToolbarComponent extends Component {
 
   camStatusChanged() {
     this.props.camStatusChanged();
-  }  
+  }
 
   leaveSession() {
     this.props.leaveSession();
@@ -46,7 +46,7 @@ export default class ToolbarComponent extends Component {
   toggleChat() {
     this.props.toggleChat();
   }
-
+  handleFilter() {}
   render() {
     const mySessionId = this.props.sessionId;
     const localUser = this.props.user;
@@ -63,14 +63,28 @@ export default class ToolbarComponent extends Component {
             )}
           </div>
 
-            <form class="hidden-xs">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Some path" id="copy-input"/>
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button" id="copy-button" data-toggle="tooltip" data-placement="button" title="Copy to Clipboard">Share the URL</button>
-						</span>
-					</div>
-				</form>
+          <form class="hidden-xs">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Some path"
+                id="copy-input"
+              />
+              <span class="input-group-btn">
+                <button
+                  class="btn btn-default"
+                  type="button"
+                  id="copy-button"
+                  data-toggle="tooltip"
+                  data-placement="button"
+                  title="Copy to Clipboard"
+                >
+                  Share the URL
+                </button>
+              </span>
+            </div>
+          </form>
 
           <div className="buttonsContent">
             <IconButton
@@ -122,7 +136,7 @@ export default class ToolbarComponent extends Component {
               color="inherit"
               className="FilterButton"
               id="FilterCamButton"
-              onClick={Filter}
+              onClick={this.handleFilter}
             >
               {localUser !== undefined && localUser.isVideoActive() ? (
                 <VideocamIcon />

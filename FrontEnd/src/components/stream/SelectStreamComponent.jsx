@@ -9,13 +9,13 @@ import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
 import io from "socket.io-client";
-import axios from "axios"
+import Filter from "../Filter/Filter";
+import axios from "axios";
 import { useRef } from "react";
 const socket = io.connect("http://localhost:4000");
 const apiURL = "http://localhost:8080";
 
 function SelectStreamComponent(props) {
-
   const [showForm, setShowForm] = useState(false);
   const [mutedSound, setMutedSound] = useState(false);
   const [selected, setSelected] = useState(false);
@@ -38,7 +38,7 @@ function SelectStreamComponent(props) {
     //   const res = axios.get(apiURL+"/api/v1/game/voteFirst", {params : {
     //     "player_seq" : 1,
     //     "first_choice" : 3
-        
+
     //   }})
     //   console.log(res);
     //   console.log("good");
@@ -46,8 +46,7 @@ function SelectStreamComponent(props) {
     // catch{
     //   console.log("erorororororor")
     // }
-    
-   
+
     socket.emit("selectFirst");
   };
   socket.on("selectFirst", (cnt) => {
@@ -77,8 +76,8 @@ function SelectStreamComponent(props) {
         {props.user !== undefined &&
         props.user.getStreamManager() !== undefined ? (
           <div className="streamComponent">
-            <OvVideoComponent user={props.user} mutedSound={!mutedSound} />
-
+            {/* <OvVideoComponent user={props.user} mutedSound={!mutedSound} /> */}
+            <Filter />
             <div id="statusIcons">
               {!props.user.isVideoActive() ? (
                 <div id="camIcon">

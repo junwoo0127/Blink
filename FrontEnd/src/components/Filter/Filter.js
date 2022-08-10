@@ -1,5 +1,5 @@
 import { FaceMesh } from "@mediapipe/face_mesh";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, createRef } from "react";
 import * as Facemesh from "@mediapipe/face_mesh";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
@@ -12,7 +12,7 @@ function Filter() {
     // const video = webcamRef.current.video;
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
-
+    const videoRef = createRef();
     // Set canvas width
     canvasRef.current.width = videoWidth;
     canvasRef.current.height = videoHeight;

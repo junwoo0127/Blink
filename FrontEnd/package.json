@@ -5,6 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@mediapipe/camera_utils": "^0.3.1640029074",
+    "@mediapipe/face_mesh": "^0.4.1633559619",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.2",
     "@testing-library/jest-dom": "^5.16.4",
@@ -22,6 +24,7 @@
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^2.1.3",
+    "react-webcam": "^7.0.1",
     "redux": "^4.2.0",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.4.1",
