@@ -16,17 +16,15 @@ const style = {
   p: 4,
 };
 
-export default function GameSet(props) {
+export default function FinalSelectResult(props) {
   //variables
 
+  setTimeout(() => {
+    props.handleClose();
+  }, 10000);
+
   //function
-  if (props.open === true) {
-    console.log("modalopened");
-    setTimeout(() => {
-      props.handleClose();
-      props.mode(7);
-    }, 5000);
-  }
+
   return (
     <div>
       <Modal
@@ -36,10 +34,11 @@ export default function GameSet(props) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            결과
+            결과!!!
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            결과
+            {/* 결과보이기 */}
+            잠시 후 이방은 폭파 됩니다!
           </Typography>
         </Box>
       </Modal>

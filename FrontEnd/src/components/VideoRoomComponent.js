@@ -16,6 +16,8 @@ import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
 import GameIntroRoom from "./VideoRooms/GameRoom/GameIntroRoom";
 import LiarSelectRoom from "./VideoRooms/LiarSelectRoom/LiarSelectRoom";
+import FinalSelectRoom from "./VideoRooms/FinalSelectRoom/FinalSelectRoom";
+import FreeTalkRoom from "./VideoRooms/FreeTalkRoom/FreeTalkRoom";
 var localUser = new UserModel();
 const socket = io.connect("http://localhost:4000");
 class VideoRoomComponent extends Component {
@@ -536,6 +538,26 @@ class VideoRoomComponent extends Component {
             />
           ) : this.state.mode === 6 ? (
             <LiarSelectRoom
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 7 ? (
+            <FreeTalkRoom
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 8 ? (
+            <FinalSelectRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
               subscribers={this.state.subscribers}

@@ -5,6 +5,7 @@ import "./LiarSelectRoom.css";
 import GameSelectStream from "../../stream/GameSelectStream";
 import StreamComponent from "../../stream/StreamComponent";
 import SendButton from "../../Buttons/SendButton/SendButton";
+import GameSet from "../../modals/GameResult/GameSet";
 
 function LiarSelectRoom(props) {
   //variables
@@ -12,12 +13,14 @@ function LiarSelectRoom(props) {
   const [selected, setSelected] = useState(false);
   const [liarSelect, setLiarSelect] = useState(0);
   const [disabled, setDisabled] = useState(true);
+  const [open, setOpen] = useState(false);
   //function
   const plusLiar = () => {
     const value = liarSelect + 1;
     setLiarSelect(value); //거짓말장이 선택할때마다 증가 후, 자식에 넘겨서 그 값이 사용자의 역할에 따라 2 혹은 3이 되면 select를 할 수 없게 됨.
 
-    if (value === 1) { //참가자 수에 따른 마피아 수에 따른 조정 필요
+    if (value === 1) {
+      //참가자 수에 따른 마피아 수에 따른 조정 필요
       setDisabled(false);
       setSelected(true);
     }
@@ -33,8 +36,15 @@ function LiarSelectRoom(props) {
   const onClose = () => {
     setDisabled(true);
   };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
   return (
     <>
+      <GameSet open={open} handleClose={handleClose} mode={setMode} />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser">
           <StreamComponent user={localUser} />
@@ -62,6 +72,7 @@ function LiarSelectRoom(props) {
         disabled={disabled}
         onClose={onClose}
         participantNum={props.participantNum}
+        handleOpen={handleOpen}
       />
     </>
   );
