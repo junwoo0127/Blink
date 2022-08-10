@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.api.service.MailAuthService;
-import com.ssafy.api.service.MailAuthServiceImpl;
 import com.ssafy.api.service.UserService;
-import com.ssafy.api.service.UserServiceImpl;
 import com.ssafy.db.entity.EmailAuth;
 import com.ssafy.db.entity.User;
 
@@ -26,7 +24,7 @@ public class MailAuthController {
 	
 	
 	@GetMapping("/check-email-token")
-	public User verifyEmail(String token, String email) {
+	public String verifyEmail(String token, String email) {
 		EmailAuth account = mailAuthService.findAccountByEmail(email);
 		User certing_user = userService.findUserByEmail(email);
 
@@ -39,6 +37,6 @@ public class MailAuthController {
 			return null;
 		}
 
-		return userService.certificated(certing_user);
+		return "이메일 인증에 성공하였습니다.";
 	}
 }
