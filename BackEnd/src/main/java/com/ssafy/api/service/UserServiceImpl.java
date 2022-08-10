@@ -26,8 +26,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
 		User user = new User();
+		
 		user.setUserId(userRegisterInfo.getId());
-		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
+		System.out.println(userRegisterInfo.getId());
+		
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setEmail(userRegisterInfo.getEmail());
 		return userRepository.save(user);
@@ -42,7 +44,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean idcheck(String userId) {
 		boolean count = userRepository.existsByUserId(userId);
-		return false;
+		return count;
+	}
+	@Override
+	public boolean emailcheck(String email) {
+		boolean count = userRepository.existsByEmail(email);
+		return count;
 	}
 
 	@Override

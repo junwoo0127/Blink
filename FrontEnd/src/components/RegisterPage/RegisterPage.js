@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../_actions/user_action";
+import { registerUser, check_id } from "../../_actions/user_action";
 import axios from "axios";
 
 import { alpha, styled } from "@mui/material/styles";
@@ -79,47 +79,85 @@ function RegisterPage(props) {
   const dispatch = useDispatch();
 
   const [Email, setEmail] = useState("");
-  const [Name, setName] = useState("");
+  const [Id, setId] = useState("");
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [check, setCheck] = useState(false);
 
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
   };
 
-  const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
+  const onIdHandler = (event) => {
+    setId(event.currentTarget.value);
+    setCheck(false);
   };
 
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
   };
+  const isEmail = (email) => {
+    const emailRegex =
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
+    return emailRegex.test(email);
+  };
 
   const onConfirmPasswordHandler = (event) => {
     setConfirmPassword(event.currentTarget.value);
+  };
+  const onCheckid = (event) => {
+    console.log(Id);
+    event.preventDefault();
+    console.log(check);
+    let body = {
+      id: Id,
+    };
+    dispatch(check_id(body)).then((response) => {
+      console.log(response);
+      if (response.payload.message != "fail") {
+        alert("중복아이디입니다");
+        setId("");
+      } else {
+        alert("사용가능한 아이디입니다!");
+        setCheck(true);
+        console.log(check);
+      }
+    });
   };
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
     if (Password !== ConfirmPassword) {
-      return alert("비밀번호와 비밀번호 확인 불일치");
+      return alert("비밀번호가 일치하지않습니다.");
+    }
+    if (!check) {
+      return alert("아이디 중복확인을 진행해 주세요");
+    }
+    if (!isEmail(Email)) {
+      setEmail("");
+      return alert("이메일 형식을 지켜주세요");
     }
 
     let body = {
       email: Email,
-      name: Name,
+      id: Id,
       password: Password,
-      confirmpassword: ConfirmPassword,
     };
+    console.log(body);
 
-    dispatch(registerUser(body)).then((response) => {
-      if (response.payload.Success) {
-        props.navigate("/login");
-      } else {
-        alert('회원가입 실패용"');
-      }
-    });
+    dispatch(registerUser(body))
+      .then((response) => {
+        alert("회원가입에 성공했습니다!!");
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.data.statusCode == 403) {
+          alert("이미 가입된 이메일입니다");
+          setEmail("");
+        }
+      });
   };
 
   return (
@@ -169,19 +207,19 @@ function RegisterPage(props) {
                 <TextFieldLogin
                   margin="normal"
                   fullWidth
-                  // value={Email}
-                  // onChange={onEmailHandler}
-                  id="email"
+                  value={Id}
+                  onChange={onIdHandler}
+                  id="id"
                   label="아이디"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  name="id"
+                  type="id"
+                  autoComplete="id"
                   autoFocus
                 />
               </Grid>
               <Grid item>
                 <ButtonCo
-                  onClick={onSubmitHandler}
+                  onClick={onCheckid}
                   fullWidth
                   variant="contained"
                   sx={{
@@ -205,26 +243,24 @@ function RegisterPage(props) {
                 <TextFieldLogin
                   margin="normal"
                   fullWidth
-                  // value={Password}
-                  // onChange={onPasswordHandler}
+                  value={Password}
+                  onChange={onPasswordHandler}
                   id="password"
                   name="password"
                   label="비밀번호"
                   type="password"
-                  autoComplete="current-password"
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextFieldLogin
                   margin="normal"
                   fullWidth
-                  // value={Password}
-                  // onChange={onConfirmPasswordHandler}
+                  value={ConfirmPassword}
+                  onChange={onConfirmPasswordHandler}
                   id="password"
                   name="password"
                   label="비밀번호확인"
                   type="password"
-                  autoComplete="current-password"
                 />
               </Grid>
             </Grid>
@@ -232,13 +268,12 @@ function RegisterPage(props) {
             <TextFieldLogin
               margin="normal"
               fullWidth
-              // value={Password}
-              // onChange={onEmailHandler}
-              id="password"
-              name="password"
+              value={Email}
+              onChange={onEmailHandler}
+              id="email"
+              name="email"
               label="이메일"
-              type="password"
-              autoComplete="current-password"
+              type="email"
             />
             <br></br>
             <ButtonCo

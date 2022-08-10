@@ -16,14 +16,9 @@ import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
 import GameIntroRoom from "./VideoRooms/GameRoom/GameIntroRoom";
 import LiarSelectRoom from "./VideoRooms/LiarSelectRoom/LiarSelectRoom";
-import Grid from "@mui/material/Grid";
-import { alpha, styled } from "@mui/material/styles";
 
-const Grid1 = styled(Grid)({
-  "& .MuiGrid-root": {
-    margin: "auto 10px auto 0px ",
-  },
-});
+import FinalSelectRoom from "./VideoRooms/FinalSelectRoom/FinalSelectRoom";
+import FreeTalkRoom from "./VideoRooms/FreeTalkRoom/FreeTalkRoom";
 
 var localUser = new UserModel();
 const socket = io.connect("http://localhost:4000");
@@ -547,6 +542,26 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
+          ) : this.state.mode === 7 ? (
+            <FreeTalkRoom
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 8 ? (
+            <FinalSelectRoom
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
           ) : null}
           {/* 채팅 없애기 ??? */}
           {localUser !== undefined &&
@@ -571,14 +586,7 @@ class VideoRoomComponent extends Component {
           /> */}
         </div>
 
-        <MusicPlayer
-          style={{
-            position: "absolute",
-            bottom: "0",
-            left: "1%",
-            maxWidth: "30%",
-          }}
-        />
+        <MusicPlayer />
 
         <ReadyButton
           onHandleDisplay={this.onHandleDisplay}
