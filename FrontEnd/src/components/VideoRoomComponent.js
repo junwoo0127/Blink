@@ -56,7 +56,7 @@ class VideoRoomComponent extends Component {
       chatDisplay: "none",
       currentVideoDevice: undefined,
       participantNum: 1,
-      mode: 0,
+      mode: 1,
       display: "block",
     };
 
@@ -598,7 +598,7 @@ class VideoRoomComponent extends Component {
           /> */}
         </div>
 
-        <MusicPlayer />
+        {/* <MusicPlayer /> */}
 
         <ReadyButton
           onHandleDisplay={this.onHandleDisplay}

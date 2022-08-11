@@ -17,7 +17,7 @@ let answerCount = 0;
 let discussCount = 0;
 let gameSetCount = 0;
 let finalCount = 0;
-let quizCount = 1;
+
 // let modalshow = false;
 io.on("connection", (socket) => {
   socket.on("getReady", () => {
@@ -65,8 +65,6 @@ io.on("connection", (socket) => {
     io.sockets.emit("yes", { answerCount: answerCount });
     if (answerCount === num) {
       answerCount = 0;
-      quizCount += 1;
-      io.sockets.emit("quizCount", { quizCount: quizCount });
     }
   });
   socket.on("no", (num) => {
@@ -75,8 +73,6 @@ io.on("connection", (socket) => {
     io.sockets.emit("no", { answerCount: answerCount });
     if (answerCount === num) {
       answerCount = 0;
-      quizCount += 1;
-      io.sockets.emit("quizCount", { quizCount: quizCount });
     }
   });
 

@@ -19,13 +19,11 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
 function Game(props) {
   const dispatch = useDispatch();
-  const { quiz_count } = useSelector((state) => state.quiz_counter);
+  const quiz_count = useSelector((state) => state.quiz_counter.count);
 
-  const increase = () => {
-    dispatch(increaseCount());
-  };
   //variables
 
   const [disabled, setDisabled] = useState(false);
@@ -45,7 +43,8 @@ function Game(props) {
         console.log(quiz_count);
         setQuiz(response.data);
       });
-    increase();
+    dispatch(increaseCount(quiz_count));
+    console.log(quiz_count);
   }, []);
 
   //function
@@ -95,7 +94,7 @@ function Game(props) {
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {/*00번 문제 : 순서가 바뀔때마다 번호도 바꿔줘야함*/}
-            {quizSeq} 번 문제!
+            {quiz_count} 번 문제!
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {/*reponse.data를 갈아끼움*/}
