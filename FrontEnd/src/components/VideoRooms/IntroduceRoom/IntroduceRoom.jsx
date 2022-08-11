@@ -20,7 +20,7 @@ function IntroduceRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id="remoteUsers"
+          id={"remoteUsers" + i}
         >
           <StreamComponent
             user={sub}

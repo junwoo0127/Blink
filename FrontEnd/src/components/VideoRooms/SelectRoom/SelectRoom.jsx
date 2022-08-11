@@ -6,7 +6,7 @@ import SelectStreamComponent from "../../stream/SelectStreamComponent";
 import StreamComponent from "../../stream/StreamComponent";
 function SelectRoom(props) {
   //variables
-  
+
   const localUser = props.localUser;
   const [selected, setSelected] = useState(false);
 
@@ -30,11 +30,10 @@ function SelectRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id="remoteUsers"
+          id={"remoteUsers" + i}
         >
           <SelectStreamComponent
-
-            localUser ={localUser}
+            localUser={localUser}
             participantNum={props.participantNum}
             onSelect={onSelect}
             user={sub}

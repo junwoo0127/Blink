@@ -483,15 +483,20 @@ class VideoRoomComponent extends Component {
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />
-        {/* <MusicPlayer
-          style={{ position: "absolute", top: "10px", left: "10px" }}
-        /> */}
-        <div
-          id="layout"
-          className="bounds"
-          style={{ width: "90%", height: "90%", left: "5%", bottom: "5%" }}
-        >
+
+        {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
+        LiarSelect>>FreeTalk>>FinalSelect */}
+
+        <div id="layout" className="bounds" style={{}}>
           {this.state.mode === 0 ? (
+            <WaitingRoom
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+            ></WaitingRoom>
+          ) : this.state.mode === 1 ? (
             <IntroduceRoom
               localUser={localUser}
               subscribers={this.state.subscribers}
@@ -500,14 +505,6 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 1 ? (
-            <WaitingRoom
-              localUser={localUser}
-              subscribers={this.state.subscribers}
-              chatDisplay={this.state.chatDisplay}
-              close={this.toggleChat}
-              messageReceived={this.checkNotification}
-            ></WaitingRoom>
           ) : this.state.mode === 2 ? (
             <SelectRoom
               participantNum={this.state.participantNum}
@@ -579,7 +576,7 @@ class VideoRoomComponent extends Component {
               setMode={this.setMode}
             />
           ) : null}
-          {/* 채팅 없애기 ??? */}
+          {/* 채팅 없애기 옮기는거 실패 앱솔이여서안됨 그냥 없애거나 디자인바꾸기 */}
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
@@ -603,13 +600,14 @@ class VideoRoomComponent extends Component {
         </div>
 
         {/* <MusicPlayer /> */}
-
-        <ReadyButton
-          onHandleDisplay={this.onHandleDisplay}
-          display={this.state.display}
-          participantNum={this.state.participantNum}
-          setMode={this.setMode}
-        />
+        {this.state.mode === 10 ? (
+          <ReadyButton
+            onHandleDisplay={this.onHandleDisplay}
+            display={this.state.display}
+            participantNum={this.state.participantNum}
+            setMode={this.setMode}
+          />
+        ) : null}
       </div>
     );
   }
