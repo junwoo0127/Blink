@@ -56,7 +56,7 @@ class VideoRoomComponent extends Component {
       chatDisplay: "none",
       currentVideoDevice: undefined,
       participantNum: 1,
-      mode: 0,
+      mode: 1,
       display: "block",
     };
 
@@ -486,11 +486,7 @@ class VideoRoomComponent extends Component {
         {/* <MusicPlayer
           style={{ position: "absolute", top: "10px", left: "10px" }}
         /> */}
-        <div
-          id="layout"
-          className="bounds"
-          style={{ width: "90%", height: "90%", left: "5%", bottom: "5%" }}
-        >
+        <div id="layout" className="bounds" style={{}}>
           {this.state.mode === 0 ? (
             <IntroduceRoom
               localUser={localUser}
