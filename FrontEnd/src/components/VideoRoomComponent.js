@@ -17,8 +17,10 @@ import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
 import GameIntroRoom from "./VideoRooms/GameRoom/GameIntroRoom";
 import LiarSelectRoom from "./VideoRooms/LiarSelectRoom/LiarSelectRoom";
+
 import FinalSelectRoom from "./VideoRooms/FinalSelectRoom/FinalSelectRoom";
 import FreeTalkRoom from "./VideoRooms/FreeTalkRoom/FreeTalkRoom";
+
 var localUser = new UserModel();
 const socket = io.connect("http://localhost:4000");
 class VideoRoomComponent extends Component {
@@ -577,7 +579,7 @@ class VideoRoomComponent extends Component {
               setMode={this.setMode}
             />
           ) : null}
-
+          {/* 채팅 없애기 ??? */}
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
@@ -591,14 +593,23 @@ class VideoRoomComponent extends Component {
                   messageReceived={this.checkNotification}
                 />
               </div>
-            )}
-          <ReadyButton
+            )}{" "}
+          {/* <ReadyButton
             onHandleDisplay={this.onHandleDisplay}
             display={this.state.display}
             participantNum={this.state.participantNum}
             setMode={this.setMode}
-          />
+          /> */}
         </div>
+
+        <MusicPlayer />
+
+        <ReadyButton
+          onHandleDisplay={this.onHandleDisplay}
+          display={this.state.display}
+          participantNum={this.state.participantNum}
+          setMode={this.setMode}
+        />
       </div>
     );
   }
