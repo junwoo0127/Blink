@@ -3,6 +3,28 @@ import React, { useState, useEffect, useRef } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { alpha, styled } from "@mui/material/styles";
+
+const ButtonCo = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#A6095D"),
+  lineHeight: "44px",
+  borderRadius: "30px",
+  fontSize: "22px",
+  padding: "9.5px 16px",
+  // height: 40px;
+  // padding: 0 14px 0 0;
+  position: "absolute",
+  bottom: 0,
+  left: "35%",
+  maxWidth: "30%",
+  // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  backgroundColor: "#A6095D",
+  "&:hover": {
+    // backgroundColor: "#A6095D",
+    background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  },
+}));
 
 const style = {
   position: "absolute",
@@ -42,7 +64,7 @@ function ReadyButton(props) {
     console.log("how many participants", participantNum);
     if (cnt.count === participantNum && count > 1) {
       //비교 값이 참가자 수가 아니라 정해놓은 인원수로 해야함
-      console.log("start")
+      console.log("start");
       setOpen(true);
       props.onHandleDisplay();
     }
@@ -55,10 +77,16 @@ function ReadyButton(props) {
 
   return (
     <>
-      <button onClick={onClick} disabled={disable}>
+      <ButtonCo
+        fullWidth
+        variant="contained"
+        sx={{}}
+        onClick={onClick}
+        disabled={disable}
+      >
         준비완료 : {count}/{props.participantNum}
         {/* 숫자표시관련 생각 */}
-      </button>
+      </ButtonCo>
       <Modal
         open={open}
         aria-labelledby="modal-modal-title"

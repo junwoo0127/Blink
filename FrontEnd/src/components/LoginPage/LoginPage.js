@@ -4,7 +4,6 @@ import { loginUser } from "../../_actions/user_action";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-
 import { alpha, styled } from "@mui/material/styles";
 import logo_ani from "../../assets/logo_ani.gif";
 import MemberPage from "../Common/MemberPage";
@@ -112,23 +111,23 @@ function LoginPage(props) {
     };
 
     dispatch(loginUser(body))
-    .then((response) => {
-      console.log(response.payload.data.accessToken);
-      localStorage.setItem("token", response.payload.data.accessToken);
-      navigate("/");
-    })
-    .catch((error) => {
-      console.log(error);
-      let error_code = error.response.data.message;
-      if (error_code === "Invalid Id") {
-        alert("잘못된 아이디입니다");
-        window.location.replace("/login");
-      } else {
-        alert("이메일 인증을 진행해 주세요!");
-        // window.location.replace("/login");
-      }
-      console.log(error.response.data.message);
-    });
+      .then((response) => {
+        console.log(response.payload.data.accessToken);
+        localStorage.setItem("token", response.payload.data.accessToken);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        let error_code = error.response.data.message;
+        if (error_code === "Invalid Id") {
+          alert("잘못된 아이디입니다");
+          window.location.replace("/login");
+        } else {
+          alert("이메일 인증을 진행해 주세요!");
+          // window.location.replace("/login");
+        }
+        console.log(error.response.data.message);
+      });
   };
 
   return (

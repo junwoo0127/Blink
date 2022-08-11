@@ -68,6 +68,13 @@ const ResponsiveAppBar = () => {
             />
           </Link>
 
+          {/*   참고
+@media only screen and (max-width: 700px) {
+  #titleContent, #navChatButton {
+      display: none;
+  }
+}
+ */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
