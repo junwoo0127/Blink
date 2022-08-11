@@ -586,7 +586,7 @@ class VideoRoomComponent extends Component {
           /> */}
         </div>
 
-        <MusicPlayer />
+        {/* <MusicPlayer /> */}
 
         <ReadyButton
           onHandleDisplay={this.onHandleDisplay}
