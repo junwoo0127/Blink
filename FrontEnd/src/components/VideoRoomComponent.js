@@ -11,6 +11,7 @@ import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
+import IntroduceRoom from "./VideoRooms/IntroduceRoom/IntroduceRoom";
 import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom";
 import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
@@ -53,7 +54,7 @@ class VideoRoomComponent extends Component {
       chatDisplay: "none",
       currentVideoDevice: undefined,
       participantNum: 1,
-      mode: 1,
+      mode: 0,
       display: "block",
     };
 
@@ -488,7 +489,16 @@ class VideoRoomComponent extends Component {
           className="bounds"
           style={{ width: "90%", height: "90%", left: "5%", bottom: "5%" }}
         >
-          {this.state.mode === 1 ? (
+          {this.state.mode === 0 ? (
+            <IntroduceRoom
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 1 ? (
             <WaitingRoom
               localUser={localUser}
               subscribers={this.state.subscribers}

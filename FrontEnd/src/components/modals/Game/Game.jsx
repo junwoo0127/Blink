@@ -4,8 +4,9 @@ import Box from "@mui/material/Box";
 import io from "socket.io-client";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-
-const apiURL = "https://i7a402.p.ssafy.io:8443";
+import { useSelector, useDispatch } from "react-redux";
+import { increaseCount } from "../../../_reducers/quiz_counter";
+const apiURL = "http://localhost:8080";
 const socket = io.connect("http://localhost:4000");
 const style = {
   position: "absolute",
@@ -19,29 +20,35 @@ const style = {
   p: 4,
 };
 function Game(props) {
+  const dispatch = useDispatch();
+  const { quiz_count } = useSelector((state) => state.quiz_counter);
+
+  const increase = () => {
+    dispatch(increaseCount());
+  };
   //variables
-  const [question, setQuestion] = useState("");
+
   const [disabled, setDisabled] = useState(false);
-  const [discussCount, setDiscussCount] = useState(0);
+
   const [answerCount, setAnswerCount] = useState(0);
+  const [quizSeq, setQuizSeq] = useState(0);
+  const [quiz, setQuiz] = useState({});
   //function
-  //   useEffect(() => {
-  //     axios.get(apiURL + `/game/mbti/${seq}`).then((response) => {
-  //       console.log(response.data);
-  //     });
-  //   });
+  useEffect(() => {
+    axios
+      .get(apiURL + "/blink/api/v1/game/mbti", {
+        params: { quizSeq: quiz_count + 1 },
+      })
+      .then((response) => {
+        console.log(response.data);
+
+        console.log(quiz_count);
+        setQuiz(response.data);
+      });
+    increase();
+  }, []);
 
   //function
-
-  // useEffect(() => {
-  //   interval.current = setInterval(() => {
-  //     socket.emit("getAnswerCount", props.participantNum);
-  //   }, 2000);
-  //   return () => clearInterval(interval.current);
-  // }, []);
-  // socket.on("getAnswerCount", (cnt) => {
-  //   setAnswerCount(cnt.answerCount);
-  // });
 
   useEffect(() => {
     if (
@@ -88,17 +95,17 @@ function Game(props) {
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {/*00번 문제 : 순서가 바뀔때마다 번호도 바꿔줘야함*/}
-            문제문제문제
+            {quizSeq} 번 문제!
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {/*reponse.data를 갈아끼움*/}
-            문제문제문제
+            {quiz.question}
           </Typography>
           <button onClick={onYes} disabled={disabled}>
-            예
+            {quiz.answerA}
           </button>
           <button onClick={onNo} disabled={disabled}>
-            아니오
+            {quiz.answerB}
           </button>
         </Box>
       </Modal>
