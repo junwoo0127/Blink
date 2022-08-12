@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../_actions/user_action";
+import { loginUser, makeRoom, enterRoom } from "../../_actions/user_action";
+import { useSelector } from "react-redux";
 
 import { styled } from "@mui/material/styles";
 
@@ -11,7 +12,7 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-
+import { useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -26,7 +27,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 
 import Select from "@mui/material/Select";
-
+import queryString from "query-string";
 // 칸칸 24px
 
 // 검      #141414v
@@ -127,14 +128,118 @@ const FormControl1 = styled(FormControl)({
 
 function Lobby(props) {
   const [mbti, setMbti] = React.useState("");
-  const [fav, setFav] = React.useState("");
+
+  const [subject, setSubject] = React.useState("");
+  const [nickname, setNickname] = React.useState("");
+  const [personnel, setPersonnel] = React.useState("");
+  const [gender, setGender] = React.useState("");
+  const [blood, setBlood] = React.useState("");
+  const [mytype, setMytype] = React.useState("");
+  const [hobby, setHobby] = React.useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isMaster = useSelector((state) => state.user.isParticipate);
+  const token = "Bearer " + localStorage.getItem("token");
+  const qs = queryString.parse(window.location.search);
+  console.log(isMaster);
 
   const mbtiHandle = (event) => {
     setMbti(event.target.value);
   };
 
-  const favHandle = (event) => {
-    setFav(event.target.value);
+  const nicknameHandle = (event) => {
+    setNickname(event.target.value);
+  };
+
+  const subjectHandle = (event) => {
+    setSubject(event.target.value);
+  };
+
+  const personnelHandle = (event) => {
+    console.log(event.target.value);
+    setPersonnel(event.target.value);
+    console.log(personnel);
+  };
+
+  const genderHandle = (event) => {
+    setGender(event.target.value);
+  };
+
+  const bloodHandle = (event) => {
+    setBlood(event.target.value);
+  };
+
+  const mytypeHandle = (event) => {
+    setMytype(event.target.value);
+  };
+
+  const hobbyHandle = (event) => {
+    setHobby(event.target.value);
+  };
+
+  const onSubmitHandler = () => {
+    if (isMaster == true) {
+      if (
+        subject == "" ||
+        nickname == "" ||
+        personnel == "" ||
+        gender == "" ||
+        blood == "" ||
+        mytype == "" ||
+        hobby == ""
+      ) {
+        alert("빈칸을 모두 작성해주세요");
+        return;
+      } else {
+        let body = {
+          room: {
+            url: "",
+            roomSize: 1,
+          },
+          player: {
+            nickname: nickname,
+            gender: gender,
+            mbti: mbti,
+            type: "",
+            hobby: hobby,
+          },
+        };
+        dispatch(makeRoom(body, token)).then((response) => {
+          navigate("/videoroom");
+        });
+      }
+    } else if (isMaster == null) {
+      if (
+        nickname == "" ||
+        gender == "" ||
+        blood == "" ||
+        mytype == "" ||
+        hobby == ""
+      ) {
+        alert("빈칸을 모두 작성해주세요");
+        return;
+      } else {
+        let body = {
+          room: {
+            url: qs.room.split("_")[0],
+          },
+          player: {
+            nickname: nickname,
+            gender: gender,
+            mbti: mbti,
+            type: "",
+            hobby: hobby,
+          },
+        };
+        dispatch(enterRoom(body)).then((response) => {
+          navigate("/videoroom");
+        });
+      }
+    } else {
+      alert("비정상적 접근입니다!");
+      navigate("/home");
+    }
   };
 
   return (
@@ -143,7 +248,7 @@ function Lobby(props) {
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         {/* 방장이면 보임 */}
-        {1 === 1 ? (
+        {isMaster ? (
           <div>
             <Typography align="center" style={{ fontSize: "22px" }}>
               방 정보
@@ -181,13 +286,12 @@ function Lobby(props) {
                     <TextFieldLogin
                       margin="normal"
                       fullWidth
-                      // value={Email}
-                      // onChange={onEmailHandler}
-                      id="email"
-                      label="아이디"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
+                      value={subject}
+                      onChange={subjectHandle}
+                      id="subject"
+                      label="방제를 입력해주세요"
+                      name="subject"
+                      type="text"
                       autoFocus
                       style={{}}
                     />
@@ -215,18 +319,21 @@ function Lobby(props) {
                         name="row-radio-buttons-group"
                       >
                         <FormControlLabel1
-                          value="twopeople"
+                          value="2"
                           control={<Radio />}
                           label="2 : 2"
+                          onChange={personnelHandle}
                         />
                         <FormControlLabel1
-                          value="threepeople"
+                          value="3"
                           control={<Radio />}
+                          onChange={personnelHandle}
                           label="3 : 3"
                         />
                         <FormControlLabel1
-                          value="fourpeople"
+                          value="4"
                           control={<Radio />}
+                          onChange={personnelHandle}
                           label="4 : 4"
                         />
                       </RadioGroup>
@@ -283,9 +390,9 @@ function Lobby(props) {
                   <TextFieldLogin
                     margin="normal"
                     fullWidth
-                    // value={Email}
-                    // onChange={onEmailHandler}
-                    id="email"
+                    value={nickname}
+                    onChange={nicknameHandle}
+                    id="ni"
                     label="닉네임을 입력해주세요 (10글자 이하)"
                     name="email"
                     type="email"
@@ -317,13 +424,15 @@ function Lobby(props) {
                       name="row-radio-buttons-group"
                     >
                       <FormControlLabel1
-                        value="boy"
+                        value="M"
                         control={<Radio />}
+                        onChange={genderHandle}
                         label="남"
                       />
                       <FormControlLabel1
-                        value="girl"
+                        value="F"
                         control={<Radio />}
+                        onChange={genderHandle}
                         label="여"
                       />
                     </RadioGroup>
@@ -352,26 +461,30 @@ function Lobby(props) {
                       name="row-radio-buttons-group"
                     >
                       <FormControlLabel1
-                        value="aplus"
+                        value="a"
                         control={<Radio />}
+                        onChange={bloodHandle}
                         label="A"
                       />
                       <FormControlLabel1
-                        value="bplus"
+                        value="b"
                         control={<Radio />}
                         label="B"
+                        onChange={bloodHandle}
                         style={{ margin: " 0px 16px 0px -4px " }}
                       />{" "}
                       <FormControlLabel1
-                        value="oplus"
+                        value="o"
                         control={<Radio />}
                         label="O"
+                        onChange={bloodHandle}
                         style={{ margin: " 0px 16px 0px -4px " }}
                       />{" "}
                       <FormControlLabel1
-                        value="abplus"
+                        value="ab"
                         control={<Radio />}
                         label="AB"
+                        onChange={bloodHandle}
                         style={{ margin: " 0px 16px 0px -4px " }}
                       />
                     </RadioGroup>
@@ -401,22 +514,22 @@ function Lobby(props) {
                       <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
-                      <MenuItem value={1}>ENFJ</MenuItem>
-                      <MenuItem value={2}>ENTJ</MenuItem>
-                      <MenuItem value={3}>ENFP</MenuItem>
-                      <MenuItem value={4}>ENTP</MenuItem>
-                      <MenuItem value={5}>ESFP</MenuItem>
-                      <MenuItem value={6}>ESFJ</MenuItem>
-                      <MenuItem value={7}>ESTP</MenuItem>
-                      <MenuItem value={8}>ESTJ</MenuItem>
-                      <MenuItem value={9}>INFP</MenuItem>
-                      <MenuItem value={10}>INFJ</MenuItem>
-                      <MenuItem value={11}>INTP</MenuItem>
-                      <MenuItem value={12}>ISTP</MenuItem>
-                      <MenuItem value={13}>ISFP</MenuItem>
-                      <MenuItem value={14}>ISFJ</MenuItem>
-                      <MenuItem value={15}>ISTJ</MenuItem>
-                      <MenuItem value={16}>INTJ</MenuItem>
+                      <MenuItem value="ENFJ">ENFJ</MenuItem>
+                      <MenuItem value="ENTJ">ENTJ</MenuItem>
+                      <MenuItem value="ENFP">ENFP</MenuItem>
+                      <MenuItem value="ENTP">ENTP</MenuItem>
+                      <MenuItem value="ESFP">ESFP</MenuItem>
+                      <MenuItem value="ESFJ">ESFJ</MenuItem>
+                      <MenuItem value="ESTP">ESTP</MenuItem>
+                      <MenuItem value="ESTJ">ESTJ</MenuItem>
+                      <MenuItem value="INFP">INFP</MenuItem>
+                      <MenuItem value="INFJ">INFJ</MenuItem>
+                      <MenuItem value="INTP">INTP</MenuItem>
+                      <MenuItem value="ISTP">ISTP</MenuItem>
+                      <MenuItem value="ISFP">ISFP</MenuItem>
+                      <MenuItem value="ISFJ">ISFJ</MenuItem>
+                      <MenuItem value="ISTJ">ISTJ</MenuItem>
+                      <MenuItem value="INTJ">INTJ</MenuItem>
                     </Select>
                     {/* <FormHelperText>With label + helper text</FormHelperText> */}
                   </FormControl1>
@@ -431,9 +544,9 @@ function Lobby(props) {
                     <Select
                       labelId="demo-simple-select-helper-label"
                       id="demo-simple-select-helper"
-                      value={fav}
+                      value={mytype}
                       label="이상형"
-                      onChange={favHandle}
+                      onChange={mytypeHandle}
                       style={{ padding: "0px 30px" }}
                     >
                       <MenuItem value="">
@@ -462,8 +575,8 @@ function Lobby(props) {
                   <TextFieldLogin
                     margin="normal"
                     fullWidth
-                    // value={Email}
-                    // onChange={onEmailHandler}
+                    value={hobby}
+                    onChange={hobbyHandle}
                     id="email"
                     label="간단하게 취미를 입력해주세요 (이하)"
                     name="email"
@@ -483,6 +596,7 @@ function Lobby(props) {
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 3 }}
+          onClick={onSubmitHandler}
         >
           {/* 로그인 무관  링크만들 방장  or 링크로 접속한 참가자  */}
           {1 === 1 ? <b> 방 생성 </b> : <b>참가 </b>}

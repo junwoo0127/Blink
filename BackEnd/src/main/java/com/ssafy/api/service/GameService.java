@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.PlayerEnterPostReq;
 import com.ssafy.db.entity.Player;
 import com.ssafy.db.entity.Quiz;
 
@@ -15,4 +16,5 @@ public interface GameService {
 	Player scoreUpdate(Long playerSeq, Long liarSeq);
 	
 	Player getTopRank(Long roomSeq);
+	Player initPlayer(PlayerEnterPostReq playerpost);
 }

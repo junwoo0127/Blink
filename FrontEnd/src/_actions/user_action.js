@@ -5,6 +5,9 @@ import {
   AUTH_USER,
   GET_USER,
   CHECK_ID,
+  GET_SESSION,
+  PARTICIPATE,
+  MAKEROOM,
 } from "./types";
 const apiurl = "http://localhost:8080/blink";
 export function loginUser(dataToSubmit) {
@@ -14,6 +17,32 @@ export function loginUser(dataToSubmit) {
 
   return {
     type: LOGIN_USER,
+    payload: request,
+  };
+}
+
+export function makeRoom(dataToSubmit, token) {
+  const request = axios
+    .post(apiurl + "/api/v1/rooms/", dataToSubmit, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => response);
+
+  return {
+    type: MAKEROOM,
+    payload: request,
+  };
+}
+
+export function enterRoom(dataToSubmit) {
+  const request = axios
+    .post(apiurl + "/api/v1/rooms/enter", dataToSubmit)
+    .then((response) => response);
+
+  return {
+    type: MAKEROOM,
     payload: request,
   };
 }
@@ -54,6 +83,12 @@ export function check_id(dataToSubmit) {
   };
 }
 
+export function get_session() {
+  return {
+    type: GET_SESSION,
+  };
+}
+
 export function getUser(dataToSubmit) {
   const request = axios
     .get("http://localhost:8080/blink/api/v1/users/me", {
@@ -66,5 +101,12 @@ export function getUser(dataToSubmit) {
   return {
     type: GET_USER,
     payload: request,
+  };
+}
+
+export function isParticipate(dataToSubmit) {
+  return {
+    type: PARTICIPATE,
+    payload: dataToSubmit,
   };
 }
