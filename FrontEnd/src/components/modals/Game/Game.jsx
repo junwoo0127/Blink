@@ -18,14 +18,13 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  borderRadius: "10px",
 };
+
 function Game(props) {
   const dispatch = useDispatch();
-  const { quiz_count } = useSelector((state) => state.quiz_counter);
+  const quiz_count = useSelector((state) => state.quiz_counter.count);
 
-  const increase = () => {
-    dispatch(increaseCount());
-  };
   //variables
 
   const [disabled, setDisabled] = useState(false);
@@ -45,7 +44,8 @@ function Game(props) {
         console.log(quiz_count);
         setQuiz(response.data);
       });
-    increase();
+    dispatch(increaseCount(quiz_count));
+    console.log(quiz_count);
   }, []);
 
   //function
@@ -93,20 +93,29 @@ function Game(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {/*00번 문제 : 순서가 바뀔때마다 번호도 바꿔줘야함*/}
-            {quizSeq} 번 문제!
+          <Typography
+            style={{ textAlign: "center" }}
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+          >
+            {quiz_count} 번 문제!
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {/*reponse.data를 갈아끼움*/}
+          <Typography
+            style={{ textAlign: "center" }}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
             {quiz.question}
           </Typography>
-          <button onClick={onYes} disabled={disabled}>
-            {quiz.answerA}
-          </button>
-          <button onClick={onNo} disabled={disabled}>
-            {quiz.answerB}
-          </button>
+          <div style={{ textAlign: "center" }}>
+            <button onClick={onYes} disabled={disabled}>
+              {quiz.answerA}
+            </button>
+            <button onClick={onNo} disabled={disabled}>
+              {quiz.answerB}
+            </button>
+          </div>
         </Box>
       </Modal>
     </div>

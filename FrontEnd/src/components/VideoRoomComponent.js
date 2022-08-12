@@ -57,7 +57,7 @@ class VideoRoomComponent extends Component {
       chatDisplay: "none",
       currentVideoDevice: undefined,
       participantNum: 1,
-      mode: 0,
+      mode: 1,
       display: "block",
     };
 
