@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.api.request.PlayerEnterPostReq;
 import com.ssafy.db.entity.Player;
 import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.repository.PlayerRepository;
@@ -119,6 +120,14 @@ public class GameServiceImpl implements GameService {
 			}
 		}
 		return playerRepository.findByPlayerSeq(playerSeq);
+	}
+
+	@Override
+	public Player initPlayer(PlayerEnterPostReq playerpost) {
+		Player player = Player.builder().nickname(playerpost.getNickname()).gender(playerpost.getGender()).mbti(playerpost.getMbti())
+				.type(playerpost.getType()).hobby(playerpost.getHobby()).build();
+		
+		return player;
 	}
 
 }

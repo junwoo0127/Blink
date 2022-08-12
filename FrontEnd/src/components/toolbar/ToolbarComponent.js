@@ -48,6 +48,11 @@ export default class ToolbarComponent extends Component {
   render() {
     const mySessionId = this.props.sessionId;
     const localUser = this.props.user;
+    const url = "http://localhost:3000/";
+    const shareLink = (e) => {
+      console.log();
+      navigator.clipboard.writeText(url + "lobby?room=" + mySessionId);
+    };
     return (
       <AppBar className="toolbar" id="header">
         <Toolbar className="toolbar">
@@ -83,6 +88,10 @@ export default class ToolbarComponent extends Component {
               </span>
             </div>
           </form>
+
+          <button onClick={shareLink} title="URL복사"></button>
+
+
 
           <div className="buttonsContent">
             <IconButton

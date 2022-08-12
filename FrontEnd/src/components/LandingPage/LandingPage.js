@@ -1,14 +1,14 @@
-import React, { useEffect , useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import { alpha, styled } from "@mui/material/styles";
 import logo_ani from "../../assets/logo_ani.gif";
 import MemberPage from "../Common/MemberPage";
 import Footer from "../Common/Footer";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../_actions/user_action";
-
+import { isParticipate } from "../../_actions/user_action";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -17,8 +17,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
-
 
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#A6095D"),
@@ -72,32 +70,35 @@ const TextFieldLogin = styled(TextField)({
 });
 
 function LandingPage(props) {
-  
   const token = localStorage.getItem("token");
   const [info, setinfo] = useState("");
   const [link, setlink] = useState("");
+  const [idlink, setIdlink] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onclickGologin = () => {
-    navigate("/login")
+    navigate("/login");
   };
   const onLinkHandler = (event) => {
     setlink(event.currentTarget.value);
   };
   const onclickin = () => {
-    console.log("방참가")
+    navigate("/lobby");
   };
-  const onclickMakeRoom= () => {
-    console.log("방생성")
+  const onclickMakeRoom = () => {
+    console.log(idlink);
+    dispatch(isParticipate(true));
+    navigate("/lobby");
   };
   console.log(token);
+  console.log(token == null);
+
   if (token != null) {
     let token_me = "Bearer " + token;
     dispatch(getUser(token_me)).then((response) => {
-      console.log(response.payload.data.userId);
       setinfo(response.payload.data.userId);
-      console.log(info);
+      setIdlink(response.payload.data.userId);
     });
   }
 
@@ -165,10 +166,7 @@ function LandingPage(props) {
             />
           </div>
 
-          <form
-            style={{ display: "flex", flexDirection: "column" }}
-           
-          >
+          <form style={{ display: "flex", flexDirection: "column" }}>
             {/* 로그인 x : 로그인 o 상태 */}
             {info === "" ? (
               <div>
@@ -192,7 +190,7 @@ function LandingPage(props) {
                   />
 
                   <ButtonCo
-                    onClick={onClickHandler}
+                    onClick={onclickin}
                     fullWidth
                     variant="contained"
                     sx={{ mt: 2, mb: 3 }}
@@ -206,15 +204,13 @@ function LandingPage(props) {
                       underline="hover"
                       variant="h6"
                       color="inherit"
-                    
                     >
                       방을 만들고 싶으세요? <b>로그인하기</b>
                     </Link>
                   </Typography>
-                  
                 </Box>
               </div>
-            ) :(
+            ) : (
               // 이메일 인증완료
               <div>
                 {" "}
@@ -254,12 +250,17 @@ function LandingPage(props) {
                   <b>방 생성하기</b>
                 </ButtonCo>
                 <Typography align="center">
-                  <Link onClick={onClickHandler} underline="hover" variant="h6" color="inherit">
+                  <Link
+                    onClick={onClickHandler}
+                    underline="hover"
+                    variant="h6"
+                    color="inherit"
+                  >
                     로그아웃
                   </Link>
                 </Typography>
               </div>
-            ) }
+            )}
           </form>
         </Box>
       </Container>

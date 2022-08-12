@@ -122,9 +122,11 @@ function LoginPage(props) {
         if (error_code === "Invalid Id") {
           alert("잘못된 아이디입니다");
           window.location.replace("/login");
-        } else {
-          alert("이메일 인증을 진행해 주세요!");
+        } else if (error_code === "Invalid Password") {
+          alert("비밀번호가 틀립니다");
           // window.location.replace("/login");
+        } else {
+          alert("이메일 인증을 진행해 주세요");
         }
         console.log(error.response.data.message);
       });
