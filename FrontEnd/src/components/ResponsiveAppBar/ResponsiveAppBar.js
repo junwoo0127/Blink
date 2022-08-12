@@ -12,9 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-
 import styled from "styled-components";
-
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 
@@ -68,6 +66,13 @@ const ResponsiveAppBar = () => {
             />
           </Link>
 
+          {/*   참고
+@media only screen and (max-width: 700px) {
+  #titleContent, #navChatButton {
+      display: none;
+  }
+}
+ */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"

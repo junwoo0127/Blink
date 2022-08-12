@@ -15,48 +15,30 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const backdrop = {
-  visible: {
-    opacity: 1,
-  },
-  hidden: { opacity: 0 },
-};
 
-const modal = {
-  hidden: {
-    y: "-100vh",
-    opacity: 0,
-  },
-  visible: {
-    y: "200px",
-    opacity: 1,
-    transition: { delay: 0.5 },
-  },
-};
-export default function GameSet(props) {
+export default function DiscussStart() {
   //variables
 
+  const [open, setOpen] = useState(true);
+
   //function
-  if (props.open === true) {
-    console.log("modalopened");
-    setTimeout(() => {
-      props.handleClose();
-      props.mode(7);
-    }, 5000);
-  }
+  setTimeout(() => {
+    setOpen(false);
+  }, 4000);
+
   return (
     <div>
       <Modal
-        open={props.open}
+        open={open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            결과
+            대화시간입니다.!
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            결과
+            00분간 대화를 하며 마지막으로 서로를 알아가세요!
           </Typography>
         </Box>
       </Modal>

@@ -12,17 +12,15 @@ export default function SendButton(props) {
     props.onClose();
     socket.emit("gameSet");
   };
-  const onClose = () => {
-    setOpen(false);
-  };
+
   socket.on("gameSet", (cnt) => {
     if (cnt.gameSetCount === props.participantNum) {
-      setOpen(true);
+      props.handleOpen();
     }
   });
 
   return (
-    <Stack direction="row" spacing={2}>
+    <>
       <Button
         onClick={onClick}
         disabled={props.disabled}
@@ -31,7 +29,6 @@ export default function SendButton(props) {
       >
         Send
       </Button>
-      <GameSet open={open} onClose={onClose} />
-    </Stack>
+    </>
   );
 }
