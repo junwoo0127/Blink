@@ -15,7 +15,24 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+const backdrop = {
+  visible: {
+    opacity: 1,
+  },
+  hidden: { opacity: 0 },
+};
 
+const modal = {
+  hidden: {
+    y: "-100vh",
+    opacity: 0,
+  },
+  visible: {
+    y: "200px",
+    opacity: 1,
+    transition: { delay: 0.5 },
+  },
+};
 export default function GameSet(props) {
   //variables
 

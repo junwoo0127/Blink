@@ -3,12 +3,12 @@ import React from "react";
 import "./IntroduceRoom.css";
 
 import StreamComponent from "../../stream/StreamComponent";
-
+import IntroduceTimer from "../../Common/timer/IntroduceTimer";
 function IntroduceRoom(props) {
   const localUser = props.localUser;
-  setTimeout(() => {
-    props.setMode(1);
-  }, 30000);
+  const setMode = (num) => {
+    props.setMode(num);
+  };
   return (
     <>
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
@@ -28,6 +28,7 @@ function IntroduceRoom(props) {
           />
         </div>
       ))}
+      <IntroduceTimer min={1} setMode={setMode} />
     </>
   );
 }
