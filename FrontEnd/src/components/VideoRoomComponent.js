@@ -9,7 +9,7 @@ import GameRoom from "./VideoRooms/GameRoom/GameRoom";
 import ReadyButton from "./Buttons/ReadyButton";
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
-import ToolbarComponent from "./toolbar/ToolbarComponent";
+import ToolbarComponent from "./toolbar/ToolbarComponent2";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
 import IntroduceRoom from "./VideoRooms/IntroduceRoom/IntroduceRoom";
 import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom";
@@ -17,7 +17,8 @@ import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
 import GameIntroRoom from "./VideoRooms/GameRoom/GameIntroRoom";
 import LiarSelectRoom from "./VideoRooms/LiarSelectRoom/LiarSelectRoom";
-
+import SpeedDialBottom from "./Common/SpeedDialBottom";
+import SpeedDialTop from "./Common/SpeedDialTop";
 import FinalSelectRoom from "./VideoRooms/FinalSelectRoom/FinalSelectRoom";
 import FreeTalkRoom from "./VideoRooms/FreeTalkRoom/FreeTalkRoom";
 
@@ -483,12 +484,10 @@ class VideoRoomComponent extends Component {
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />
-
         {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
         LiarSelect>>FreeTalk>>FinalSelect */}
-
         <div id="layout" className="bounds" style={{}}>
-          {this.state.mode === 0 ? (
+          {this.state.mode === 1 ? (
             <WaitingRoom
               localUser={localUser}
               subscribers={this.state.subscribers}
@@ -496,7 +495,7 @@ class VideoRoomComponent extends Component {
               close={this.toggleChat}
               messageReceived={this.checkNotification}
             ></WaitingRoom>
-          ) : this.state.mode === 1 ? (
+          ) : this.state.mode === 0 ? (
             <IntroduceRoom
               localUser={localUser}
               subscribers={this.state.subscribers}
@@ -598,8 +597,18 @@ class VideoRoomComponent extends Component {
             setMode={this.setMode}
           /> */}
         </div>
-
-        {/* <MusicPlayer /> */}
+        {/* <MusicPlayer /> */}{" "}
+        <SpeedDialTop
+          sessionId={mySessionId}
+          showNotification={this.state.messageReceived}
+          toggleChat={this.toggleChat}
+        />
+        <SpeedDialBottom
+          user={localUser}
+          camStatusChanged={this.camStatusChanged}
+          micStatusChanged={this.micStatusChanged}
+          leaveSession={this.leaveSession}
+        />
         {this.state.mode === 10 ? (
           <ReadyButton
             onHandleDisplay={this.onHandleDisplay}
