@@ -18,6 +18,7 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  borderRadius: "10px",
 };
 
 function Game(props) {
@@ -92,20 +93,29 @@ function Game(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {/*00번 문제 : 순서가 바뀔때마다 번호도 바꿔줘야함*/}
+          <Typography
+            style={{ textAlign: "center" }}
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+          >
             {quiz_count} 번 문제!
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {/*reponse.data를 갈아끼움*/}
+          <Typography
+            style={{ textAlign: "center" }}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
             {quiz.question}
           </Typography>
-          <button onClick={onYes} disabled={disabled}>
-            {quiz.answerA}
-          </button>
-          <button onClick={onNo} disabled={disabled}>
-            {quiz.answerB}
-          </button>
+          <div style={{ textAlign: "center" }}>
+            <button onClick={onYes} disabled={disabled}>
+              {quiz.answerA}
+            </button>
+            <button onClick={onNo} disabled={disabled}>
+              {quiz.answerB}
+            </button>
+          </div>
         </Box>
       </Modal>
     </div>
