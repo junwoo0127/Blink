@@ -9,7 +9,7 @@ import GameRoom from "./VideoRooms/GameRoom/GameRoom";
 import ReadyButton from "./Buttons/ReadyButton";
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
-import ToolbarComponent from "./toolbar/ToolbarComponent";
+import ToolbarComponent from "./toolbar/ToolbarComponent2";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
 import IntroduceRoom from "./VideoRooms/IntroduceRoom/IntroduceRoom";
 import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom";
@@ -17,7 +17,8 @@ import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
 import GameIntroRoom from "./VideoRooms/GameRoom/GameIntroRoom";
 import LiarSelectRoom from "./VideoRooms/LiarSelectRoom/LiarSelectRoom";
-
+import SpeedDialBottom from "./Common/SpeedDialBottom";
+import SpeedDialTop from "./Common/SpeedDialTop";
 import FinalSelectRoom from "./VideoRooms/FinalSelectRoom/FinalSelectRoom";
 import FreeTalkRoom from "./VideoRooms/FreeTalkRoom/FreeTalkRoom";
 
@@ -483,11 +484,18 @@ class VideoRoomComponent extends Component {
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />
-        {/* <MusicPlayer
-          style={{ position: "absolute", top: "10px", left: "10px" }}
-        /> */}
+        {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
+        LiarSelect>>FreeTalk>>FinalSelect */}
         <div id="layout" className="bounds" style={{}}>
           {this.state.mode === 0 ? (
+            <WaitingRoom
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+            ></WaitingRoom>
+          ) : this.state.mode === 1 ? (
             <IntroduceRoom
               localUser={localUser}
               subscribers={this.state.subscribers}
@@ -496,14 +504,6 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 1 ? (
-            <WaitingRoom
-              localUser={localUser}
-              subscribers={this.state.subscribers}
-              chatDisplay={this.state.chatDisplay}
-              close={this.toggleChat}
-              messageReceived={this.checkNotification}
-            ></WaitingRoom>
           ) : this.state.mode === 2 ? (
             <SelectRoom
               participantNum={this.state.participantNum}
@@ -575,7 +575,7 @@ class VideoRoomComponent extends Component {
               setMode={this.setMode}
             />
           ) : null}
-          {/* 채팅 없애기 ??? */}
+          {/* 채팅 없애기 옮기는거 실패 앱솔이여서안됨 그냥 없애거나 디자인바꾸기 */}
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
@@ -597,15 +597,26 @@ class VideoRoomComponent extends Component {
             setMode={this.setMode}
           /> */}
         </div>
-
-        {/* <MusicPlayer /> */}
-
-        <ReadyButton
-          onHandleDisplay={this.onHandleDisplay}
-          display={this.state.display}
-          participantNum={this.state.participantNum}
-          setMode={this.setMode}
+        {/* <MusicPlayer /> */}{" "}
+        <SpeedDialTop
+          sessionId={mySessionId}
+          showNotification={this.state.messageReceived}
+          toggleChat={this.toggleChat}
         />
+        <SpeedDialBottom
+          user={localUser}
+          camStatusChanged={this.camStatusChanged}
+          micStatusChanged={this.micStatusChanged}
+          leaveSession={this.leaveSession}
+        />
+        {this.state.mode === 0 ? (
+          <ReadyButton
+            onHandleDisplay={this.onHandleDisplay}
+            display={this.state.display}
+            participantNum={this.state.participantNum}
+            setMode={this.setMode}
+          />
+        ) : null}
       </div>
     );
   }

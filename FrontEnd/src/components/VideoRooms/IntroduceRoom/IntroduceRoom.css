@@ -888,3 +888,50 @@
   height: 100%;
   margin-top: 40px;
 }
+
+#localUser1 {
+  top: 5% !important;
+  /* left: 13vw !important;  */
+  width: 60% !important;
+  height: 90% !important;
+}
+
+#remoteUsers10 {
+  top: 1% !important;
+  left: 78% !important;
+  width: 22% !important;
+  height: 33% !important;
+}
+#remoteUsers11 {
+  top: 16% !important;
+  left: 58% !important;
+  width: 22% !important;
+  height: 33% !important;
+}
+#remoteUsers12 {
+  top: 33.5% !important;
+  left: 78% !important;
+  width: 22% !important;
+  height: 33% !important;
+}
+#remoteUsers13 {
+  top: 51% !important;
+  left: 58% !important;
+  width: 22% !important;
+  height: 33% !important;
+}
+#remoteUsers14 {
+  top: 66% !important;
+  left: 78% !important;
+  width: 22% !important;
+  height: 33% !important;
+}
+
+/* #remoteUsers15 {
+  top: 30vw !important;
+  left: 33vw !important;
+}
+#remoteUsers16 {
+  top: 2vw !important;
+  left: 13vw !important; 
+} */

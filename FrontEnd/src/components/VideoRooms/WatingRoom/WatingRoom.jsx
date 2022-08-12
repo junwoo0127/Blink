@@ -11,7 +11,7 @@ function WaitingRoom(props) {
     <>
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         // 나
-        <div className="OT_root OT_publisher custom-class" id="localUser">
+        <div className="OT_root OT_publisher custom-class" id="localUser0">
           <StreamComponent user={localUser} />
         </div>
       )}
@@ -20,7 +20,7 @@ function WaitingRoom(props) {
           key={i}
           //  나빼고 들어오는유저
           className="OT_root OT_publisher custom-class"
-          id={"remoteUsers" + i}
+          id={"remoteUsers0" + i}
         >
           <StreamComponent
             user={sub}

@@ -12,7 +12,7 @@ function IntroduceRoom(props) {
   return (
     <>
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        <div className="OT_root OT_publisher custom-class" id="localUser">
+        <div className="OT_root OT_publisher custom-class" id="localUser1">
           <StreamComponent user={localUser} />
         </div>
       )}
@@ -20,7 +20,7 @@ function IntroduceRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id="remoteUsers"
+          id={"remoteUsers1" + i}
         >
           <StreamComponent
             user={sub}
