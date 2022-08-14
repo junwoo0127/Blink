@@ -244,7 +244,7 @@ class VideoRoomComponent extends Component {
       audioSource: undefined,
       videoSource: undefined,
       //videoSource: videoDevices[0].deviceId,
-      publishAudio: localUser.isAudioActive(),
+      publishAudio: !localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
       resolution: "640x480",
       frameRate: 30,
@@ -490,22 +490,10 @@ class VideoRoomComponent extends Component {
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />
-<<<<<<< FrontEnd/src/components/VideoRoomComponent.js
-        {/* <MusicPlayer
-          style={{ position: "absolute", top: "10px", left: "10px" }}
-        /> */}
-        <div
-          id="layout"
-          className="bounds"
-          style={{ width: "90%", height: "90%", left: "5%", bottom: "5%" }}
-        >
-          {this.state.mode === 1 ? (
-=======
         {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
         LiarSelect>>FreeTalk>>FinalSelect */}
         <div id="layout" className="bounds" style={{}}>
           {this.state.mode === 0 ? (
->>>>>>> FrontEnd/src/components/VideoRoomComponent.js
             <WaitingRoom
               localUser={localUser}
               subscribers={this.state.subscribers}

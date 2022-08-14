@@ -127,15 +127,15 @@ const FormControl1 = styled(FormControl)({
 });
 
 function Lobby(props) {
-  const [mbti, setMbti] = React.useState("");
+  const [mbti, setMbti] = useState("");
 
-  const [subject, setSubject] = React.useState("");
-  const [nickname, setNickname] = React.useState("");
-  const [personnel, setPersonnel] = React.useState("");
-  const [gender, setGender] = React.useState("");
-  const [blood, setBlood] = React.useState("");
-  const [mytype, setMytype] = React.useState("");
-  const [hobby, setHobby] = React.useState("");
+  const [subject, setSubject] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [personnel, setPersonnel] = useState("");
+  const [gender, setGender] = useState("");
+  const [blood, setBlood] = useState("");
+  const [mytype, setMytype] = useState("");
+  const [hobby, setHobby] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -179,7 +179,7 @@ function Lobby(props) {
   };
 
   const onSubmitHandler = () => {
-    if (isMaster == true) {
+    if (isMaster) {
       if (
         subject == "" ||
         nickname == "" ||
@@ -209,7 +209,7 @@ function Lobby(props) {
           navigate("/videoroom");
         });
       }
-    } else if (isMaster == null) {
+    } else if (!isMaster) {
       if (
         nickname == "" ||
         gender == "" ||
@@ -599,7 +599,7 @@ function Lobby(props) {
           onClick={onSubmitHandler}
         >
           {/* 로그인 무관  링크만들 방장  or 링크로 접속한 참가자  */}
-          {1 === 1 ? <b> 방 생성 </b> : <b>참가 </b>}
+          {isMaster ? <b> 방 생성 </b> : <b>참가 </b>}
         </ButtonCo>
         {/* <Typography align="center">
           <Link href="#" underline="hover" variant="h6" color="inherit">
