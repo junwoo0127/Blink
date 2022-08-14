@@ -24,10 +24,12 @@ public class RoomPlayerRes {
 	Long PlayerSeq;
 	@ApiModelProperty(name="answerB")
 	String URL;
+	@ApiModelProperty(name="answerB")
+	String Nickname;
 	
 	public static RoomPlayerRes of(Player player , Room room) {
-		RoomPlayerRes res = RoomPlayerRes.builder().Roomseq(room.getRoomSeq()).URL(room.getUrl()).
-				PlayerSeq(player.getPlayerSeq()).build();
+		RoomPlayerRes res = RoomPlayerRes.builder().Roomseq(room.getRoomSeq()).URL(room.getUrl()).Nickname(player.getNickname())
+				.PlayerSeq(player.getPlayerSeq()).build();
 		return res;
 	}
 

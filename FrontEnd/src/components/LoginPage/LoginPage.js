@@ -103,7 +103,6 @@ function LoginPage(props) {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    console.log("발싸ㅣ");
 
     let body = {
       id: Email,

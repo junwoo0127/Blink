@@ -49,8 +49,9 @@ class VideoRoomComponent extends Component {
     this.layout = new OpenViduLayout();
     let sessionName = this.props.store.user.Room.url;
     console.log(window.location.hash);
+    console.log(this.props.store.user.Room);
 
-    let userName = this.props.store.user.Room.playerSeq;
+    let userName = this.props.store.user.Room.nickname;
     this.remotes = [];
     this.localUserAccessAllowed = false;
 
