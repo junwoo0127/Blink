@@ -43,35 +43,31 @@
 }
 
 .bounds {
-  /*  */
-  border: 1px solid red;
-  background-color: transparent !important;
-  /* background-color: #494949; */
+  background-color: #494949;
   overflow: hidden;
   position: absolute;
-  margin: 1% 1% 1%;
   left: 0;
   right: 0;
   top: 40px;
-  bottom: 40px !important;
+  bottom: 0;
   height: inherit;
   min-width: 400px !important;
   width: inherit;
 }
 
 /*!
-   * Copyright (c) 2017 TokBox, Inc.
-   * Released under the MIT license
-   * http://opensource.org/licenses/MIT
-   */
+     * Copyright (c) 2017 TokBox, Inc.
+     * Released under the MIT license
+     * http://opensource.org/licenses/MIT
+     */
 
 .custom-class {
   min-height: 0px !important;
 }
 
 /**
-   * OT Base styles
-   */
+     * OT Base styles
+     */
 
 /* Root OT object, this is where our CSS reset happens */
 .OT_root,
@@ -523,11 +519,11 @@
 }
 
 /**
-   * Styles for display modes
-   *
-   * Note: It's important that these completely control the display and opacity
-   * attributes, no other selectors should atempt to change them.
-   */
+     * Styles for display modes
+     *
+     * Note: It's important that these completely control the display and opacity
+     * attributes, no other selectors should atempt to change them.
+     */
 
 /* Default display mode transitions for various chrome elements */
 .OT_publisher .OT_edge-bar-item,
@@ -892,38 +888,3 @@
   height: 100%;
   margin-top: 40px;
 }
-
-/*  */
-/*
-#localUser0 {
-  top: 2vw !important;
-  left: 13vw !important;
-}
-#remoteUsers00 {
-  top: 22vw !important;
-  left: 0vw !important;
-}
-#remoteUsers01 {
-  top: 2vw !important;
-  left: 57vw !important;
-}
-#remoteUsers02 {
-  top: 22vw !important;
-  left: 48vw !important;
-}
-#remoteUsers03 {
-  top: 22vw !important;
-  left: 3vw !important;
-}
-#remoteUsers04 {
-  top: 22vw !important;
-  left: 67vw !important;
-} 
-#remoteUsers05 {
-  top: 30vw !important;
-  left: 33vw !important;
-}
-#remoteUsers06 {
-  top: 2vw !important;
-  left: 13vw !important;
-} */

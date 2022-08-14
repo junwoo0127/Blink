@@ -1,32 +1,25 @@
 import React, { useState } from "react";
 
-import "./SelectRoom.css";
+import "./FinalSelectRoom.css";
 
-import SelectStreamComponent from "../../stream/SelectStreamComponent";
+import FinalSelectStream from "../../stream/FinalSelectStream";
 import StreamComponent from "../../stream/StreamComponent";
-import FirstSelect from "../../modals/FirstSelect/FirstSelect";
-
 function SelectRoom(props) {
   //variables
 
   const localUser = props.localUser;
   const [selected, setSelected] = useState(false);
-  const [open, setOpen] = useState(true);
+
   //function
   const onSelect = () => {
     setSelected(true);
-    console.log("hi");
   };
   const setMode = (mode) => {
     props.setMode(mode);
     console.log("modeChanged", mode);
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <>
-      <FirstSelect open={open} handleClose={handleClose} />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser">
           <StreamComponent user={localUser} />
@@ -36,9 +29,9 @@ function SelectRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id={"remoteUsers" + i}
+          id="remoteUsers"
         >
-          <SelectStreamComponent
+          <FinalSelectStream
             localUser={localUser}
             participantNum={props.participantNum}
             onSelect={onSelect}

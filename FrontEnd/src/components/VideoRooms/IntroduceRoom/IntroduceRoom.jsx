@@ -1,26 +1,26 @@
 import React from "react";
 
-import "./WaitingRoom.css";
+import "./IntroduceRoom.css";
 
 import StreamComponent from "../../stream/StreamComponent";
-
-function WaitingRoom(props) {
+import IntroduceTimer from "../../Common/timer/IntroduceTimer";
+function IntroduceRoom(props) {
   const localUser = props.localUser;
-
+  const setMode = (num) => {
+    props.setMode(num);
+  };
   return (
     <>
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        // 나
-        <div className="OT_root OT_publisher custom-class" id="localUser0">
+        <div className="OT_root OT_publisher custom-class" id="localUser1">
           <StreamComponent user={localUser} />
         </div>
       )}
       {props.subscribers.map((sub, i) => (
         <div
           key={i}
-          //  나빼고 들어오는유저
           className="OT_root OT_publisher custom-class"
-          id={"remoteUsers0" + i}
+          id={"remoteUsers1" + i}
         >
           <StreamComponent
             user={sub}
@@ -28,8 +28,9 @@ function WaitingRoom(props) {
           />
         </div>
       ))}
+      <IntroduceTimer min={1} setMode={setMode} />
     </>
   );
 }
 
-export default WaitingRoom;
+export default IntroduceRoom;

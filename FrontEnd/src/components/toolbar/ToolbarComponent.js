@@ -88,7 +88,10 @@ export default class ToolbarComponent extends Component {
               </span>
             </div>
           </form>
+
           <button onClick={shareLink} title="URL복사"></button>
+
+
 
           <div className="buttonsContent">
             <IconButton
