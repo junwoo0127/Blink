@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
+import { motion } from "framer-motion";
 const padNumber = (num, length) => {
   return String(num).padStart(length, "0");
 };
@@ -15,6 +16,10 @@ const Timer = (props) => {
   const [sec, setSec] = useState(padNumber(tempSec, 2));
   const [min, setMin] = useState(padNumber(tempMin, 2));
   const [discussCount, setDiscussCount] = useState(0);
+  const [countSound] = useState(
+    new Audio(require("./mixkit-tick-tock-clock-timer-1045.wav"))
+  );
+  const [red, setRed] = useState(false);
   useEffect(() => {
     interval.current = setInterval(() => {
       initialTime.current -= 1;
@@ -37,7 +42,7 @@ const Timer = (props) => {
     if (initialTime.current <= 0) {
       clearInterval(interval.current);
 
-      if (discussCount === props.participantNum*4) {
+      if (discussCount === props.participantNum * 4) {
         props.setMode(6);
         console.log("go to 6");
       } else {
@@ -45,11 +50,40 @@ const Timer = (props) => {
         console.log("go to 5");
       }
     }
+    if (initialTime.current <= 10) {
+      setRed(true);
+      countSound.volume = 0.5;
+      countSound.play();
+      if (initialTime.current <= 0) {
+        countSound.pause();
+      }
+    }
   }, [sec]);
 
   return (
     <div>
-      {min} : {sec}
+      {!red ? (
+        <div className={red ? "timeout" : null}>
+          {min} : {sec}
+        </div>
+      ) : (
+        <div>
+          <motion.div
+            animate={{
+              scale: [1, 2.5, 1],
+              originX: 0,
+              color: "#c71100",
+            }}
+            transition={{
+              ease: "easeInOut",
+              duration: 1,
+              repeat: 10,
+            }}
+          >
+            {sec}
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

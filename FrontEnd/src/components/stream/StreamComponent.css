@@ -68,7 +68,13 @@ video {
   position: absolute;
   color: #ffffff;
 }
-
+#LikeIcon {
+  bottom: 20%;
+  left: 35%;
+  color: #c71100;
+  position: absolute;
+  z-index: 1000;
+}
 #camIcon,
 #micIcon {
   text-align: center;
