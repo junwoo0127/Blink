@@ -9,13 +9,12 @@ import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
 import io from "socket.io-client";
-import axios from "axios"
+import axios from "axios";
 import { useRef } from "react";
 const socket = io.connect("http://localhost:4000");
 const apiURL = "http://localhost:8080";
 
 function SelectStreamComponent(props) {
-
   const [showForm, setShowForm] = useState(false);
   const [mutedSound, setMutedSound] = useState(false);
   const [selected, setSelected] = useState(false);
@@ -38,7 +37,7 @@ function SelectStreamComponent(props) {
     //   const res = axios.get(apiURL+"/api/v1/game/voteFirst", {params : {
     //     "player_seq" : 1,
     //     "first_choice" : 3
-        
+
     //   }})
     //   console.log(res);
     //   console.log("good");
@@ -46,8 +45,7 @@ function SelectStreamComponent(props) {
     // catch{
     //   console.log("erorororororor")
     // }
-    
-   
+
     socket.emit("selectFirst");
   };
   socket.on("selectFirst", (cnt) => {
@@ -91,23 +89,23 @@ function SelectStreamComponent(props) {
                   <MicOffIcon id="statusMic" />
                 </div>
               ) : null}
+              {/* //   selected ? (
+                //       <div id="LikedIcon">
+                //           <FavoriteIcon id="statusLike"/>
+                //       </div>
+                //   ): 
+                //   <div id="LikeIcon">
+                //       <FavoriteBorderIcon id="statusLike"/>
+              //   </div> */}
+            </div>
+            <div id="LikeIcon">
               {showForm ? (
                 selected ? (
-                  <div id="LikeIcon">
-                    <FavoriteIcon id="statusLike" />
-                  </div>
+                  <FavoriteIcon id="statusLike" style={{ fontSize: "200px" }} />
                 ) : (
-                  <FavoriteBorderIcon />
+                  <FavoriteBorderIcon style={{ fontSize: "200px" }} />
                 )
               ) : null}
-              {/* //   selected ? (
-            //       <div id="LikedIcon">
-            //           <FavoriteIcon id="statusLike"/>
-            //       </div>
-            //   ): 
-            //   <div id="LikeIcon">
-            //       <FavoriteBorderIcon id="statusLike"/>
-            //   </div> */}
             </div>
 
             <div>
