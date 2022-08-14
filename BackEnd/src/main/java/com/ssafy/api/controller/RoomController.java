@@ -100,11 +100,8 @@ public class RoomController {
 		System.out.println(init_player.getHobby());
 		
 		Room init_room =roomService.findRoomByRoomSeq(Long.parseLong(initroomreq.getUrl()));
-		System.out.println(init_room.getUrl());
-		List<Player> temp =init_room.getPlayers();
-		temp.add(init_player);		
-		init_room.setPlayers(temp);
-		roomRepository.save(init_room);
+		init_player.setRoomSeq(Long.parseLong(initroomreq.getUrl()));
+		playerRepository.save(init_player);
 		System.out.println(init_player.getPlayerSeq());
 		return ResponseEntity.status(200).body(RoomPlayerRes.of(init_player,init_room ));
 		
