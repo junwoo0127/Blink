@@ -493,7 +493,7 @@ class VideoRoomComponent extends Component {
         {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
         LiarSelect>>FreeTalk>>FinalSelect */}
         <div id="layout" className="bounds" style={{}}>
-          {this.state.mode === 1 ? (
+          {this.state.mode === 0 ? (
             <WaitingRoom
               localUser={localUser}
               subscribers={this.state.subscribers}
@@ -575,7 +575,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 0 ? (
+          ) : this.state.mode === 9 ? (
             <DiscussRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
