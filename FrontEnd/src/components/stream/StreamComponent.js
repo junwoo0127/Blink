@@ -52,7 +52,7 @@ export default class StreamComponent extends Component {
             <div className="streamComponent">
               {/* 화면 송출 부분 ex>> id="video-str_CAM_WG4m_con_QdcVOVkZVu" */}
               {this.props.filter ? (
-                <></> // <Filter />
+                <></>
               ) : (
                 <OvVideoComponent
                   user={this.props.user}
