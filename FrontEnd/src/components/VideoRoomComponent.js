@@ -44,12 +44,11 @@ class VideoRoomComponent extends Component {
     // : "ssafy47ssafy47";
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
-    let sessionName = this.props.sessionName
-      ? this.props.sessionName
-      : "SessionA";
-    let userName = this.props.user
-      ? this.props.user
-      : "OpenVidu_User" + Math.floor(Math.random() * 100);
+    let sessionName = this.props.store.user.Room.url;
+    console.log(window.location.hash);
+    console.log(this.props.store.user.Room);
+
+    let userName = this.props.store.user.Room.nickname;
     this.remotes = [];
     this.localUserAccessAllowed = false;
 
@@ -163,7 +162,8 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
-
+    localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
+    console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
     this.setState(
       {
         session: this.OV.initSession(),
@@ -294,6 +294,7 @@ class VideoRoomComponent extends Component {
             isVideoActive: this.state.localUser.isVideoActive(),
             nickname: this.state.localUser.getNickname(),
             isScreenShareActive: this.state.localUser.isScreenShareActive(),
+            playerSeq: this.state.localUser.getPlayerSeq(),
           });
         }
         this.updateLayout();
@@ -366,6 +367,7 @@ class VideoRoomComponent extends Component {
       this.setState({ participantNum: (this.state.participantNum += 1) });
       subscriber.on("streamPlaying", (e) => {
         console.log("here!!!");
+        console.log("subscribers!!", subscriber);
         console.log(subscriber.videos[0].video.parentElement.classList);
         subscriber.videos[0].video.parentElement.classList.remove(
           "custom-class"
@@ -377,6 +379,7 @@ class VideoRoomComponent extends Component {
       newUser.setType("remote");
       const nickname = event.stream.connection.data.split("%")[0];
       newUser.setNickname(JSON.parse(nickname).clientData);
+
       this.remotes.push(newUser);
       if (this.localUserAccessAllowed) {
         this.updateSubscribers();
@@ -415,11 +418,15 @@ class VideoRoomComponent extends Component {
           if (data.isScreenShareActive !== undefined) {
             user.setScreenShareActive(data.isScreenShareActive);
           }
+          if (data.playerSeq !== undefined) {
+            user.setPlayerSeq(data.playerSeq);
+          }
         }
       });
       this.setState({
         subscribers: remoteUsers,
       });
+      console.log("subscribers!!!", this.state.subscribers);
     });
   }
 
@@ -489,7 +496,6 @@ class VideoRoomComponent extends Component {
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />
-        {/*  */}
         {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
         LiarSelect>>FreeTalk>>FinalSelect */}
         <div id="layout" className="bounds" style={{}}>

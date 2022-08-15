@@ -234,14 +234,6 @@ function LandingPage(props) {
                   autoFocus
                 />
                 <ButtonCo
-                  onClick={onclickin}
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 2, mb: 2 }}
-                >
-                  <b>참가</b>
-                </ButtonCo>{" "}
-                <ButtonCo
                   onClick={onclickMakeRoom}
                   fullWidth
                   variant="contained"
