@@ -6,13 +6,13 @@ import StreamComponent from "../../stream/StreamComponent";
 
 function WaitingRoom(props) {
   const localUser = props.localUser;
-
+  const filter = props.filter;
   return (
     <>
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         // 나
         <div className="OT_root OT_publisher custom-class" id="localUser0">
-          <StreamComponent user={localUser} />
+          <StreamComponent filter={filter} user={localUser} />
         </div>
       )}
       {props.subscribers.map((sub, i) => (

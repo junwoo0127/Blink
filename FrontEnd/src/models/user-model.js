@@ -8,6 +8,7 @@ class UserModel {
   type; // 'remote' | 'local'
   role;
   playerSeq;
+  answer;
 
   constructor() {
     this.connectionId = "";
@@ -19,6 +20,7 @@ class UserModel {
     this.type = "local";
     this.role = "";
     this.playerSeq = "";
+    this.answer = null;
   }
 
   isAudioActive() {
@@ -32,6 +34,11 @@ class UserModel {
   isScreenShareActive() {
     return this.screenShareActive;
   }
+
+  getAnswer() {
+    return this.answer;
+  }
+
   getPlayerSeq() {
     return this.playerSeq;
   }
@@ -56,6 +63,9 @@ class UserModel {
   }
   isRemote() {
     return !this.isLocal();
+  }
+  setAnswer(answer) {
+    this.answer = answer;
   }
   setPlayerSeq(playerSeq) {
     this.playerSeq = playerSeq;
