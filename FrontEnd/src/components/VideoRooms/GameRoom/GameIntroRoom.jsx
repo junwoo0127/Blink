@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./GameRoom.css";
+import "./GameIntroRoom.css";
 import GameIntro from "../../modals/GameIntro/GameIntro";
 import StreamComponent from "../../stream/StreamComponent";
 import Game from "../../modals/Game/Game";
@@ -39,7 +39,7 @@ function GameRoom(props) {
         setMode={setMode}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        <div className="OT_root OT_publisher custom-class" id="localUser">
+        <div className="OT_root OT_publisher custom-class" id="localUser8">
           <StreamComponent user={localUser} />
         </div>
       )}
@@ -47,7 +47,7 @@ function GameRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id="remoteUsers"
+          id={"remoteUsers8" + i}
         >
           <StreamComponent
             user={sub}

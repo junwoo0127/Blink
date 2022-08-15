@@ -32,7 +32,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div id="FontC" style={{ fontFamily: "CookieR" }}>
         <Routes>
           <Route path="/*" element={<NLandinPage />} />
           <Route path="/login" element={<NLoginPage />} />
