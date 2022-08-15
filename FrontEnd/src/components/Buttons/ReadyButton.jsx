@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Button from "@mui/material/Button";
 import { alpha, styled } from "@mui/material/styles";
 import "./ReadyButton.css";
+
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#A6095D"),
   lineHeight: "44px",
@@ -87,6 +88,7 @@ function ReadyButton(props) {
         sx={{}}
         onClick={onClick}
         disabled={disable}
+        style={{ fontFamily: "CookieR" }}
       >
         준비완료 : {count}/{props.participantNum}
         {/* 숫자표시관련 생각 */}

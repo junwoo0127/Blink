@@ -1,6 +1,4 @@
 import React, { Component, useRef } from "react";
-import { useLocation } from "react-router";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import "./VideoRoomComponent.css";
 import { OpenVidu } from "openvidu-browser";
@@ -13,15 +11,17 @@ import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent2";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
-import IntroduceRoom from "./VideoRooms/IntroduceRoom/IntroduceRoom";
+import IntroduceRoom1 from "./VideoRooms/IntroduceRoom1/IntroduceRoom";
+import IntroduceRoom2 from "./VideoRooms/IntroduceRoom2/IntroduceRoom";
+import IntroduceRoom3 from "./VideoRooms/IntroduceRoom3/IntroduceRoom";
+import IntroduceRoom4 from "./VideoRooms/IntroduceRoom4/IntroduceRoom";
+import IntroduceRoom5 from "./VideoRooms/IntroduceRoom5/IntroduceRoom";
+import IntroduceRoom6 from "./VideoRooms/IntroduceRoom6/IntroduceRoom";
 import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom";
 import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
 import GameIntroRoom from "./VideoRooms/GameRoom/GameIntroRoom";
 import LiarSelectRoom from "./VideoRooms/LiarSelectRoom/LiarSelectRoom";
-
-import { get_session } from "../_actions/user_action";
-import { connect } from "react-redux";
 import SpeedDialBottom from "./Common/SpeedDialBottom";
 import SpeedDialTop from "./Common/SpeedDialTop";
 import FinalSelectRoom from "./VideoRooms/FinalSelectRoom/FinalSelectRoom";
@@ -29,12 +29,9 @@ import FreeTalkRoom from "./VideoRooms/FreeTalkRoom/FreeTalkRoom";
 
 var localUser = new UserModel();
 const socket = io.connect("http://localhost:4000");
-
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.store.user.Room.url);
-
     this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
       ? this.props.openviduServerUrl
       : "https://" + window.location.hostname + ":4443";
@@ -47,10 +44,12 @@ class VideoRoomComponent extends Component {
     // : "ssafy47ssafy47";
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
-    let sessionName = this.props.store.user.Room.url;
-    console.log(window.location.hash);
-
-    let userName = this.props.store.user.Room.playerSeq;
+    let sessionName = this.props.sessionName
+      ? this.props.sessionName
+      : "SessionA";
+    let userName = this.props.user
+      ? this.props.user
+      : "OpenVidu_User" + Math.floor(Math.random() * 100);
     this.remotes = [];
     this.localUserAccessAllowed = false;
 
@@ -244,7 +243,7 @@ class VideoRoomComponent extends Component {
       audioSource: undefined,
       videoSource: undefined,
       //videoSource: videoDevices[0].deviceId,
-      publishAudio: localUser.isAudioActive(),
+      publishAudio: !localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
       resolution: "640x480",
       frameRate: 30,
@@ -314,7 +313,7 @@ class VideoRoomComponent extends Component {
     this.setState({
       session: undefined,
       subscribers: [],
-      mySessionId: "SessionB",
+      mySessionId: "SessionA",
       myUserName: "OpenVidu_User" + Math.floor(Math.random() * 100),
       localUser: undefined,
     });
@@ -490,22 +489,11 @@ class VideoRoomComponent extends Component {
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />
-<<<<<<< FrontEnd/src/components/VideoRoomComponent.js
-        {/* <MusicPlayer
-          style={{ position: "absolute", top: "10px", left: "10px" }}
-        /> */}
-        <div
-          id="layout"
-          className="bounds"
-          style={{ width: "90%", height: "90%", left: "5%", bottom: "5%" }}
-        >
-          {this.state.mode === 1 ? (
-=======
+        {/*  */}
         {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
         LiarSelect>>FreeTalk>>FinalSelect */}
         <div id="layout" className="bounds" style={{}}>
-          {this.state.mode === 0 ? (
->>>>>>> FrontEnd/src/components/VideoRoomComponent.js
+          {this.state.mode === 1 ? (
             <WaitingRoom
               localUser={localUser}
               subscribers={this.state.subscribers}
@@ -514,7 +502,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
             ></WaitingRoom>
           ) : this.state.mode === 1 ? (
-            <IntroduceRoom
+            <IntroduceRoom1
               localUser={localUser}
               subscribers={this.state.subscribers}
               chatDisplay={this.state.chatDisplay}
@@ -523,6 +511,51 @@ class VideoRoomComponent extends Component {
               setMode={this.setMode}
             />
           ) : this.state.mode === 2 ? (
+            <IntroduceRoom2
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 3 ? (
+            <IntroduceRoom3
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 4 ? (
+            <IntroduceRoom4
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 5 ? (
+            <IntroduceRoom5
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 6 ? (
+            <IntroduceRoom6
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+            />
+          ) : this.state.mode === 7 ? (
             <SelectRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
@@ -532,7 +565,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 3 ? (
+          ) : this.state.mode === 8 ? (
             <GameIntroRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
@@ -542,7 +575,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 4 ? (
+          ) : this.state.mode === 0 ? (
             <DiscussRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
@@ -552,7 +585,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 5 ? (
+          ) : this.state.mode === 10 ? (
             <GameRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
@@ -562,7 +595,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 6 ? (
+          ) : this.state.mode === 11 ? (
             <LiarSelectRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
@@ -572,7 +605,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 7 ? (
+          ) : this.state.mode === 12 ? (
             <FreeTalkRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
@@ -582,7 +615,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 8 ? (
+          ) : this.state.mode === 13 ? (
             <FinalSelectRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
@@ -634,6 +667,8 @@ class VideoRoomComponent extends Component {
             participantNum={this.state.participantNum}
             setMode={this.setMode}
           />
+        ) : this.state.mode === 1 ? (
+          <></>
         ) : null}
       </div>
     );
@@ -727,11 +762,4 @@ class VideoRoomComponent extends Component {
     });
   }
 }
-const mapStateToProps = (state) => ({
-  store: state,
-});
-const mapDispatchToProps = (dispatch) => ({
-  getStore: () => dispatch(get_session),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(VideoRoomComponent);
+export default VideoRoomComponent;

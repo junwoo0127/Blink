@@ -4,6 +4,7 @@ import "./IntroduceRoom.css";
 
 import StreamComponent from "../../stream/StreamComponent";
 import IntroduceTimer from "../../Common/timer/IntroduceTimer";
+
 function IntroduceRoom(props) {
   const localUser = props.localUser;
   const setMode = (num) => {
@@ -12,7 +13,7 @@ function IntroduceRoom(props) {
   return (
     <>
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        <div className="OT_root OT_publisher custom-class" id="localUser1">
+        <div className="OT_root OT_publisher custom-class" id="localUser4">
           <StreamComponent user={localUser} />
         </div>
       )}
@@ -20,7 +21,7 @@ function IntroduceRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id={"remoteUsers1" + i}
+          id={"remoteUsers4" + i}
         >
           <StreamComponent
             user={sub}

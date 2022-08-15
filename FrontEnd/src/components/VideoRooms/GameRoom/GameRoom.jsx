@@ -27,7 +27,7 @@ function GameRoom(props) {
         setGameEnd={setGameEnd}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        <div className="OT_root OT_publisher custom-class" id="localUser">
+        <div className="OT_root OT_publisher custom-class" id="localUser10">
           <StreamComponent user={localUser} />
         </div>
       )}
@@ -35,7 +35,7 @@ function GameRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id="remoteUsers"
+          id={"remoteUsers10" + i}
         >
           <StreamComponent
             user={sub}

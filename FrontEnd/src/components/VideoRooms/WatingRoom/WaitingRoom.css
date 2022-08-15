@@ -894,32 +894,45 @@
 }
 
 /*  */
-/*
+/*  */
 #localUser0 {
-  top: 2vw !important;
-  left: 13vw !important;
+  top: 0% !important;
+  left: 0% !important;
+  width: 33.3% !important;
+  height: 49.95% !important;
 }
 #remoteUsers00 {
-  top: 22vw !important;
-  left: 0vw !important;
+  top: 0% !important;
+  left: 33.25% !important;
+  width: 33.3% !important;
+  height: 49.95% !important;
 }
 #remoteUsers01 {
-  top: 2vw !important;
-  left: 57vw !important;
+  top: 0% !important;
+  left: 66.48% !important;
+  width: 33.3% !important;
+  height: 49.95% !important;
 }
 #remoteUsers02 {
-  top: 22vw !important;
-  left: 48vw !important;
+  top: 49.85% !important;
+  left: 0% !important;
+  width: 33.3% !important;
+  height: 49.95% !important;
 }
 #remoteUsers03 {
-  top: 22vw !important;
-  left: 3vw !important;
+  top: 49.85% !important;
+  left: 33.25% !important;
+  width: 33.3% !important;
+  height: 49.95% !important;
 }
 #remoteUsers04 {
-  top: 22vw !important;
-  left: 67vw !important;
-} 
-#remoteUsers05 {
+  top: 49.85% !important;
+  left: 66.48% !important;
+  width: 33.3% !important;
+  height: 49.95% !important;
+}
+
+/* #remoteUsers05 {
   top: 30vw !important;
   left: 33vw !important;
 }

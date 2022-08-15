@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import "./DiscussRoom.css";
-import Timer from "../../Common/timer/DiscussTimer";
+import "./IntroduceRoom.css";
+
 import StreamComponent from "../../stream/StreamComponent";
-import DiscussStart from "../../modals/DiscussStart/DiscussStart";
-import io from "socket.io-client";
+import IntroduceTimer from "../../Common/timer/IntroduceTimer";
 
-const socket = io.connect("http://localhost:4000");
-function DiscussRoom(props) {
-  //variables
+function IntroduceRoom(props) {
   const localUser = props.localUser;
-  const participantNum = props.participantNum;
-
-  //function
   const setMode = (num) => {
     props.setMode(num);
   };
-
   return (
     <>
-      <DiscussStart />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        <div className="OT_root OT_publisher custom-class" id="localUser9">
+        <div className="OT_root OT_publisher custom-class" id="localUser1">
           <StreamComponent user={localUser} />
         </div>
       )}
@@ -29,7 +21,7 @@ function DiscussRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id={"remoteUsers9" + i}
+          id={"remoteUsers1" + i}
         >
           <StreamComponent
             user={sub}
@@ -37,9 +29,9 @@ function DiscussRoom(props) {
           />
         </div>
       ))}
-      <Timer sec={10} participantNum={participantNum} setMode={setMode} />
+      <IntroduceTimer min={1} setMode={setMode} />
     </>
   );
 }
 
-export default DiscussRoom;
+export default IntroduceRoom;

@@ -1,14 +1,16 @@
-/* 폰트 참고 */
-
-/* @font-face {
-    font-family: 'BitroPride';
-    src: url(../assets/fonts/BitroPrideTTF.ttf) format('woff');
-    font-weight: normal;
-    font-style: normal;
-  } */
-
+@font-face {
+  font-family: "CookieR";
+  src: url(./assets/fonts/CookieRun\ Regular.ttf);
+  /* font-weight: normal;
+  font-style: normal; */
+}
+/* #A6095D */
 /* #aae6db */
 /*  #beaee2, #f7dbf0, #cdf0ea  */
+
+#FontC {
+  font-family: "CookieR" !important;
+}
 
 body {
   margin: auto;

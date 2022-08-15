@@ -12,7 +12,7 @@ function SelectRoom(props) {
   const localUser = props.localUser;
   const [selected, setSelected] = useState(false);
   const [open, setOpen] = useState(true);
-  //function
+  // function
   const onSelect = () => {
     setSelected(true);
     console.log("hi");
@@ -28,7 +28,7 @@ function SelectRoom(props) {
     <>
       <FirstSelect open={open} handleClose={handleClose} />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        <div className="OT_root OT_publisher custom-class" id="localUser">
+        <div className="OT_root OT_publisher custom-class" id="localUser7">
           <StreamComponent user={localUser} />
         </div>
       )}
@@ -36,7 +36,7 @@ function SelectRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id={"remoteUsers" + i}
+          id={"remoteUsers7" + i}
         >
           <SelectStreamComponent
             localUser={localUser}
