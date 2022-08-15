@@ -60,6 +60,16 @@ video {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#yes {
+  background: blue;
+  border-radius: 50%;
+}
+
+#no {
+  background: red;
+  border-radius: 50%;
+}
+
 #statusIcons {
   bottom: 0;
   background: #c71100;

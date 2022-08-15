@@ -26,6 +26,12 @@ export default class ToolbarComponent extends Component {
 
   render() {
     const mySessionId = this.props.sessionId;
+    const localUser = this.props.user;
+    const url = "http://localhost:3000/";
+    const shareLink = (e) => {
+      console.log();
+      navigator.clipboard.writeText(url + "lobby?room=" + mySessionId);
+    };
     return (
       <Box
         style={{ position: "absolute", top: "0", right: "1%", zIndex: 999999 }}

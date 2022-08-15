@@ -43,6 +43,9 @@ export default class ToolbarComponent extends Component {
   leaveSession() {
     this.props.leaveSession();
   }
+  handleFilter() {
+    this.props.handleFilter();
+  }
 
   render() {
     const localUser = this.props.user;
@@ -78,8 +81,9 @@ export default class ToolbarComponent extends Component {
           />
           <SpeedDialAction
             key={"Filter"}
-            icon={<FaceRetouchingNaturalIcon />}
+            icon={<FaceRetouchingNaturalIcon style={{ fill: "yellow" }} />}
             tooltipTitle={"Filter"}
+            // onClick={handleFilter}
           />
           <SpeedDialAction
             key={"Video"}

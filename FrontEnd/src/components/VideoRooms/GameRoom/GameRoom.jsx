@@ -25,6 +25,7 @@ function GameRoom(props) {
         open={gameOpen}
         setMode={setMode}
         setGameEnd={setGameEnd}
+        user={props.localUser}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser10">
