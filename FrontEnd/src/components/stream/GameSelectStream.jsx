@@ -18,7 +18,7 @@ function GameSelectStream(props) {
   const [showForm, setShowForm] = useState(false);
   const [mutedSound, setMutedSound] = useState(false);
   const [selected, setSelected] = useState(false);
-
+  const [selectedLiar, setSelectedLiar] = useState([]);
   const toggleSound = () => {
     setMutedSound(!mutedSound);
   };
@@ -31,13 +31,15 @@ function GameSelectStream(props) {
     if (selected === true) {
       setSelected(false);
       props.minusLiar();
-
+      setSelectedLiar(selectedLiar.filter((liar) => liar !== liar)); //선택된 아이 제거
       console.log("How many mafia selected minus? : ", props.liarSelect);
+      console.log("selectedLiar:!!!!!", selectedLiar);
     } else {
       setSelected(true);
       props.plusLiar();
-
+      setSelectedLiar([...selectedLiar, props.user.getPlayerSeq()]);
       console.log("How many mafia are selected plus? :", props.liarSelect);
+      console.log("selectedLiar!!!!", selectedLiar);
     }
 
     // if (props.localUser.getRole() === "mafia") {
