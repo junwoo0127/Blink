@@ -32,7 +32,7 @@ function DiscussRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id="remoteUsers"
+          id={"remoteUsers9" + i}
         >
           <StreamComponent
             id={sub.getAnswer() ? "yes" : "no"}
@@ -41,7 +41,7 @@ function DiscussRoom(props) {
           />
         </div>
       ))}
-      <Timer sec={10} participantNum={participantNum} setMode={setMode} />
+      {/* <Timer sec={10} participantNum={participantNum} setMode={setMode} /> */}
     </>
   );
 }

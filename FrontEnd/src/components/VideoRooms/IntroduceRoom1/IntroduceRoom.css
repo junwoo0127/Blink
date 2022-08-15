@@ -56,18 +56,18 @@
 }
 
 /*!
-   * Copyright (c) 2017 TokBox, Inc.
-   * Released under the MIT license
-   * http://opensource.org/licenses/MIT
-   */
+     * Copyright (c) 2017 TokBox, Inc.
+     * Released under the MIT license
+     * http://opensource.org/licenses/MIT
+     */
 
 .custom-class {
   min-height: 0px !important;
 }
 
 /**
-   * OT Base styles
-   */
+     * OT Base styles
+     */
 
 /* Root OT object, this is where our CSS reset happens */
 .OT_root,
@@ -519,11 +519,11 @@
 }
 
 /**
-   * Styles for display modes
-   *
-   * Note: It's important that these completely control the display and opacity
-   * attributes, no other selectors should atempt to change them.
-   */
+     * Styles for display modes
+     *
+     * Note: It's important that these completely control the display and opacity
+     * attributes, no other selectors should atempt to change them.
+     */
 
 /* Default display mode transitions for various chrome elements */
 .OT_publisher .OT_edge-bar-item,
@@ -889,39 +889,49 @@
   margin-top: 40px;
 }
 
-#localUser9 {
-  top: 0% !important;
+#localUser1 {
+  top: 5% !important;
   left: 0% !important;
-  width: 33.3% !important;
-  height: 49.95% !important;
+  width: 60% !important;
+  height: 90% !important;
 }
-#remoteUsers90 {
-  top: 0% !important;
-  left: 33.25% !important;
-  width: 33.3% !important;
-  height: 49.95% !important;
+
+#remoteUsers10 {
+  top: 1% !important;
+  left: 78% !important;
+  width: 22% !important;
+  height: 33% !important;
 }
-#remoteUsers91 {
-  top: 0% !important;
-  left: 66.48% !important;
-  width: 33.3% !important;
-  height: 49.95% !important;
+#remoteUsers11 {
+  top: 16% !important;
+  left: 58% !important;
+  width: 22% !important;
+  height: 33% !important;
 }
-#remoteUsers92 {
-  top: 49.85% !important;
-  left: 0% !important;
-  width: 33.3% !important;
-  height: 49.95% !important;
+#remoteUsers12 {
+  top: 33.5% !important;
+  left: 78% !important;
+  width: 22% !important;
+  height: 33% !important;
 }
-#remoteUsers93 {
-  top: 49.85% !important;
-  left: 33.25% !important;
-  width: 33.3% !important;
-  height: 49.95% !important;
+#remoteUsers13 {
+  top: 51% !important;
+  left: 58% !important;
+  width: 22% !important;
+  height: 33% !important;
 }
-#remoteUsers94 {
-  top: 49.85% !important;
-  left: 66.48% !important;
-  width: 33.3% !important;
-  height: 49.95% !important;
+#remoteUsers14 {
+  top: 66% !important;
+  left: 78% !important;
+  width: 22% !important;
+  height: 33% !important;
 }
+
+/* #remoteUsers15 {
+  top: 30vw !important;
+  left: 33vw !important;
+}
+#remoteUsers16 {
+  top: 2vw !important;
+  left: 13vw !important; 
+} */

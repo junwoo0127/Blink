@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useSelector, useDispatch } from "react-redux";
 import { increaseCount } from "../../../_reducers/quiz_counter";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+
 const apiURL = "http://localhost:8080";
 const socket = io.connect("http://localhost:4000");
 const style = {
@@ -69,12 +71,14 @@ function Game(props) {
   const onYes = () => {
     socket.emit("yes", props.participantNum);
     setDisabled(true);
+    props.user.setAnswer(true);
   };
 
   const onNo = () => {
     //no count 1업하기
     socket.emit("no", props.participantNum);
     setDisabled(true);
+    props.user.setAnswer(false);
   };
   socket.on("yes", (cnt) => {
     setAnswerCount(cnt.answerCount);
@@ -110,9 +114,12 @@ function Game(props) {
           </Typography>
           <div style={{ textAlign: "center" }}>
             <button onClick={onYes} disabled={disabled}>
+              {/* 이미지 가져오기 카훗처럼 */}
+              <CheckCircleIcon style={{ color: "blue" }} />
               {quiz.answerA}
             </button>
             <button onClick={onNo} disabled={disabled}>
+              <CheckCircleIcon style={{ color: "red" }} />
               {quiz.answerB}
             </button>
           </div>

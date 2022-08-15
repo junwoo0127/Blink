@@ -21,7 +21,7 @@ function FreeTalkRoom(props) {
     <>
       <FreeTalkStart />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        <div className="OT_root OT_publisher custom-class" id="localUser">
+        <div className="OT_root OT_publisher custom-class" id="localUser12">
           <StreamComponent user={localUser} />
         </div>
       )}
@@ -29,7 +29,7 @@ function FreeTalkRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id="remoteUsers"
+          id={"remoteUsers12" + i}
         >
           <StreamComponent
             user={sub}

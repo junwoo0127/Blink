@@ -91,8 +91,6 @@ export default class ToolbarComponent extends Component {
 
           <button onClick={shareLink} title="URL복사"></button>
 
-
-
           <div className="buttonsContent">
             <IconButton
               color="inherit"

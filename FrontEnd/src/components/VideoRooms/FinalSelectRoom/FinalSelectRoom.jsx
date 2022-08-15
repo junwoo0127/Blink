@@ -21,7 +21,7 @@ function SelectRoom(props) {
   return (
     <>
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        <div className="OT_root OT_publisher custom-class" id="localUser">
+        <div className="OT_root OT_publisher custom-class" id="localUser13">
           <StreamComponent user={localUser} />
         </div>
       )}
@@ -29,7 +29,7 @@ function SelectRoom(props) {
         <div
           key={i}
           className="OT_root OT_publisher custom-class"
-          id="remoteUsers"
+          id={"remoteUsers13" + i}
         >
           <FinalSelectStream
             localUser={localUser}

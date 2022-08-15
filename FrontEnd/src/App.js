@@ -32,7 +32,14 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div
+        id="FontC"
+        style={{
+          fontFamily: "CookieR !important",
+          cursor:
+            "url('https://blog.kakaocdn.net/dn/BQXpN/btq3qNR67Lg/8tx8tGzkOcr5BuX5dyIaKk/img.png')50 50, auto",
+        }}
+      >
         <Routes>
           <Route path="/*" element={<NLandinPage />} />
           <Route path="/login" element={<NLoginPage />} />

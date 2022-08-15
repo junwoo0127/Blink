@@ -27,21 +27,21 @@ export default function DiscussStart() {
   }, 4000);
 
   return (
-    <div>
-      <Modal
-        open={open}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            대화시간입니다.!
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            00분간 대화를 하며 거짓말을 하는 사람이 누구인지 맞추어보세요!
-          </Typography>
-        </Box>
-      </Modal>
-    </div>
+    // <div>
+    <Modal
+      open={open}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          대화시간입니다.!
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          00분간 대화를 하며 거짓말을 하는 사람이 누구인지 맞추어보세요!
+        </Typography>
+      </Box>
+    </Modal>
+    // </div>
   );
 }
