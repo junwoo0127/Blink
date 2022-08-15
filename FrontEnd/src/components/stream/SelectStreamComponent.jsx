@@ -12,7 +12,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import { useRef } from "react";
 const socket = io.connect("http://localhost:4000");
-const apiURL = "http://localhost:8080";
+const apiURL = "http://localhost:8080/blink";
 
 function SelectStreamComponent(props) {
   const [showForm, setShowForm] = useState(false);
@@ -32,19 +32,20 @@ function SelectStreamComponent(props) {
     // props.onSelect();
     setShowForm(true);
     props.onSelect();
-    // console.log("picked")
-    // try{
-    //   const res = axios.get(apiURL+"/api/v1/game/voteFirst", {params : {
-    //     "player_seq" : 1,
-    //     "first_choice" : 3
+    console.log("picked");
+    try {
+      const res = axios.get(apiURL + "/api/v1/game/voteFirst", {
+        params: {
+          playerSeq: props.localUser.getPlayerSeq(),
+          firstChoice: props.user.getPlayerSeq(),
+        },
+      });
+      console.log("userseq", props.user.getPlayerSeq());
 
-    //   }})
-    //   console.log(res);
-    //   console.log("good");
-    // }
-    // catch{
-    //   console.log("erorororororor")
-    // }
+      console.log("good");
+    } catch {
+      console.log("erorororororor");
+    }
 
     socket.emit("selectFirst");
   };

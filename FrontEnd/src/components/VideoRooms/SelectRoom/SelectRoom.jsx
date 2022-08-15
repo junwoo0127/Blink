@@ -5,7 +5,8 @@ import "./SelectRoom.css";
 import SelectStreamComponent from "../../stream/SelectStreamComponent";
 import StreamComponent from "../../stream/StreamComponent";
 import FirstSelect from "../../modals/FirstSelect/FirstSelect";
-
+import axios from "axios";
+const apiURL = "http://localhost:8080/blink";
 function SelectRoom(props) {
   //variables
 
@@ -16,6 +17,7 @@ function SelectRoom(props) {
   const onSelect = () => {
     setSelected(true);
     console.log("hi");
+    console.log("this is subscribe", props.subscribers);
   };
   const setMode = (mode) => {
     props.setMode(mode);
@@ -24,6 +26,7 @@ function SelectRoom(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <>
       <FirstSelect open={open} handleClose={handleClose} />
