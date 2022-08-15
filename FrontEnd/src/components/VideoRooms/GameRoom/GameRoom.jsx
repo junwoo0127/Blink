@@ -7,7 +7,7 @@ import Game from "../../modals/Game/Game";
 function GameRoom(props) {
   //variables
   const localUser = props.localUser;
-
+  const [answer, setAnswer] = useState(true);
   const [gameOpen, setGameOpen] = useState(true);
   //function
 
@@ -18,6 +18,9 @@ function GameRoom(props) {
     setGameOpen(false);
   };
 
+  const selectNo = () => {
+    setAnswer(false);
+  };
   return (
     <>
       <Game
@@ -25,6 +28,7 @@ function GameRoom(props) {
         open={gameOpen}
         setMode={setMode}
         setGameEnd={setGameEnd}
+        user={localUser}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser">

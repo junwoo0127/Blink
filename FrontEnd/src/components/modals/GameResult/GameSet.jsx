@@ -3,7 +3,9 @@ import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import axios from "axios";
 
+const apiURL = "http://localhost:8080/blink";
 const style = {
   position: "absolute",
   top: "50%",
@@ -35,7 +37,23 @@ const modal = {
 };
 export default function GameSet(props) {
   //variables
-
+  const [res, setRes] = useState("");
+  useEffect(() => {
+    try {
+      axios
+        .get(apiURL + "/api/v1/game/rank", {
+          params: {
+            roomSeq: props.roomSeq,
+          },
+        })
+        .then((response) => {
+          console.log("rank response : ", response.data);
+          setRes(response.data["nickname"]);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
   //function
   if (props.open === true) {
     console.log("modalopened");
@@ -53,10 +71,19 @@ export default function GameSet(props) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            결과
+            <p style={{ textAlign: "center", fontWeight: "bold" }}>결과</p>
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            결과
+            <p
+              style={{
+                textAlign: "center",
+                fontColor: "red",
+                fontSize: "medium",
+              }}
+            >
+              축하합니다!{res}님 !!{" "}
+            </p>
+            <p>{res}님에게는 첫인상 결과표가 주어집니다.</p>
           </Typography>
         </Box>
       </Modal>

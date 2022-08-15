@@ -441,6 +441,9 @@ class VideoRoomComponent extends Component {
           if (data.playerSeq !== undefined) {
             user.setPlayerSeq(data.playerSeq);
           }
+          if (data.answer !== undefined) {
+            user.setAnswer(data.answer);
+          }
         }
       });
       this.setState({
@@ -578,6 +581,7 @@ class VideoRoomComponent extends Component {
             />
           ) : this.state.mode === 6 ? (
             <LiarSelectRoom
+              roomSeq={this.props.store.user.Room.url.split("_")[0]}
               participantNum={this.state.participantNum}
               localUser={localUser}
               subscribers={this.state.subscribers}

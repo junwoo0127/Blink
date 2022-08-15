@@ -11,9 +11,13 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import IconButton from "@mui/material/IconButton";
 import io from "socket.io-client";
 import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addLiar } from "../../_reducers/selectedLiar";
 
 const socket = io.connect("http://localhost:4000");
 function GameSelectStream(props) {
+  const dispatch = useDispatch();
+  let liarArray = useSelector((state) => state.selectedLiar);
   const [nickname, setNickName] = useState(props.user.getNickname());
   const [showForm, setShowForm] = useState(false);
   const [mutedSound, setMutedSound] = useState(false);
@@ -30,16 +34,15 @@ function GameSelectStream(props) {
   const onClick = () => {
     if (selected === true) {
       setSelected(false);
-      props.minusLiar();
-      setSelectedLiar(selectedLiar.filter((liar) => liar !== liar)); //선택된 아이 제거
+      props.minusLiar(props.user.getPlayerSeq());
+
       console.log("How many mafia selected minus? : ", props.liarSelect);
       console.log("selectedLiar:!!!!!", selectedLiar);
     } else {
       setSelected(true);
-      props.plusLiar();
-      setSelectedLiar([...selectedLiar, props.user.getPlayerSeq()]);
+      props.plusLiar(props.user.getPlayerSeq());
+
       console.log("How many mafia are selected plus? :", props.liarSelect);
-      console.log("selectedLiar!!!!", selectedLiar);
     }
 
     // if (props.localUser.getRole() === "mafia") {

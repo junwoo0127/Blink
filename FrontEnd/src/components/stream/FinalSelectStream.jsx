@@ -14,7 +14,7 @@ import FinalSelectResult from "../modals/FinalSelectResult/FinalSelectResult";
 import axios from "axios";
 import { useRef } from "react";
 const socket = io.connect("http://localhost:4000");
-const apiURL = "http://localhost:8080";
+const apiURL = "http://localhost:8080/blink";
 
 function SelectStreamComponent(props) {
   const [showForm, setShowForm] = useState(false);
@@ -37,7 +37,12 @@ function SelectStreamComponent(props) {
     // props.onSelect();
     setShowForm(true);
     props.onSelect();
-
+    axios.get(apiURL + "/api/v1/game/voteFinal", {
+      params: {
+        playerSeq: props.localUser.getPlayerSeq(),
+        finalChoice: props.user.getPlayerSeq(),
+      },
+    });
     socket.emit("selectFinal");
   };
   socket.on("selectFinal", (cnt) => {
