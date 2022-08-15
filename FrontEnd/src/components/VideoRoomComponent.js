@@ -34,6 +34,9 @@ import { useSelector } from "react-redux";
 
 var localUser = new UserModel();
 const socket = io.connect("http://localhost:4000");
+
+const apiURL = "http://localhost:8080/blink/";
+
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
@@ -94,6 +97,21 @@ class VideoRoomComponent extends Component {
     socket.emit("setRole");
     socket.on("setRole", (role) => {
       localUser.setRole(role.role);
+      if (role.role === "mafia") {
+        axios.get(apiURL + "api/v1/game/isLiar", {
+          params: {
+            playerSeq: localUser.getPlayerSeq(),
+            isLiar: 1,
+          },
+        });
+      } else if ((role.role = "citizen")) {
+        axios.get(apiURL + "api/v1/game/isLiar", {
+          params: {
+            playerSeq: localUser.getPlayerSeq(),
+            isLiar: 0,
+          },
+        });
+      }
     });
   }
   setMode(num) {
@@ -105,7 +123,9 @@ class VideoRoomComponent extends Component {
     // Tooltips
     // $('[data-toggle="tooltip"]').tooltip();
     // Input clipboard
-    $("#copy-input").val(window.location.href);
+    $("#copy-input").val(
+      "http://localhost:3000/lobby?" + this.props.store.user.Room.url
+    );
     $("#copy-button").bind("click", function () {
       var input = document.getElementById("copy-input");
       input.focus();
