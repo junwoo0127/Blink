@@ -1,5 +1,7 @@
 package com.ssafy.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.api.response.FinalResultRes;
+import com.ssafy.api.response.FirstResultRes;
 import com.ssafy.api.response.QuizRes;
 import com.ssafy.api.service.GameService;
 import com.ssafy.api.service.PlayerService;
@@ -84,6 +88,18 @@ public class GameController {
 	@ApiOperation(value = "1등 찾기", notes = "1등 Player 반환")
 	public ResponseEntity<Player> getTopRank(@RequestParam Long roomSeq) {
 		return ResponseEntity.status(200).body(gameService.getTopRank(roomSeq));
+	}
+	
+	@GetMapping("/resultFirst")
+	@ApiOperation(value = "첫인상 결과지", notes = "해당 방 안의 첫인상 투표 결과 반환")
+	public ResponseEntity<List<FirstResultRes>> resultFirstChocie(@RequestParam Long roomSeq) {
+		return ResponseEntity.status(200).body(gameService.getFirstVoteResultByRoomSeq(roomSeq));
+	}
+	
+	@GetMapping("/resultFinal")
+	@ApiOperation(value = "최종 결과지", notes = "해당 방 안의 최종 투표 결과 반환")
+	public ResponseEntity<List<FinalResultRes>> resultFinalChocie(@RequestParam Long roomSeq) {
+		return ResponseEntity.status(200).body(gameService.getFinalVoteResultByRoomSeq(roomSeq));
 	}
 
 }

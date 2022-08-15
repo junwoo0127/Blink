@@ -1,5 +1,9 @@
 package com.ssafy.api.service;
 
+import java.util.List;
+
+import com.ssafy.api.response.FinalResultRes;
+import com.ssafy.api.response.FirstResultRes;
 import com.ssafy.db.entity.Player;
 import com.ssafy.db.entity.Quiz;
 
@@ -15,4 +19,6 @@ public interface GameService {
 	Player scoreUpdate(Long playerSeq, Long liarSeq);
 	
 	Player getTopRank(Long roomSeq);
+	List<FirstResultRes> getFirstVoteResultByRoomSeq(Long roomSeq);
+	List<FinalResultRes> getFinalVoteResultByRoomSeq(Long roomSeq);
 }
