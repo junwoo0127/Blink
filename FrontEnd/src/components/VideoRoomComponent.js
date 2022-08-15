@@ -32,10 +32,17 @@ import SpeedDialBottom from "./Common/SpeedDialBottom";
 import SpeedDialTop from "./Common/SpeedDialTop";
 import FinalSelectRoom from "./VideoRooms/FinalSelectRoom/FinalSelectRoom";
 import FreeTalkRoom from "./VideoRooms/FreeTalkRoom/FreeTalkRoom";
+import { get_session } from "../_actions/user_action";
+import { connect } from "react-redux";
+import { useLocation } from "react-router";
+import { useSelector } from "react-redux";
+
 
 var localUser = new UserModel();
 const socket = io.connect("http://localhost:4000");
+
 const apiURL = "http://localhost:8080/blink/";
+
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
@@ -53,16 +60,13 @@ class VideoRoomComponent extends Component {
     // : "ssafy47ssafy47";
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
-    let sessionName = "5"; // this.props.store.user.Room.url;
-
-    // if (this.props.store.user !== null) {
-    //   sessionName = this.props.store.user.Room.url;
-    // }
-
+    console.log(this.props.store)
+    let sessionName = this.props.store.user.Room.url;
     console.log(window.location.hash);
     // console.log(this.props.store.user.Room);
 
-    let userName = "5"; // this.props.store.user.Room.nickname;
+    let userName = this.props.store.user.Room.nickname;
+
     this.remotes = [];
     this.localUserAccessAllowed = false;
 
@@ -815,3 +819,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoRoomComponent);
+
