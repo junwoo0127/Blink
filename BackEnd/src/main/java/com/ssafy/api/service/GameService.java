@@ -24,5 +24,6 @@ public interface GameService {
 
 	List<FirstResultRes> getFirstVoteResultByRoomSeq(Long roomSeq);
 	List<FinalResultRes> getFinalVoteResultByRoomSeq(Long roomSeq);
+	List<FinalResultRes> getMatchedFinalVoteResultByRoomSeq(Long roomSeq);
 
 }

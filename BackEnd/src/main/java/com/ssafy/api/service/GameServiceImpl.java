@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class GameServiceImpl implements GameService {
 
 	@Autowired
 	QuizRepository quizRepository;
+	
+	@Autowired
+	GameService gameService;
 
 	@Override
 	public Quiz mbtiQuiz(int quizSeq) {
@@ -150,6 +154,24 @@ public class GameServiceImpl implements GameService {
 		List<FinalResultRes> res = new ArrayList<FinalResultRes>();
 		for(Player p : players) {
 			Player chosenOne = playerRepository.findByPlayerSeq(p.getFinalChoice());
+			res.add(FinalResultRes.of(p, chosenOne));
+		}
+		return res;
+	}
+
+	@Override
+	public List<FinalResultRes> getMatchedFinalVoteResultByRoomSeq(Long roomSeq) {
+		List<Player> players = playerRepository.findAllByRoomSeq(roomSeq);
+		List<FinalResultRes> res = new ArrayList<FinalResultRes>();
+		HashMap<Long, Long> tmp = new HashMap<>(); //중복 방지로 사용할 해쉬맵
+		for(Player p : players) {
+			gameService.isFinalMatch(p.getPlayerSeq());
+			//매칭되지 않은 사람은 저장하지 않음
+			if(p.getIsFinalMatch() != 1) continue;
+			//한 커플이 두 번 입력되는 경우를 방지
+			if(tmp.containsKey(p.getPlayerSeq()) || tmp.containsValue(p.getPlayerSeq())) continue;
+			Player chosenOne = playerRepository.findByPlayerSeq(p.getFinalChoice());
+			tmp.put(p.getPlayerSeq(), chosenOne.getPlayerSeq());
 			res.add(FinalResultRes.of(p, chosenOne));
 		}
 		return res;
