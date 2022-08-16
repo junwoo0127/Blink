@@ -7,6 +7,30 @@ import Modal from "@mui/material/Modal";
 import { useSelector, useDispatch } from "react-redux";
 import { increaseCount } from "../../../_reducers/quiz_counter";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+
+const ButtonCo = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#A6095D"),
+  // lineHeight: "44px",
+  borderRadius: "30px",
+  fontSize: "20px",
+  color: "white !important",
+  // padding: "9.5px 16px",
+  // height: 40px;
+  // padding: 0 14px 0 0;
+  // position: "absolute",
+  // top: "100%",
+  marginTop: "2vh",
+  // left: "30%",
+  // maxWidth: "40%",
+  // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  backgroundColor: "#A6095D",
+  "&:hover": {
+    // backgroundColor: "#A6095D",
+    background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  },
+}));
 
 const apiURL = "http://localhost:8080";
 const socket = io.connect("http://localhost:4000");
@@ -97,9 +121,16 @@ function Game(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          style={{
+            borderRadius: "3vw",
+            border: "4px solid #f7dbf0",
+            backgroundColor: "#f7dbf0",
+          }}
+          sx={style}
+        >
           <Typography
-            style={{ textAlign: "center" }}
+            style={{ textAlign: "center", fontSize: "30px" }}
             id="modal-modal-title"
             variant="h6"
             component="h2"
@@ -107,22 +138,22 @@ function Game(props) {
             {quiz_count} 번 문제!
           </Typography>
           <Typography
-            style={{ textAlign: "center" }}
+            style={{ textAlign: "center", fontSize: "20px" }}
             id="modal-modal-description"
             sx={{ mt: 2 }}
           >
             {quiz.question}
           </Typography>
           <div style={{ textAlign: "center" }}>
-            <button onClick={onYes} disabled={disabled}>
+            <ButtonCo onClick={onYes} disabled={disabled}>
               {/* 이미지 가져오기 카훗처럼 */}
-              <CheckCircleIcon style={{ color: "blue" }} />
+              <CheckCircleIcon style={{ color: "#00E7F4 " }} />
               {quiz.answerA}
-            </button>
-            <button onClick={onNo} disabled={disabled}>
-              <CheckCircleIcon style={{ color: "red" }} />
+            </ButtonCo>
+            <ButtonCo onClick={onNo} disabled={disabled}>
+              <CheckCircleIcon style={{ color: "#FFFC19 " }} />
               {quiz.answerB}
-            </button>
+            </ButtonCo>
           </div>
         </Box>
       </Modal>

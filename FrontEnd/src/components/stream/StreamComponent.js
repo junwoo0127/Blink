@@ -9,6 +9,8 @@ import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 
 import IconButton from "@mui/material/IconButton";
+import E from "../../assets/E.png";
+import I from "../../assets/I.png";
 
 export default class StreamComponent extends Component {
   constructor(props) {
@@ -43,7 +45,7 @@ export default class StreamComponent extends Component {
           onMouseOver={this.onMouseOver}
           onMouseLeave={this.onMouseLeave}
         >
-          {/* 마우스 접근시 보임  */}
+          {/* 마우스 닉네임 접근시 보임  */}
           {this.state.showForm ? (
             <span id="nickname">{this.props.user.getNickname()}</span>
           ) : null}
@@ -62,7 +64,30 @@ export default class StreamComponent extends Component {
                 mutedSound={this.state.mutedSound}
               />
               {/* )} */}
-
+              <img
+                alt="E"
+                src={E}
+                style={{
+                  position: "absolute",
+                  width: "40px",
+                  // bottom: "1.5%",
+                  left: "1.5%",
+                  top: "1.5%",
+                  // right:"1.5%",
+                }}
+              />
+              <img
+                alt="E"
+                src={I}
+                style={{
+                  position: "absolute",
+                  width: "40px",
+                  bottom: "1.5%",
+                  left: "1.5%",
+                  // top: "1.5%",
+                  // right:"1.5%",
+                }}
+              />
               <div id="statusIcons">
                 {!this.props.user.isVideoActive() ? (
                   <div id="camIcon">

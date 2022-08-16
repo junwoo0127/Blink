@@ -49,7 +49,10 @@ const FreeTalkTimer = (props) => {
   }, [sec]);
 
   return (
-    <div id="ttime">
+    <div
+      id="tttime"
+      style={{ position: "absolute", top: "95.5%", left: "48%" }}
+    >
       {!red ? (
         <div className={red ? "timeout" : null}>
           {min} : {sec}

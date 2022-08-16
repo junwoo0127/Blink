@@ -6,6 +6,30 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import io from "socket.io-client";
 import { motion, AnimatePresence } from "framer-motion";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+
+const ButtonCo = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#A6095D"),
+  // lineHeight: "44px",
+  borderRadius: "30px",
+  fontSize: "20px",
+  color: "white !important",
+  // padding: "9.5px 16px",
+  // height: 40px;
+  // padding: 0 14px 0 0;
+  position: "absolute",
+  top: "100%",
+  // left: "32.5%",
+  // maxWidth: "35%",
+  // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  backgroundColor: "#A6095D",
+  "&:hover": {
+    // backgroundColor: "#A6095D",
+    background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  },
+}));
+
 const apiURL = "http://localhost:8080/blink";
 const socket = io.connect("http://localhost:4000");
 const style = {
@@ -32,7 +56,7 @@ const modal = {
     opacity: 0,
   },
   visible: {
-    y: "200px",
+    y: "25vh",
     opacity: 1,
     transition: { delay: 0.5 },
   },
@@ -113,11 +137,30 @@ export default function GameSet(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          style={{
+            borderRadius: "3vw",
+            border: "4px solid #f7dbf0",
+            backgroundColor: "#f7dbf0",
+          }}
+          sx={style}
+        >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            <p style={{ textAlign: "center", fontWeight: "bold" }}>결과</p>
+            <p
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                fontSize: "30px",
+              }}
+            >
+              결과
+            </p>
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography
+            style={{ textAlign: "center", fontSize: "20px" }}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
             <p
               style={{
                 textAlign: "center",
@@ -140,10 +183,26 @@ export default function GameSet(props) {
               animate="visible"
               initial="hidden"
               exit="hidden"
+              style={{ zIndex: "5555" }}
             >
-              <motion.div className="modal" variants={modal}>
-                <p>첫 인상 결과표</p>
-                <div style={{ display: "flex", textAlign: "center" }}>
+              <motion.div
+                className="modal"
+                variants={modal}
+                style={{
+                  borderRadius: "3vw",
+                  border: "1px solid #f7dbf0",
+                  backgroundColor: "#f7dbf0",
+                }}
+              >
+                <b style={{ fontSize: "30px" }}>첫 인상 결과표</b>
+                <div
+                  style={{
+                    display: "flex",
+                    textAlign: "center",
+                    fontSize: "20px",
+                    marginTop: "2vh",
+                  }}
+                >
                   <div
                     className="selectPerson"
                     style={{ display: "flex", flexDirection: "column" }}
@@ -161,7 +220,9 @@ export default function GameSet(props) {
                     ))}
                   </div>
                 </div>
-                <button onClick={onClick}>확인 완료</button>
+                <ButtonCo fullWidth variant="contained" onClick={onClick}>
+                  확인 완료
+                </ButtonCo>
               </motion.div>
             </motion.div>
           )}
@@ -175,10 +236,21 @@ export default function GameSet(props) {
               animate="visible"
               initial="hidden"
               exit="hidden"
+              style={{ zIndex: "5555" }}
             >
-              <motion.div className="modal" variants={modal}>
-                <p>{res}님이 확인중입니다.</p>
-                <div>1등이 아니다!!</div>
+              <motion.div
+                className="modal"
+                variants={modal}
+                style={{
+                  borderRadius: "3vw",
+                  border: "1px solid #f7dbf0",
+                  backgroundColor: "#f7dbf0",
+                }}
+              >
+                <b style={{ fontSize: "30px" }}>{res}님이 확인중입니다.</b>
+                <div style={{ fontSize: "20px", marginTop: "2vh" }}>
+                  1등이 아니다!!
+                </div>
               </motion.div>
             </motion.div>
           )}

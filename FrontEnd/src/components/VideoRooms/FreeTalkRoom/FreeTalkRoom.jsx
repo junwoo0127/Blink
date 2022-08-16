@@ -37,7 +37,7 @@ function FreeTalkRoom(props) {
           />
         </div>
       ))}
-      <Timer min={5} participantNum={participantNum} setMode={setMode} />
+      {/* <Timer min={5} participantNum={participantNum} setMode={setMode} /> */}
     </>
   );
 }
