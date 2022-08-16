@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./GameRoom.css";
 import GameIntro from "../../modals/GameIntro/GameIntro";
@@ -10,7 +10,9 @@ function GameRoom(props) {
   const [answer, setAnswer] = useState(true);
   const [gameOpen, setGameOpen] = useState(true);
   //function
-
+  useEffect(() => {
+    console.log("here is a locla user", localUser);
+  }, []);
   const setMode = (num) => {
     props.setMode(num);
   };
@@ -28,7 +30,7 @@ function GameRoom(props) {
         open={gameOpen}
         setMode={setMode}
         setGameEnd={setGameEnd}
-        user={localUser}
+        user={props.localUser}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser10">

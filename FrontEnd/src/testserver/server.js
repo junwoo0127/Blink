@@ -43,9 +43,9 @@ io.on("connection", (socket) => {
     } else {
       citizenCount++;
     }
-    if (mafiaCount === 3) {
+    if (mafiaCount === 2) {
       roles.shift();
-    } else if (citizenCount === 5) {
+    } else if (citizenCount === 4) {
       roles.pop();
     }
     socket.emit("setRole", { role: role });

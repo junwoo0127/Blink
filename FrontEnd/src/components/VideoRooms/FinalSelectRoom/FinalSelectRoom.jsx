@@ -9,7 +9,7 @@ function SelectRoom(props) {
 
   const localUser = props.localUser;
   const [selected, setSelected] = useState(false);
-
+  const roomSeq = props.roomSeq;
   //function
   const onSelect = () => {
     setSelected(true);
@@ -32,6 +32,7 @@ function SelectRoom(props) {
           id={"remoteUsers13" + i}
         >
           <FinalSelectStream
+            roomSeq={roomSeq}
             localUser={localUser}
             participantNum={props.participantNum}
             onSelect={onSelect}

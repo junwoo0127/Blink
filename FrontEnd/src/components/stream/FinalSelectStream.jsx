@@ -22,6 +22,7 @@ function SelectStreamComponent(props) {
   const [selected, setSelected] = useState(false);
   const [finalCount, setFinalCount] = useState(0);
   const [open, setOpen] = useState(false);
+  const roomSeq = props.roomSeq;
   const toggleSound = () => {
     setMutedSound(!mutedSound);
   };
@@ -62,7 +63,11 @@ function SelectStreamComponent(props) {
 
   return (
     <div>
-      <FinalSelectResult open={open} handleClose={handleClose} />
+      <FinalSelectResult
+        roomSeq={roomSeq}
+        open={open}
+        handleClose={handleClose}
+      />
       <button
         disabled={props.disabled}
         className="OT_widget-container"
