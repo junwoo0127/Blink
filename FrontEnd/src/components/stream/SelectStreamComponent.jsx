@@ -73,6 +73,9 @@ function SelectStreamComponent(props) {
         onClick={onClick}
         onMouseLeave={onMouseLeave}
       >
+        {showForm ? (
+          <span id="nickname">{props.user.getNickname()}</span>
+        ) : null}
         {props.user !== undefined &&
         props.user.getStreamManager() !== undefined ? (
           <div className="streamComponent">

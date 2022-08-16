@@ -77,6 +77,7 @@ class VideoRoomComponent extends Component {
       mode: 0,
       display: "block",
       filter: true,
+      roomLimit: 0,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -102,7 +103,8 @@ class VideoRoomComponent extends Component {
     this.setState({ display: "none" });
   }
   setRole() {
-    socket.emit("setRole");
+    console.log("roomLimit si", this.state.roomLimit);
+    socket.emit("setRole", { roomLimit: this.state.roomLimit });
     socket.on("setRole", (role) => {
       localUser.setRole(role.role);
       if (role.role === "mafia") {
@@ -182,12 +184,23 @@ class VideoRoomComponent extends Component {
     window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
     this.joinSession();
+    // try {
+    //   axios
+    //     .get(apiURL + "api/v1/rooms/roomSize", {
+    //       params: { roomSeq: this.props.store.user.Room.url.split("_")[0] },
+    //     })
+    //     .then((res) => this.setState({ roomLimit: res.data }));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   componentWillUnmount() {
     window.removeEventListener("beforeunload", this.onbeforeunload);
     window.removeEventListener("resize", this.updateLayout);
     window.removeEventListener("resize", this.checkSize);
+
+    console.log("leaveSession");
     this.leaveSession();
   }
 
@@ -199,6 +212,19 @@ class VideoRoomComponent extends Component {
     this.OV = new OpenVidu();
     localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
     console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
+    try {
+      axios
+        .get(apiURL + "api/v1/rooms/roomSize", {
+          params: { roomSeq: this.props.store.user.Room.url.split("_")[0] },
+        })
+        .then((res) =>
+          this.setState({ roomLimit: this.state.roomLimit + res.data }, () => {
+            this.setRole();
+          })
+        );
+    } catch (error) {
+      console.log(error);
+    }
     this.setState(
       {
         session: this.OV.initSession(),
@@ -206,7 +232,7 @@ class VideoRoomComponent extends Component {
       () => {
         this.subscribeToStreamCreated();
         this.connectToSession();
-        this.setRole();
+        // this.setRole();
       }
     );
   }
@@ -343,6 +369,7 @@ class VideoRoomComponent extends Component {
     if (mySession) {
       mySession.disconnect();
     }
+    socket.emit("leaveSession", this.state.role, this.state.roomLimit);
 
     // Empty all properties...
     this.OV = null;
@@ -425,6 +452,7 @@ class VideoRoomComponent extends Component {
   subscribeToStreamDestroyed() {
     // On every Stream destroyed...
     this.state.session.on("streamDestroyed", (event) => {
+      socket.emit("leaveSession", this.state.role, this.state.roomLimit);
       // Remove the stream from 'subscribers' array
       this.setState({ participantNum: (this.state.participantNum -= 1) });
       this.deleteSubscriber(event.stream);
