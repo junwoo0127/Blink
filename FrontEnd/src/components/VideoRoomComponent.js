@@ -715,6 +715,7 @@ class VideoRoomComponent extends Component {
             display={this.state.display}
             participantNum={this.state.participantNum}
             setMode={this.setMode}
+            roomSeq={this.props.store.user.Room.url.split("_")[0]}
           />
         ) : this.state.mode === 1 ? (
           <></>

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Button from "@mui/material/Button";
 import { alpha, styled } from "@mui/material/styles";
 import "./ReadyButton.css";
-
+import axios from "axios";
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#A6095D"),
   lineHeight: "44px",
@@ -45,12 +45,12 @@ const modal = {
   },
 };
 const socket = io.connect("http://localhost:4000");
-
+const apiURL = "http://localhost:8080/blink";
 function ReadyButton(props) {
   const [count, setCount] = useState(0);
   const [disable, setDisable] = useState(true);
   const [open, setOpen] = useState(false);
-
+  const [roomLimit, setRoomLimit] = useState(0);
   const participantNum = props.participantNum;
   useEffect(() => {
     socket.emit("getCount");
@@ -59,10 +59,20 @@ function ReadyButton(props) {
     setCount(cnt.count);
   });
   useEffect(() => {
-    if (participantNum == 3) {
+    try {
+      axios
+        .get(apiURL + "/api/v1/rooms/roomSize", {
+          params: { roomSeq: props.roomSeq },
+        })
+        .then((res) => setRoomLimit(res.data));
+    } catch (error) {
+      console.log(error);
+    }
+    if (participantNum === roomLimit) {
       setDisable(false);
     }
   });
+
   const onClick = (e) => {
     e.preventDefault();
     socket.emit("getReady");
@@ -80,7 +90,7 @@ function ReadyButton(props) {
       props.onHandleDisplay();
       setTimeout(() => {
         setOpen(false);
-        props.setMode(1);
+        props.setMode(2);
       }, 5000);
     }
   });

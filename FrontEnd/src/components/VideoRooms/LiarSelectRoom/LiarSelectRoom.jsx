@@ -59,6 +59,7 @@ function LiarSelectRoom(props) {
         open={open}
         handleClose={handleClose}
         mode={setMode}
+        user={localUser}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser11">

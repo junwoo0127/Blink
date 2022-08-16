@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
     //들어왔을 때 들어온 사람만 현재 준비완료 값을 받으면 됨으로 io 안씀
     socket.emit("getCount", { count: count });
   });
-
+  Number();
   socket.on("selectFirst", () => {
     ++firstCount;
     io.sockets.emit("selectFirst", { firstCount: firstCount });
@@ -89,6 +89,9 @@ io.on("connection", (socket) => {
   socket.emit("selectFinal", () => {
     ++finalCount;
     io.sockets.emit("selectFinal", { finalCount: finalCount });
+  });
+  socket.on("firstMatchConfirm", () => {
+    io.sockets.emit("firstMatchConfirm");
   });
 });
 

@@ -28,17 +28,23 @@ export default function FinalSelectResult(props) {
   useEffect(() => {
     try {
       axios
-        .get(apiURL + "/api/v1/game/isFinalMatch", {
+        .get(apiURL + "/api/v1/game/resultFinal", {
           params: { roomSeq: props.roomSeq },
         })
         .then((res) => {
           console.log(res);
-          setRes(res);
+          setRes(res.data);
         });
     } catch (e) {
       console.log(e);
     }
   });
+  const selectPerson = () => {
+    const result = [];
+    for (let i = 0; i < res.length; i++) {
+      result.push();
+    }
+  };
   return (
     <div>
       <Modal
@@ -48,11 +54,10 @@ export default function FinalSelectResult(props) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            결과!!!
+            축하합니다!
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {res}
-            잠시 후 이방은 폭파 됩니다!
           </Typography>
         </Box>
       </Modal>
