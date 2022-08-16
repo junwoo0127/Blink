@@ -534,7 +534,7 @@ class VideoRoomComponent extends Component {
         {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
         LiarSelect>>FreeTalk>>FinalSelect */}
         <div id="layout" className="bounds" style={{}}>
-          {this.state.mode === 0 ? (
+          {this.state.mode === 1 ? (
             <WaitingRoom
               filter={this.state.filter}
               localUser={localUser}
@@ -617,7 +617,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 4 ? (
+          ) : this.state.mode === 0 ? (
             <DiscussRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
@@ -704,7 +704,7 @@ class VideoRoomComponent extends Component {
           micStatusChanged={this.micStatusChanged}
           leaveSession={this.leaveSession}
         />
-        {this.state.mode === 0 ? (
+        {this.state.mode === 1 ? (
           <ReadyButton
             onHandleDisplay={this.onHandleDisplay}
             display={this.state.display}

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "CookieR";
-  src: url(./assets/fonts/CookieRun\ Regular.ttf);
+  src: url(assets/fonts/CookieRun\ Regular.ttf);
   /* font-weight: normal;
   font-style: normal; */
 }
@@ -10,6 +10,7 @@
 
 #FontC {
   font-family: "CookieR" !important;
+  cursor: url(assets/heartcursor.png) 15 15, auto !important;
 }
 
 body {

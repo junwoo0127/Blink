@@ -1,9 +1,11 @@
 @font-face {
-  font-family: "CookieRun";
-  src: url("/CookieRun Regular.ttf") format("ttf");
+  /* font-family: "CookieRun";
+  src: url("/CookieRun Regular.ttf") format("ttf"); */
+  font-family: "CookieR";
+  src: url(assets/fonts/CookieRun\ Regular.ttf);
 }
 * {
-  font-family: "CookieRun";
+  font-family: "CookieR" !important;
 }
 body {
   margin: 0;

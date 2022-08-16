@@ -29,7 +29,7 @@ function IntroduceRoom(props) {
           />
         </div>
       ))}
-      <IntroduceTimer sec={20} setMode={setMode} />
+      <IntroduceTimer style={{}} sec={20} setMode={setMode} />
     </>
   );
 }

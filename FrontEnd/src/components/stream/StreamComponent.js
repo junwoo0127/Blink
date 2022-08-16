@@ -52,15 +52,14 @@ export default class StreamComponent extends Component {
           this.props.user.getStreamManager() !== undefined ? (
             <div className="streamComponent">
               {/* 화면 송출 부분 ex>> id="video-str_CAM_WG4m_con_QdcVOVkZVu" */}
-              <Filter user={this.props.user} />
               {/* {this.props.filter ? (
  
                   <Filter user={this.props.user} /> 
               ) : ( */}
-              {/* <OvVideoComponent
+              <OvVideoComponent
                 user={this.props.user}
                 mutedSound={this.state.mutedSound}
-              /> */}
+              />
               {/* )} */}
 
               <div id="statusIcons">

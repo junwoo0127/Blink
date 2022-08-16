@@ -29,7 +29,7 @@ function GameRoom(props) {
       <GameIntro
         participantNum={props.participantNum}
         open={open}
-        role={props.localUser.getRole()}
+        // role={props.localUser.getRole()}
         setGameStart={setGameStart}
       />
       <Game

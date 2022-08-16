@@ -925,3 +925,6 @@
   width: 33.3% !important;
   height: 49.95% !important;
 }
+.OT_widget-container {
+  background: transparent;
+}

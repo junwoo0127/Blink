@@ -49,7 +49,7 @@ const FreeTalkTimer = (props) => {
   }, [sec]);
 
   return (
-    <div>
+    <div id="ttime">
       {!red ? (
         <div className={red ? "timeout" : null}>
           {min} : {sec}
