@@ -14,7 +14,7 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // padding: 0 14px 0 0;
   position: "absolute",
   top: "100%",
-  left: 0,
+  left: "32.5%",
   maxWidth: "35%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   backgroundColor: "#A6095D",
@@ -37,7 +37,7 @@ const modal = {
     opacity: 0,
   },
   visible: {
-    y: "200px",
+    y: "25vh",
     opacity: 1,
     transition: { delay: 0.5 },
   },
@@ -53,6 +53,7 @@ function FirstSelect(props) {
             animate="visible"
             initial="hidden"
             exit="hidden"
+            style={{ zIndex: "5555" }}
           >
             <motion.div
               className="modal"

@@ -5,6 +5,31 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import io from "socket.io-client";
 import axios from "axios";
+import pino from "../../../assets/pino.png";
+import { styled } from "@mui/material/styles";
+
+const ButtonCo = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#A6095D"),
+  // lineHeight: "44px",
+  borderRadius: "30px",
+  fontSize: "20px",
+  color: "white !important",
+  // padding: "9.5px 16px",
+  // height: 40px;
+  // padding: 0 14px 0 0;
+  // position: "absolute",
+  // top: "100%",
+  marginTop: "2vh",
+  left: "30%",
+  maxWidth: "40%",
+  // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  backgroundColor: "#A6095D",
+  "&:hover": {
+    // backgroundColor: "#A6095D",
+    background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  },
+}));
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -53,9 +78,34 @@ export default function GameIntro(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          style={{
+            borderRadius: "3vw",
+            border: "4px solid #f7dbf0",
+            backgroundColor: "#f7dbf0",
+          }}
+          sx={style}
+        >
+          <img
+            alt="pino"
+            src={pino}
+            style={{
+              position: "absolute",
+              width: "50px",
+              left: "10%",
+            }}
+          />
+          <img
+            alt="pino"
+            src={pino}
+            style={{
+              position: "absolute",
+              width: "50px",
+              left: "80%",
+            }}
+          />
           <Typography
-            style={{ textAlign: "center" }}
+            style={{ textAlign: "center", fontSize: "30px" }}
             id="modal-modal-title"
             variant="h6"
             component="h2"
@@ -63,8 +113,8 @@ export default function GameIntro(props) {
             MBTI를 맞춰라!
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <p style={{ textAlign: "center", fontSize: "larger" }}>룰 설명</p>
-            <div>
+            {/* <p >룰 설명</p>  없어도 될듯!  */}
+            <div style={{ textAlign: "center", fontSize: "20px" }}>
               참가자는 <span style={{ color: "red" }}>거짓말쟁이</span>와{" "}
               <span style={{ color: "blue" }}>선량한 사람</span>둘 중 하나의
               역할을 가지게 됩니다.
@@ -91,12 +141,9 @@ export default function GameIntro(props) {
               보세요!
             </div>
           </Typography>
-          <button
-            style={{ position: "absolute", left: "40%" }}
-            onClick={onClick}
-          >
+          <ButtonCo fullWidth variant="contained" onClick={onClick}>
             역할 확인하기
-          </button>
+          </ButtonCo>
         </Box>
       </Modal>
       <Modal
@@ -104,9 +151,16 @@ export default function GameIntro(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          style={{
+            borderRadius: "3vw",
+            border: "4px solid #f7dbf0",
+            backgroundColor: "#f7dbf0",
+          }}
+          sx={style}
+        >
           <Typography
-            style={{ textAlign: "center" }}
+            style={{ textAlign: "center", fontSize: "30px" }}
             id="modal-modal-title"
             variant="h6"
             component="h2"
@@ -114,22 +168,27 @@ export default function GameIntro(props) {
             당신의 역할은?
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {role === "mafia" ? (
-              <div>
+            {role === "maifa" ? (
+              <div style={{ textAlign: "center", fontSize: "20px" }}>
                 당신은 <span style={{ color: "red" }}>거짓말쟁이</span>입니다!
                 다른 사람들에게 들키지 않고 우승을 차지하세요!{" "}
               </div>
             ) : (
-              <div>
+              <div style={{ textAlign: "center", fontSize: "20px" }}>
                 당신은 <span style={{ color: "blue" }}>선량한 사람</span>입니다!
                 상대방의 이야기를 잘 듣고 누가 거짓말을 하고 있는 지 맞추어
                 보세요!{" "}
               </div>
             )}
           </Typography>
-          <button onClick={onClick2} disabled={disabled}>
+          <ButtonCo
+            fullWidth
+            variant="contained"
+            onClick={onClick2}
+            disabled={disabled}
+          >
             준비완료 {gameReady}/{props.participantNum}
-          </button>
+          </ButtonCo>
         </Box>
       </Modal>
     </div>

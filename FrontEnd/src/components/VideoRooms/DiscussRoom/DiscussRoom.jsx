@@ -5,6 +5,8 @@ import Timer from "../../Common/timer/DiscussTimer";
 import StreamComponent from "../../stream/StreamComponent";
 import DiscussStart from "../../modals/DiscussStart/DiscussStart";
 import io from "socket.io-client";
+import E from "../../../assets/E.png";
+import I from "../../../assets/I.png";
 
 const socket = io.connect("http://localhost:4000");
 function DiscussRoom(props) {
@@ -21,7 +23,7 @@ function DiscussRoom(props) {
     <>
       <DiscussStart />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        <div className="OT_root OT_publisher custom-class" id="localUser">
+        <div className="OT_root OT_publisher custom-class" id="localUser9">
           <StreamComponent
             id={localUser.getAnswer() ? "yes" : "no"}
             user={localUser}
@@ -41,7 +43,7 @@ function DiscussRoom(props) {
           />
         </div>
       ))}
-      <Timer sec={10} participantNum={participantNum} setMode={setMode} />
+      {/* <Timer sec={10} participantNum={participantNum} setMode={setMode} /> */}
     </>
   );
 }

@@ -32,6 +32,9 @@ import SpeedDialBottom from "./Common/SpeedDialBottom";
 import SpeedDialTop from "./Common/SpeedDialTop";
 import FinalSelectRoom from "./VideoRooms/FinalSelectRoom/FinalSelectRoom";
 import FreeTalkRoom from "./VideoRooms/FreeTalkRoom/FreeTalkRoom";
+import IntroduceTimer1 from "../components/Common/timer/IntroduceTimer";
+import DiscussTimer1 from "../components/Common/timer/DiscussTimer";
+import FreeTalkTimer1 from "../components/Common/timer/FreeTalkTimer";
 
 var localUser = new UserModel();
 const socket = io.connect("http://localhost:4000");
@@ -56,11 +59,11 @@ class VideoRoomComponent extends Component {
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     console.log(this.props.store);
-    let sessionName = this.props.store.user.Room.url;
+    let sessionName = "6"; //민 this.props.store.user.Room.url;
     console.log(window.location.hash);
     // console.log(this.props.store.user.Room);
 
-    let userName = this.props.store.user.Room.nickname;
+    let userName = "6"; //민 this.props.store.user.Room.nickname;
 
     this.remotes = [];
     this.localUserAccessAllowed = false;
@@ -134,7 +137,7 @@ class VideoRoomComponent extends Component {
     // $('[data-toggle="tooltip"]').tooltip();
     // Input clipboard
     $("#copy-input").val(
-      "http://localhost:3000/lobby?room=" + this.props.store.user.Room.url
+      "http://localhost:3000/lobby?room=" // + 민 this.props.store.user.Room.url
     );
     $("#copy-button").bind("click", function () {
       var input = document.getElementById("copy-input");
@@ -210,8 +213,8 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
-    localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
-    console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
+    //민 localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
+    //민 console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
     try {
       axios
         .get(apiURL + "api/v1/rooms/roomSize", {
@@ -554,7 +557,7 @@ class VideoRoomComponent extends Component {
     return (
       <div className="container" id="container">
         <ToolbarComponent
-          sessionId={this.props.store.user.Room.url}
+          //민 sessionId={this.props.store.user.Room.url}
           user={localUser}
           showNotification={this.state.messageReceived}
           camStatusChanged={this.camStatusChanged}
@@ -746,7 +749,11 @@ class VideoRoomComponent extends Component {
             roomSeq={this.props.store.user.Room.url.split("_")[0]}
           />
         ) : this.state.mode === 1 ? (
-          <></>
+          <IntroduceTimer1 style={{}} sec={15} setMode={this.setMode} />
+        ) : this.state.mode === 4 ? (
+          <DiscussTimer1 style={{}} sec={10} setMode={this.setMode} />
+        ) : this.state.mode === 7 ? (
+          <FreeTalkTimer1 style={{}} sec={5} setMode={this.setMode} />
         ) : null}
       </div>
     );

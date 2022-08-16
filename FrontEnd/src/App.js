@@ -15,7 +15,6 @@ import FindPassword from "./components/FindPassword/FindPassword";
 import Profile from "./components/Profile/Profile";
 import Lobby from "./components/Lobby/Lobby";
 import LobbySetting from "./components/LobbySetting/LobbySetting";
-
 import Auth from "./hoc/auth";
 
 // 고려할만할듯 로딩페이지 처럼
@@ -36,8 +35,7 @@ function App() {
         id="FontC"
         style={{
           fontFamily: "CookieR !important",
-          cursor:
-            "url('https://blog.kakaocdn.net/dn/BQXpN/btq3qNR67Lg/8tx8tGzkOcr5BuX5dyIaKk/img.png')50 50, auto",
+          //cursor:"url('https://blog.kakaocdn.net/dn/BQXpN/btq3qNR67Lg/8tx8tGzkOcr5BuX5dyIaKk/img.png')50 50, auto",
         }}
       >
         <Routes>
