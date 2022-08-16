@@ -20,7 +20,7 @@ class UserModel {
     this.type = "local";
     this.role = "";
     this.playerSeq = "";
-    this.answer = true;
+    this.answer = "";
   }
 
   isAudioActive() {
@@ -34,11 +34,9 @@ class UserModel {
   isScreenShareActive() {
     return this.screenShareActive;
   }
-
   getAnswer() {
     return this.answer;
   }
-
   getPlayerSeq() {
     return this.playerSeq;
   }

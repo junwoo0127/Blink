@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./GameRoom.css";
 import GameIntro from "../../modals/GameIntro/GameIntro";
@@ -7,10 +7,12 @@ import Game from "../../modals/Game/Game";
 function GameRoom(props) {
   //variables
   const localUser = props.localUser;
-
+  const [answer, setAnswer] = useState(true);
   const [gameOpen, setGameOpen] = useState(true);
   //function
-
+  useEffect(() => {
+    console.log("here is a locla user", localUser);
+  }, []);
   const setMode = (num) => {
     props.setMode(num);
   };
@@ -18,6 +20,9 @@ function GameRoom(props) {
     setGameOpen(false);
   };
 
+  const selectNo = () => {
+    setAnswer(false);
+  };
   return (
     <>
       <Game

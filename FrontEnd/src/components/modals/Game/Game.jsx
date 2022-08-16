@@ -48,6 +48,7 @@ function Game(props) {
       });
     dispatch(increaseCount(quiz_count));
     console.log(quiz_count);
+    console.log(props.user);
   }, []);
 
   //function

@@ -56,11 +56,11 @@ class VideoRoomComponent extends Component {
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     console.log(this.props.store);
-    let sessionName = "5"; // this.props.store.user.Room.url;
+    let sessionName = this.props.store.user.Room.url;
     console.log(window.location.hash);
     // console.log(this.props.store.user.Room);
 
-    let userName = "5 "; // this.props.store.user.Room.nickname;
+    let userName = this.props.store.user.Room.nickname;
 
     this.remotes = [];
     this.localUserAccessAllowed = false;
@@ -132,7 +132,7 @@ class VideoRoomComponent extends Component {
     // $('[data-toggle="tooltip"]').tooltip();
     // Input clipboard
     $("#copy-input").val(
-      "http://localhost:3000/lobby?room=" // + this.props.store.user.Room.url
+      "http://localhost:3000/lobby?room=" + this.props.store.user.Room.url
     );
     $("#copy-button").bind("click", function () {
       var input = document.getElementById("copy-input");
@@ -197,8 +197,8 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
-    // localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
-    // console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
+    localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
+    console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
     this.setState(
       {
         session: this.OV.initSession(),
@@ -456,6 +456,9 @@ class VideoRoomComponent extends Component {
           if (data.playerSeq !== undefined) {
             user.setPlayerSeq(data.playerSeq);
           }
+          if (data.answer !== undefined) {
+            user.setAnswer(data.answer);
+          }
         }
       });
       this.setState({
@@ -523,7 +526,7 @@ class VideoRoomComponent extends Component {
     return (
       <div className="container" id="container">
         <ToolbarComponent
-          sessionId={mySessionId}
+          sessionId={this.props.store.user.Room.url}
           user={localUser}
           showNotification={this.state.messageReceived}
           camStatusChanged={this.camStatusChanged}
@@ -639,6 +642,7 @@ class VideoRoomComponent extends Component {
             />
           ) : this.state.mode === 6 ? (
             <LiarSelectRoom
+              roomSeq={this.props.store.user.Room.url.split("_")[0]}
               participantNum={this.state.participantNum}
               localUser={localUser}
               subscribers={this.state.subscribers}
@@ -659,6 +663,7 @@ class VideoRoomComponent extends Component {
             />
           ) : this.state.mode === 8 ? (
             <FinalSelectRoom
+              roomSeq={this.props.store.user.Room.url.split("_")[0]}
               participantNum={this.state.participantNum}
               localUser={localUser}
               subscribers={this.state.subscribers}

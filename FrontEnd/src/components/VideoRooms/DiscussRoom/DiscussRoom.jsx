@@ -21,12 +21,11 @@ function DiscussRoom(props) {
     <>
       <DiscussStart />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
-        <div className="OT_root OT_publisher custom-class" id="localUser9">
-          {localUser.getAnswer() ? (
-            <StreamComponent id="yes" user={localUser} />
-          ) : (
-            <StreamComponent id="no" user={localUser} />
-          )}
+        <div className="OT_root OT_publisher custom-class" id="localUser">
+          <StreamComponent
+            id={localUser.getAnswer() ? "yes" : "no"}
+            user={localUser}
+          />
         </div>
       )}
       {props.subscribers.map((sub, i) => (
@@ -42,7 +41,7 @@ function DiscussRoom(props) {
           />
         </div>
       ))}
-      {/* <Timer sec={10} participantNum={participantNum} setMode={setMode} /> */}
+      <Timer sec={10} participantNum={participantNum} setMode={setMode} />
     </>
   );
 }

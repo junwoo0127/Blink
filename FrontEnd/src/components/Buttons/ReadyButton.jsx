@@ -48,7 +48,7 @@ const socket = io.connect("http://localhost:4000");
 
 function ReadyButton(props) {
   const [count, setCount] = useState(0);
-  const [disable, setDisable] = useState(false);
+  const [disable, setDisable] = useState(true);
   const [open, setOpen] = useState(false);
 
   const participantNum = props.participantNum;
@@ -57,6 +57,11 @@ function ReadyButton(props) {
   }, []);
   socket.on("getCount", (cnt) => {
     setCount(cnt.count);
+  });
+  useEffect(() => {
+    if (participantNum == 3) {
+      setDisable(false);
+    }
   });
   const onClick = (e) => {
     e.preventDefault();
