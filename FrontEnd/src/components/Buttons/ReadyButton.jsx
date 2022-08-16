@@ -48,7 +48,7 @@ const socket = io.connect("http://localhost:4000");
 const apiURL = "http://localhost:8080/blink";
 function ReadyButton(props) {
   const [count, setCount] = useState(0);
-  const [disable, setDisable] = useState(true);
+  const [disable, setDisable] = useState(false);
   const [open, setOpen] = useState(false);
   const [roomLimit, setRoomLimit] = useState(0);
   const participantNum = props.participantNum;
@@ -68,10 +68,7 @@ function ReadyButton(props) {
     } catch (error) {
       console.log(error);
     }
-    if (participantNum === roomLimit) {
-      setDisable(false);
-    }
-  });
+  }, []);
 
   const onClick = (e) => {
     e.preventDefault();
@@ -83,7 +80,7 @@ function ReadyButton(props) {
     setCount(cnt.count);
     console.log("how many clicked", count);
     console.log("how many participants", participantNum);
-    if (cnt.count === participantNum && count > 1) {
+    if (cnt.count === roomLimit && count > 1) {
       //비교 값이 참가자 수가 아니라 정해놓은 인원수로 해야함
       console.log("start");
       setOpen(true);
@@ -105,7 +102,7 @@ function ReadyButton(props) {
         disabled={disable}
         style={{ fontFamily: "CookieR" }}
       >
-        준비완료 : {count}/{props.participantNum}
+        준비완료 : {count}/{roomLimit}
         {/* 숫자표시관련 생각 */}
       </ButtonCo>
       <AnimatePresence exitBeforeEnter>

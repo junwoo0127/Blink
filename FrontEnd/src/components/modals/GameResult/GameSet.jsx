@@ -84,20 +84,21 @@ export default function GameSet(props) {
       setOpen(true);
     }, 4000);
   }
-  const selectPerson = () => {
-    const result = [];
-    for (let i = 0; i < res.length; i++) {
-      result.push(<span key={i}>{firstMatch[i].nickname} 님은 </span>);
-    }
-    return result;
-  };
-  const selectedPerson = () => {
-    const result = [];
-    for (let i = 0; i < res.length; i++) {
-      result.push(<span key={i}>{firstMatch[i].firstChoiceNickname} 님!</span>);
-    }
-    return result;
-  };
+  // const selectPerson = () => {
+  //   console.log(firstMatch);
+  //   const result = [];
+  //   for (let i = 0; i < res.length; i++) {
+  //     result.push(<span key={i}>{firstMatch(i).nickname} 님은 </span>);
+  //   }
+  //   return result;
+  // };
+  // const selectedPerson = () => {
+  //   const result = [];
+  //   for (let i = 0; i < res.length; i++) {
+  //     result.push(<span key={i}>{firstMatch(i).firstMatchNickName} 님!</span>);
+  //   }
+  //   return result;
+  // };
   const onClick = () => {
     socket.emit("firstMatchConfirm");
   };
@@ -130,7 +131,7 @@ export default function GameSet(props) {
           </Typography>
         </Box>
       </Modal>
-      {open && props.user.getNickname() === res ? (
+      {props.user.getNickname() === res ? (
         <AnimatePresence exitBeforeEnter>
           {open && (
             <motion.div
@@ -147,13 +148,17 @@ export default function GameSet(props) {
                     className="selectPerson"
                     style={{ display: "flex", flexDirection: "column" }}
                   >
-                    {selectPerson()}
+                    {firstMatch.map((select, index) => (
+                      <span key={index}>{select.nickname} 님은</span>
+                    ))}
                   </div>
                   <div
                     className="selectedPerson"
                     style={{ display: "flex", flexDirection: "column" }}
                   >
-                    {selectedPerson()}
+                    {firstMatch.map((selected, index) => (
+                      <span key={index}>{selected.firstMatchNickname} 님!</span>
+                    ))}
                   </div>
                 </div>
                 <button onClick={onClick}>확인 완료</button>
