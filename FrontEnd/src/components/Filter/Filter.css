@@ -1,0 +1,16 @@
+video {
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 94%;
+  height: 94%;
+  color: #ffffff;
+  border-radius: 50%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
