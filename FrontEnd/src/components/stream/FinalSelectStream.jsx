@@ -94,11 +94,9 @@ function SelectStreamComponent(props) {
               ) : null}
               {showForm ? (
                 selected ? (
-                  <div id="LikeIcon">
-                    <FavoriteIcon id="statusLike" />
-                  </div>
+                  <FavoriteIcon id="statusLike" style={{ fontSize: "200px" }} />
                 ) : (
-                  <FavoriteBorderIcon />
+                  <FavoriteBorderIcon style={{ fontSize: "200px" }} />
                 )
               ) : null}
               {/* //   selected ? (

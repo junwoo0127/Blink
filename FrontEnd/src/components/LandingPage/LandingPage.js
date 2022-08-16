@@ -221,18 +221,6 @@ function LandingPage(props) {
                 >
                   어서오세요, {info} 님!
                 </Typography>
-                <TextFieldLogin
-                  margin="normal"
-                  fullWidth
-                  value={link}
-                  onChange={onLinkHandler}
-                  id="link"
-                  label="참가링크"
-                  name="link"
-                  type="link"
-                  autoComplete="link"
-                  autoFocus
-                />
                 <ButtonCo
                   onClick={onclickMakeRoom}
                   fullWidth

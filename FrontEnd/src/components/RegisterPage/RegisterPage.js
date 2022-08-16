@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser, check_id } from "../../_actions/user_action";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { alpha, styled } from "@mui/material/styles";
@@ -75,7 +76,7 @@ function RegisterPage(props) {
   // const params = useParams();
   // const location = useLocation();
   // const navigate = useNavigate();
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [Email, setEmail] = useState("");
@@ -102,7 +103,9 @@ function RegisterPage(props) {
 
     return emailRegex.test(email);
   };
-
+  const onClick = () => {
+    navigate("/login");
+  };
   const onConfirmPasswordHandler = (event) => {
     setConfirmPassword(event.currentTarget.value);
   };
@@ -286,7 +289,12 @@ function RegisterPage(props) {
             </ButtonCo>
           </form>{" "}
           <Typography align="center">
-            <Link href="#" underline="hover" variant="h6" color="inherit">
+            <Link
+              onClick={onClick}
+              underline="hover"
+              variant="h6"
+              color="inherit"
+            >
               회원이신가요? <b>로그인하기</b>
             </Link>
             <br></br>

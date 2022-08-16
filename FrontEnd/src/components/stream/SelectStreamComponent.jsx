@@ -52,7 +52,7 @@ function SelectStreamComponent(props) {
   socket.on("selectFirst", (cnt) => {
     setFirstLoveCount(cnt.firstCount);
     if (cnt.firstCount === props.participantNum) {
-      props.mode(3);
+      props.mode(6);
     }
   });
 
