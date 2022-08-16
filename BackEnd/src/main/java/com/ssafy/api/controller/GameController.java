@@ -101,5 +101,10 @@ public class GameController {
 	public ResponseEntity<List<FinalResultRes>> resultFinalChocie(@RequestParam Long roomSeq) {
 		return ResponseEntity.status(200).body(gameService.getFinalVoteResultByRoomSeq(roomSeq));
 	}
-
+	
+	@GetMapping("/matchedFinal")
+	@ApiOperation(value = "커플 결과지", notes = "해당 방 안에서 매칭된 사람들의 정보 반환")
+	public ResponseEntity<List<FinalResultRes>> matchedFinalChocie(@RequestParam Long roomSeq) {
+		return ResponseEntity.status(200).body(gameService.getMatchedFinalVoteResultByRoomSeq(roomSeq));
+	}
 }
