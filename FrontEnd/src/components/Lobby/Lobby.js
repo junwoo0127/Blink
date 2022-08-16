@@ -195,7 +195,7 @@ function Lobby(props) {
         let body = {
           room: {
             url: "",
-            roomSize: 1,
+            roomSize: personnel * 2,
           },
           player: {
             nickname: nickname,
