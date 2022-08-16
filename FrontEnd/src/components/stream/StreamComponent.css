@@ -39,29 +39,40 @@
 }
 
 /* 비디오~~~ */
-/* 
-*/
-/* 
- */
-/* video {
-  position: absolute;
-  top: 3%;
-  left: 3%;
-  -o-object-fit: cover;
-  object-fit: cover;
-  width: 94%;
-  height: 94%;
+/*  */
+video {
+  position: absolute !important;
+  top: 3% !important;
+  left: 3% !important;
+  -o-object-fit: cover !important;
+  object-fit: cover !important;
+  width: 94% !important;
+  height: 94% !important;
   color: #ffffff;
-  border-radius: 50%;
+  border-radius: 50% !important;
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
   font-family: Arial, Helvetica, sans-serif;
-} */
-
-
-video {
+}
+canvas {
+  position: absolute !important;
+  top: 3% !important;
+  left: 3% !important;
+  -o-object-fit: cover !important;
+  object-fit: cover !important;
+  width: 94% !important;
+  height: 94% !important;
+  color: #ffffff;
+  border-radius: 50% !important;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* video {
   -o-object-fit: cover;
   object-fit: cover;
   width: 100%;
@@ -72,7 +83,7 @@ video {
   border: 0;
   font-size: 100%;
   font-family: Arial, Helvetica, sans-serif;
-}
+} */
 
 #yes {
   background: blue;
