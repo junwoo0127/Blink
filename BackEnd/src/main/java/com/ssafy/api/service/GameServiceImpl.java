@@ -138,7 +138,8 @@ public class GameServiceImpl implements GameService {
 		List<Player> players = playerRepository.findAllByRoomSeq(roomSeq);
 		List<FirstResultRes> res = new ArrayList<FirstResultRes>();
 		for(Player p : players) {
-			res.add(FirstResultRes.of(p));
+			Player chosenOne = playerRepository.findByPlayerSeq(p.getFirstChoice());
+			res.add(FirstResultRes.of(p, chosenOne));
 		}
 		return res;
 	}
@@ -148,7 +149,8 @@ public class GameServiceImpl implements GameService {
 		List<Player> players = playerRepository.findAllByRoomSeq(roomSeq);
 		List<FinalResultRes> res = new ArrayList<FinalResultRes>();
 		for(Player p : players) {
-			res.add(FinalResultRes.of(p));
+			Player chosenOne = playerRepository.findByPlayerSeq(p.getFinalChoice());
+			res.add(FinalResultRes.of(p, chosenOne));
 		}
 		return res;
 	}

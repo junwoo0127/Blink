@@ -19,13 +19,20 @@ import lombok.Setter;
 public class FinalResultRes {
 	@ApiModelProperty(name="Player Sequence")
 	Long playerSeq;
-	@ApiModelProperty(name="Final Choice")
+	@ApiModelProperty(name="player nickname")
+	String nickname;
+	@ApiModelProperty(name="Final Choice PlayerSeq")
 	Long finalChoice;
+	//FinalChocie 받은 Player의 닉네임
+	@ApiModelProperty(name="Final Choice nickname")
+	String finalChoiceNickname;
 	
-	public static FinalResultRes of(Player player) {
+	public static FinalResultRes of(Player player, Player chosenOne) {
 		FinalResultRes res = FinalResultRes.builder()
 				.playerSeq(player.getPlayerSeq())
+				.nickname(player.getNickname())
 				.finalChoice(player.getFinalChoice())
+				.finalChoiceNickname(chosenOne.getNickname())
 				.build();
 		return res;
 	}
