@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Button from "@mui/material/Button";
 import { alpha, styled } from "@mui/material/styles";
 import "./ReadyButton.css";
-
+import axios from "axios";
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#A6095D"),
   lineHeight: "44px",
@@ -45,12 +45,12 @@ const modal = {
   },
 };
 const socket = io.connect("http://localhost:4000");
-
+const apiURL = "http://localhost:8080/blink";
 function ReadyButton(props) {
   const [count, setCount] = useState(0);
   const [disable, setDisable] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const [roomLimit, setRoomLimit] = useState(0);
   const participantNum = props.participantNum;
   useEffect(() => {
     socket.emit("getCount");
@@ -58,6 +58,18 @@ function ReadyButton(props) {
   socket.on("getCount", (cnt) => {
     setCount(cnt.count);
   });
+  useEffect(() => {
+    try {
+      axios
+        .get(apiURL + "/api/v1/rooms/roomSize", {
+          params: { roomSeq: props.roomSeq },
+        })
+        .then((res) => setRoomLimit(res.data));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   const onClick = (e) => {
     e.preventDefault();
     socket.emit("getReady");
@@ -68,14 +80,14 @@ function ReadyButton(props) {
     setCount(cnt.count);
     console.log("how many clicked", count);
     console.log("how many participants", participantNum);
-    if (cnt.count === participantNum && count > 1) {
+    if (cnt.count === roomLimit && count > 1) {
       //비교 값이 참가자 수가 아니라 정해놓은 인원수로 해야함
       console.log("start");
       setOpen(true);
       props.onHandleDisplay();
       setTimeout(() => {
         setOpen(false);
-        props.setMode(1);
+        props.setMode(8);
       }, 5000);
     }
   });
@@ -90,7 +102,7 @@ function ReadyButton(props) {
         disabled={disable}
         style={{ fontFamily: "CookieR" }}
       >
-        준비완료 : {count}/{props.participantNum}
+        준비완료 : {count}/{roomLimit}
         {/* 숫자표시관련 생각 */}
       </ButtonCo>
       <AnimatePresence exitBeforeEnter>

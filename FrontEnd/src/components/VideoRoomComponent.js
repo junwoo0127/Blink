@@ -56,11 +56,11 @@ class VideoRoomComponent extends Component {
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     console.log(this.props.store);
-    let sessionName = "5"; // this.props.store.user.Room.url;
+    let sessionName = this.props.store.user.Room.url;
     console.log(window.location.hash);
     // console.log(this.props.store.user.Room);
 
-    let userName = "5 "; // this.props.store.user.Room.nickname;
+    let userName = this.props.store.user.Room.nickname;
 
     this.remotes = [];
     this.localUserAccessAllowed = false;
@@ -77,6 +77,7 @@ class VideoRoomComponent extends Component {
       mode: 0,
       display: "block",
       filter: true,
+      roomLimit: 0,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -102,7 +103,8 @@ class VideoRoomComponent extends Component {
     this.setState({ display: "none" });
   }
   setRole() {
-    socket.emit("setRole");
+    console.log("roomLimit si", this.state.roomLimit);
+    socket.emit("setRole", { roomLimit: this.state.roomLimit });
     socket.on("setRole", (role) => {
       localUser.setRole(role.role);
       if (role.role === "mafia") {
@@ -132,7 +134,7 @@ class VideoRoomComponent extends Component {
     // $('[data-toggle="tooltip"]').tooltip();
     // Input clipboard
     $("#copy-input").val(
-      "http://localhost:3000/lobby?room=" // + this.props.store.user.Room.url
+      "http://localhost:3000/lobby?room=" + this.props.store.user.Room.url
     );
     $("#copy-button").bind("click", function () {
       var input = document.getElementById("copy-input");
@@ -182,12 +184,23 @@ class VideoRoomComponent extends Component {
     window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
     this.joinSession();
+    // try {
+    //   axios
+    //     .get(apiURL + "api/v1/rooms/roomSize", {
+    //       params: { roomSeq: this.props.store.user.Room.url.split("_")[0] },
+    //     })
+    //     .then((res) => this.setState({ roomLimit: res.data }));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   componentWillUnmount() {
     window.removeEventListener("beforeunload", this.onbeforeunload);
     window.removeEventListener("resize", this.updateLayout);
     window.removeEventListener("resize", this.checkSize);
+
+    console.log("leaveSession");
     this.leaveSession();
   }
 
@@ -197,8 +210,21 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
-    // localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
-    // console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
+    localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
+    console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
+    try {
+      axios
+        .get(apiURL + "api/v1/rooms/roomSize", {
+          params: { roomSeq: this.props.store.user.Room.url.split("_")[0] },
+        })
+        .then((res) =>
+          this.setState({ roomLimit: this.state.roomLimit + res.data }, () => {
+            this.setRole();
+          })
+        );
+    } catch (error) {
+      console.log(error);
+    }
     this.setState(
       {
         session: this.OV.initSession(),
@@ -206,7 +232,7 @@ class VideoRoomComponent extends Component {
       () => {
         this.subscribeToStreamCreated();
         this.connectToSession();
-        this.setRole();
+        // this.setRole();
       }
     );
   }
@@ -343,6 +369,7 @@ class VideoRoomComponent extends Component {
     if (mySession) {
       mySession.disconnect();
     }
+    socket.emit("leaveSession", this.state.role, this.state.roomLimit);
 
     // Empty all properties...
     this.OV = null;
@@ -425,6 +452,7 @@ class VideoRoomComponent extends Component {
   subscribeToStreamDestroyed() {
     // On every Stream destroyed...
     this.state.session.on("streamDestroyed", (event) => {
+      socket.emit("leaveSession", this.state.role, this.state.roomLimit);
       // Remove the stream from 'subscribers' array
       this.setState({ participantNum: (this.state.participantNum -= 1) });
       this.deleteSubscriber(event.stream);
@@ -455,6 +483,9 @@ class VideoRoomComponent extends Component {
           }
           if (data.playerSeq !== undefined) {
             user.setPlayerSeq(data.playerSeq);
+          }
+          if (data.answer !== undefined) {
+            user.setAnswer(data.answer);
           }
         }
       });
@@ -523,7 +554,7 @@ class VideoRoomComponent extends Component {
     return (
       <div className="container" id="container">
         <ToolbarComponent
-          sessionId={mySessionId}
+          sessionId={this.props.store.user.Room.url}
           user={localUser}
           showNotification={this.state.messageReceived}
           camStatusChanged={this.camStatusChanged}
@@ -617,7 +648,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 0 ? (
+          ) : this.state.mode === 4 ? (
             <DiscussRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
@@ -639,6 +670,7 @@ class VideoRoomComponent extends Component {
             />
           ) : this.state.mode === 6 ? (
             <LiarSelectRoom
+              roomSeq={this.props.store.user.Room.url.split("_")[0]}
               participantNum={this.state.participantNum}
               localUser={localUser}
               subscribers={this.state.subscribers}
@@ -659,6 +691,7 @@ class VideoRoomComponent extends Component {
             />
           ) : this.state.mode === 8 ? (
             <FinalSelectRoom
+              roomSeq={this.props.store.user.Room.url.split("_")[0]}
               participantNum={this.state.participantNum}
               localUser={localUser}
               subscribers={this.state.subscribers}
@@ -710,6 +743,7 @@ class VideoRoomComponent extends Component {
             display={this.state.display}
             participantNum={this.state.participantNum}
             setMode={this.setMode}
+            roomSeq={this.props.store.user.Room.url.split("_")[0]}
           />
         ) : this.state.mode === 1 ? (
           <></>

@@ -20,7 +20,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
+import Register from "../RegisterPage/RegisterPage";
 // css 참고 근본 페이지
 
 // 칸칸 24px
@@ -99,6 +99,9 @@ function LoginPage(props) {
 
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
+  };
+  const onClick = () => {
+    navigate("/Register");
   };
 
   const onSubmitHandler = (event) => {
@@ -204,25 +207,7 @@ function LoginPage(props) {
                 type="password"
                 autoComplete="current-password"
               />
-              <Grid1 container>
-                <Grid item xs>
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="로그인 정보 저장"
-                    style={{ marginLeft: "5px" }}
-                  />
-                </Grid>
-                <Grid item>
-                  <Link
-                    href="#"
-                    underline="hover"
-                    variant="subtitle2"
-                    color="inherit"
-                  >
-                    도움이 필요하신가요?
-                  </Link>
-                </Grid>
-              </Grid1>
+
               <ButtonCo
                 onClick={onSubmitHandler}
                 fullWidth
@@ -234,7 +219,12 @@ function LoginPage(props) {
             </Box>
           </form>
           <Typography align="center">
-            <Link href="#" underline="hover" variant="h6" color="inherit">
+            <Link
+              onClick={onClick}
+              underline="hover"
+              variant="h6"
+              color="inherit"
+            >
               회원이 아니신가요? <b>지금 가입하세요</b>
             </Link>
             <br></br>

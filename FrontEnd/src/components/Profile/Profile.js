@@ -142,7 +142,6 @@ function Lobby(props) {
 
   return (
     <div>
-      <MemberPage></MemberPage>
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         {/* 방장이면 보임 */}

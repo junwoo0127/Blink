@@ -14,7 +14,7 @@ import FinalSelectResult from "../modals/FinalSelectResult/FinalSelectResult";
 import axios from "axios";
 import { useRef } from "react";
 const socket = io.connect("http://localhost:4000");
-const apiURL = "http://localhost:8080";
+const apiURL = "http://localhost:8080/blink";
 
 function SelectStreamComponent(props) {
   const [showForm, setShowForm] = useState(false);
@@ -22,6 +22,7 @@ function SelectStreamComponent(props) {
   const [selected, setSelected] = useState(false);
   const [finalCount, setFinalCount] = useState(0);
   const [open, setOpen] = useState(false);
+  const roomSeq = props.roomSeq;
   const toggleSound = () => {
     setMutedSound(!mutedSound);
   };
@@ -37,7 +38,12 @@ function SelectStreamComponent(props) {
     // props.onSelect();
     setShowForm(true);
     props.onSelect();
-
+    axios.get(apiURL + "/api/v1/game/voteFinal", {
+      params: {
+        playerSeq: props.localUser.getPlayerSeq(),
+        finalChoice: props.user.getPlayerSeq(),
+      },
+    });
     socket.emit("selectFinal");
   };
   socket.on("selectFinal", (cnt) => {
@@ -57,7 +63,11 @@ function SelectStreamComponent(props) {
 
   return (
     <div>
-      <FinalSelectResult open={open} handleClose={handleClose} />
+      <FinalSelectResult
+        roomSeq={roomSeq}
+        open={open}
+        handleClose={handleClose}
+      />
       <button
         disabled={props.disabled}
         className="OT_widget-container"
@@ -65,6 +75,9 @@ function SelectStreamComponent(props) {
         onClick={onClick}
         onMouseLeave={onMouseLeave}
       >
+        {showForm ? (
+          <span id="nickname">{props.user.getNickname()}</span>
+        ) : null}
         {props.user !== undefined &&
         props.user.getStreamManager() !== undefined ? (
           <div className="streamComponent">
@@ -84,11 +97,9 @@ function SelectStreamComponent(props) {
               ) : null}
               {showForm ? (
                 selected ? (
-                  <div id="LikeIcon">
-                    <FavoriteIcon id="statusLike" />
-                  </div>
+                  <FavoriteIcon id="statusLike" style={{ fontSize: "200px" }} />
                 ) : (
-                  <FavoriteBorderIcon />
+                  <FavoriteBorderIcon style={{ fontSize: "200px" }} />
                 )
               ) : null}
               {/* //   selected ? (
