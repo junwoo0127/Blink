@@ -16,7 +16,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const apiURL = "http://localhost:/8080/blink";
+const apiURL = "http://localhost:8080/blink";
 export default function FinalSelectResult(props) {
   //variables
   const [res, setRes] = useState("");
@@ -28,39 +28,51 @@ export default function FinalSelectResult(props) {
   useEffect(() => {
     try {
       axios
-        .get(apiURL + "/api/v1/game/resultFinal", {
+        .get(apiURL + "/api/v1/game/matchedFinal", {
           params: { roomSeq: props.roomSeq },
         })
         .then((res) => {
-          console.log(res);
+          console.log("커플!!!", res);
           setRes(res.data);
         });
     } catch (e) {
       console.log(e);
     }
   });
-  const selectPerson = () => {
-    const result = [];
-    for (let i = 0; i < res.length; i++) {
-      result.push();
-    }
-  };
+
   return (
     <div>
-      <Modal
-        open={props.open}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            축하합니다!
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {res}
-          </Typography>
-        </Box>
-      </Modal>
+      {res.length > 0 ? (
+        <Modal
+          open={props.open}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              축하합니다!
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              {res}
+            </Typography>
+          </Box>
+        </Modal>
+      ) : (
+        <Modal
+          open={props.open}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              축하합니다!
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              {res}
+            </Typography>
+          </Box>
+        </Modal>
+      )}
     </div>
   );
 }
