@@ -59,11 +59,11 @@ class VideoRoomComponent extends Component {
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     console.log(this.props.store);
-    let sessionName = "6"; //민 this.props.store.user.Room.url;
+    let sessionName = this.props.store.user.Room.url;
     console.log(window.location.hash);
     // console.log(this.props.store.user.Room);
 
-    let userName = "6"; //민 this.props.store.user.Room.nickname;
+    let userName = this.props.store.user.Room.nickname;
 
     this.remotes = [];
     this.localUserAccessAllowed = false;
@@ -213,8 +213,8 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
-    //민 localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
-    //민 console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
+    localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
+    console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
     try {
       axios
         .get(apiURL + "api/v1/rooms/roomSize", {
@@ -557,7 +557,7 @@ class VideoRoomComponent extends Component {
     return (
       <div className="container" id="container">
         <ToolbarComponent
-          //민 sessionId={this.props.store.user.Room.url}
+          sessionId={this.props.store.user.Room.url}
           user={localUser}
           showNotification={this.state.messageReceived}
           camStatusChanged={this.camStatusChanged}
@@ -568,7 +568,7 @@ class VideoRoomComponent extends Component {
         {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
         LiarSelect>>FreeTalk>>FinalSelect */}
         <div id="layout" className="bounds" style={{}}>
-          {this.state.mode === 0 ? (
+          {this.state.mode === 1 ? (
             <WaitingRoom
               filter={this.state.filter}
               localUser={localUser}
@@ -651,7 +651,7 @@ class VideoRoomComponent extends Component {
               messageReceived={this.checkNotification}
               setMode={this.setMode}
             />
-          ) : this.state.mode === 4 ? (
+          ) : this.state.mode === 0 ? (
             <DiscussRoom
               participantNum={this.state.participantNum}
               localUser={localUser}
