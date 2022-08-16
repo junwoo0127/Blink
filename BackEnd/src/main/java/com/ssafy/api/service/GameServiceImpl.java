@@ -1,11 +1,14 @@
 package com.ssafy.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.api.request.PlayerEnterPostReq;
+import com.ssafy.api.response.FinalResultRes;
+import com.ssafy.api.response.FirstResultRes;
 import com.ssafy.db.entity.Player;
 import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.repository.PlayerRepository;
@@ -128,6 +131,26 @@ public class GameServiceImpl implements GameService {
 				.type(playerpost.getType()).hobby(playerpost.getHobby()).build();
 		
 		return player;
+	}
+	
+	@Override
+	public List<FirstResultRes> getFirstVoteResultByRoomSeq(Long roomSeq) {
+		List<Player> players = playerRepository.findAllByRoomSeq(roomSeq);
+		List<FirstResultRes> res = new ArrayList<FirstResultRes>();
+		for(Player p : players) {
+			res.add(FirstResultRes.of(p));
+		}
+		return res;
+	}
+
+	@Override
+	public List<FinalResultRes> getFinalVoteResultByRoomSeq(Long roomSeq) {
+		List<Player> players = playerRepository.findAllByRoomSeq(roomSeq);
+		List<FinalResultRes> res = new ArrayList<FinalResultRes>();
+		for(Player p : players) {
+			res.add(FinalResultRes.of(p));
+		}
+		return res;
 	}
 
 }
