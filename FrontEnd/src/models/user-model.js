@@ -20,7 +20,7 @@ class UserModel {
     this.type = "local";
     this.role = "";
     this.playerSeq = "";
-    this.answer = null;
+    this.answer = true;
   }
 
   isAudioActive() {

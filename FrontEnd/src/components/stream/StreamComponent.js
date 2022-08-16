@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./StreamComponent.css";
 import OvVideoComponent from "./OvVideo";
+import Filter from "../Filter/Filter";
 
 import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
@@ -51,14 +52,16 @@ export default class StreamComponent extends Component {
           this.props.user.getStreamManager() !== undefined ? (
             <div className="streamComponent">
               {/* 화면 송출 부분 ex>> id="video-str_CAM_WG4m_con_QdcVOVkZVu" */}
-              {this.props.filter ? (
-                <></>
-              ) : (
-                <OvVideoComponent
-                  user={this.props.user}
-                  mutedSound={this.state.mutedSound}
-                />
-              )}
+
+              {/* {this.props.filter ? (
+ 
+                  <Filter user={this.props.user} /> 
+              ) : ( */}
+              <OvVideoComponent
+                user={this.props.user}
+                mutedSound={this.state.mutedSound}
+              />
+              {/* )} */}
 
               <div id="statusIcons">
                 {!this.props.user.isVideoActive() ? (
