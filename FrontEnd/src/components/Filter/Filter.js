@@ -14,8 +14,7 @@ function Filter() {
     // const video = webcamRef.current.video;
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
-    const videoRef = createRef();
-    console.log(videoRef);
+
     console.log(connect);
     // Set canvas width
     canvasRef.current.width = videoWidth;

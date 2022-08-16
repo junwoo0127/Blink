@@ -41,7 +41,7 @@ const apiURL = "http://localhost:8080/blink/";
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
-    // console.log(this.props.store.user.Room.url);
+    console.log(this.props.store.user.Room.url);
 
     this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
       ? this.props.openviduServerUrl
@@ -56,11 +56,11 @@ class VideoRoomComponent extends Component {
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     console.log(this.props.store);
-    let sessionName = "5"; // this.props.store.user.Room.url;
+    let sessionName = this.props.store.user.Room.url;
     console.log(window.location.hash);
-    // console.log(this.props.store.user.Room);
+    console.log(this.props.store.user.Room);
 
-    let userName = "5 "; // this.props.store.user.Room.nickname;
+    let userName = this.props.store.user.Room.nickname;
 
     this.remotes = [];
     this.localUserAccessAllowed = false;
@@ -132,7 +132,7 @@ class VideoRoomComponent extends Component {
     // $('[data-toggle="tooltip"]').tooltip();
     // Input clipboard
     $("#copy-input").val(
-      "http://localhost:3000/lobby?room=" // + this.props.store.user.Room.url
+      "http://localhost:3000/lobby?room=" + this.props.store.user.Room.url
     );
     $("#copy-button").bind("click", function () {
       var input = document.getElementById("copy-input");
@@ -197,8 +197,8 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
-    // localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
-    // console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
+    localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
+    console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
     this.setState(
       {
         session: this.OV.initSession(),
