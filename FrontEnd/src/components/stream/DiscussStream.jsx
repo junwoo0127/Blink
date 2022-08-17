@@ -21,6 +21,7 @@ export default class StreamComponent extends Component {
     this.toggleSound = this.toggleSound.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
+    
   }
 
   toggleSound() {
@@ -34,10 +35,11 @@ export default class StreamComponent extends Component {
     this.setState({ showForm: false });
   }
 
+
   render() {
     return (
       <div>
-        <div
+        <div id ={this.props.user.getAnswer() ? "yes": "no"}
           className="OT_widget-container"
           onMouseOver={this.onMouseOver}
           onMouseLeave={this.onMouseLeave}

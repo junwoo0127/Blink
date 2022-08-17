@@ -100,6 +100,7 @@ class VideoRoomComponent extends Component {
     this.setRole = this.setRole.bind(this);
     this.onHandleDisplay = this.onHandleDisplay.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+    this.answerChanged = this.answerChanged.bind(this);
   }
   handleFilter() {
     this.setState({ filter: !this.state.filter });
@@ -363,6 +364,7 @@ class VideoRoomComponent extends Component {
             nickname: this.state.localUser.getNickname(),
             isScreenShareActive: this.state.localUser.isScreenShareActive(),
             playerSeq: this.state.localUser.getPlayerSeq(),
+            answer : this.state.localUser.getAnswer(),
           });
         }
         this.updateLayout();
@@ -412,6 +414,15 @@ class VideoRoomComponent extends Component {
     this.sendSignalUserChanged({
       nickname: this.state.localUser.getNickname(),
     });
+
+  }
+  answerChanged(answer){
+    let localUser = this.state.localUser;
+    localUser.setAnswer(answer);
+    this.setState({localUser:localUser});
+    this.sendSignalUserChanged({
+      answer : this.state.localUser.getAnswer()
+    })
   }
 
   deleteSubscriber(stream) {
@@ -919,7 +930,7 @@ class VideoRoomComponent extends Component {
         ) : this.state.mode === 1 ? (
           <IntroduceTimer1 style={{}} sec={15} setMode={this.setMode} />
         ) : this.state.mode === 4 ? (
-          <DiscussTimer1 style={{}} sec={10} setMode={this.setMode} />
+          <DiscussTimer1 style={{}} participantNum = {this.state.participantNum} sec={10} setMode={this.setMode} />
         ) : this.state.mode === 7 ? (
           <FreeTalkTimer1 style={{}} sec={5} setMode={this.setMode} />
         ) : null}

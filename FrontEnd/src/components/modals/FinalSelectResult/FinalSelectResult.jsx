@@ -38,7 +38,7 @@ export default function FinalSelectResult(props) {
     } catch (e) {
       console.log(e);
     }
-  });
+  },[props.open]);
 
   return (
     <div>
