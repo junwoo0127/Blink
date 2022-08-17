@@ -216,7 +216,7 @@ export default function GameSet(props) {
                     style={{ display: "flex", flexDirection: "column" }}
                   >
                     {firstMatch.map((selected, index) => (
-                      <span key={index}>{selected.firstMatchNickname} 님!</span>
+                      <span key={index}>{selected.firstChoiceNickname} 님!</span>
                     ))}
                   </div>
                 </div>

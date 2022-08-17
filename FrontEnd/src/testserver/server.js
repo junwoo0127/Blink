@@ -1,5 +1,6 @@
 const app = require("express")();
 const server = require("http").createServer(app);
+const { isOptionGroup } = require("@mui/base");
 const cors = require("cors");
 const io = require("socket.io")(server, {
   cors: {
@@ -17,6 +18,7 @@ let answerCount = 0;
 let discussCount = 0;
 let gameSetCount = 0;
 let finalCount = 0;
+let sequence =0;
 
 // let modalshow = false;
 io.on("connection", (socket) => {
@@ -35,37 +37,37 @@ io.on("connection", (socket) => {
     io.sockets.emit("selectFirst", { firstCount: firstCount });
   });
 
-  socket.on("setRole", (roomLimit) => {
-    console.log(roomLimit.roomLimit);
-    let rand = Math.floor(Math.random() * roles.length);
-    let role = roles[rand];
-    if (role === "mafia") {
-      mafiaCount++;
-    } else {
-      citizenCount++;
-    }
-    if (roomLimit.roomLimit === 4) {
-      if (mafiaCount === 1) {
-        roles.shift();
-      } else if (citizenCount === 3) {
-        roles.pop();
-      }
-    } else if (roomLimit.roomLimit === 6) {
-      if (mafiaCount === 2) {
-        roles.shift();
-      } else if (citizenCount === 4) {
-        roles.pop();
-      }
-    } else if (roomLimit.roomLimit === 8) {
-      if (mafiaCount === 3) {
-        roles.shift();
-      } else if (citizenCount === 5) {
-        roles.pop();
-      }
-    }
-    socket.emit("setRole", { role: role });
-    console.log("mafia : ", mafiaCount, "citizen : ", citizenCount);
-  });
+  // socket.on("setRole", (roomLimit) => {
+  //   console.log(roomLimit.roomLimit);
+  //   let rand = Math.floor(Math.random() * roles.length);
+  //   let role = roles[rand];
+  //   if (role === "mafia") {
+  //     mafiaCount++;
+  //   } else {
+  //     citizenCount++;
+  //   }
+  //   if (roomLimit.roomLimit === 4) {
+  //     if (mafiaCount === 1) {
+  //       roles.shift();
+  //     } else if (citizenCount === 3) {
+  //       roles.pop();
+  //     }
+  //   } else if (roomLimit.roomLimit === 6) {
+  //     if (mafiaCount === 2) {
+  //       roles.shift();
+  //     } else if (citizenCount === 4) {
+  //       roles.pop();
+  //     }
+  //   } else if (roomLimit.roomLimit === 8) {
+  //     if (mafiaCount === 3) {
+  //       roles.shift();
+  //     } else if (citizenCount === 5) {
+  //       roles.pop();
+  //     }
+  //   }
+  //   socket.emit("setRole", { role: role });
+  //   console.log("mafia : ", mafiaCount, "citizen : ", citizenCount);
+  // });
   socket.on("gameReady", () => {
     ++gameReady;
     io.sockets.emit("gameReady", { gameReady: gameReady });
@@ -100,7 +102,7 @@ io.on("connection", (socket) => {
     ++gameSetCount;
     io.sockets.emit("gameSet", { gameSetCount: gameSetCount });
   });
-
+  
   socket.on("selectFinal", () => {
     ++finalCount;
     io.sockets.emit("selectFinal", { finalCount: finalCount });
@@ -108,8 +110,15 @@ io.on("connection", (socket) => {
   socket.on("firstMatchConfirm", () => {
     io.sockets.emit("firstMatchConfirm");
   });
-  socket.on("leaveSession", (role, roomLimit) => {
+  socket.on("sequence", () => {
+    ++sequence;
+    console.log("i got it")
+    console.log("seq", sequence)
+    socket.emit("sequence", ({sequence: sequence}))
+  })
+  socket.on("leaveSession", () => {
     count = 0;
+    sequence = 0;
     firstCount = 0;
     gameReady = 0;
     answerCount = 0;
