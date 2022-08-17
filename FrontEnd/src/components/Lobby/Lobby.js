@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser, makeRoom, enterRoom } from "../../_actions/user_action";
 import { useSelector } from "react-redux";
-
+import {settingGender} from "../../_reducers/gender_reducer";
 import { styled } from "@mui/material/styles";
 
 import MemberPage from "../Common/MemberPage";
@@ -127,6 +127,7 @@ const FormControl1 = styled(FormControl)({
 });
 
 function Lobby(props) {
+  
   const [mbti, setMbti] = useState("");
 
   const [subject, setSubject] = useState("");
@@ -164,6 +165,7 @@ function Lobby(props) {
 
   const genderHandle = (event) => {
     setGender(event.target.value);
+    dispatch(settingGender(event.target.value))
   };
 
   const bloodHandle = (event) => {
