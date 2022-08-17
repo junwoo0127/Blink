@@ -103,7 +103,8 @@ public class GameServiceImpl implements GameService {
 	public int isFinalMatch(Long playerSeq) {
 		Player originPlayer = playerRepository.findByPlayerSeq(playerSeq);
 		Player nextPlayer = playerRepository.findByPlayerSeq(originPlayer.getFinalChoice());
-		if (playerSeq == nextPlayer.getFinalChoice()) {
+		System.out.println("-------------------"+playerSeq+" "+nextPlayer.getFinalChoice());
+		if (playerSeq == (long)nextPlayer.getFinalChoice()) {
 			originPlayer.setIsFinalMatch(1);
 			playerRepository.save(originPlayer);
 			return 1;
