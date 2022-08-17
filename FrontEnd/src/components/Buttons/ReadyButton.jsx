@@ -87,10 +87,13 @@ function ReadyButton(props) {
       props.onHandleDisplay();
       setTimeout(() => {
         setOpen(false);
-        props.setMode(8);
+        props.setMode(1);
       }, 5000);
     }
   });
+  socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
+    setCount(0)
+  })
 
   return (
     <>

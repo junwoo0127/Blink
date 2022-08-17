@@ -35,6 +35,9 @@ const Timer = (props) => {
   socket.on("discussCount", (cnt) => {
     setDiscussCount(cnt.discussCount);
   });
+  socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
+    setDiscussCount(0)
+  })
 
   // 초가 변할 때만 실행되는 useEffect
   // initialTime을 검사해서 0이 되면 interval을 멈춘다.
