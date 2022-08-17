@@ -73,7 +73,7 @@ const ResponsiveAppBar = () => {
   }
 }
  */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -103,7 +103,7 @@ const ResponsiveAppBar = () => {
               }}
             ></Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
 
           {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

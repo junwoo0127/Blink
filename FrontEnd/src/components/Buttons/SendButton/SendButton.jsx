@@ -6,6 +6,27 @@ import Stack from "@mui/material/Stack";
 import io from "socket.io-client";
 import { ariaHidden } from "@mui/material";
 import axios from "axios";
+import { alpha, styled } from "@mui/material/styles";
+
+const ButtonCo = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#A6095D"),
+  lineHeight: "30px",
+  borderRadius: "30px",
+  fontSize: "20px",
+  padding: "7px 1px",
+  // height: 40px;
+  // padding: 0 14px 0 0;
+  position: "absolute",
+  bottom: "0.5%",
+  left: "35%",
+  maxWidth: "30%",
+  // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  backgroundColor: "#A6095D",
+  "&:hover": {
+    // backgroundColor: "#A6095D",
+    background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  },
+}));
 
 const apiURL = "http://localhost:8080/blink";
 export default function SendButton(props) {
@@ -37,14 +58,16 @@ export default function SendButton(props) {
 
   return (
     <>
-      <Button
+      <ButtonCo
+        fullWidth
+        variant="contained"
         onClick={onClick}
         disabled={props.disabled}
         provariant="contained"
         endIcon={<SendIcon />}
       >
         Send
-      </Button>
+      </ButtonCo>
     </>
   );
 }
