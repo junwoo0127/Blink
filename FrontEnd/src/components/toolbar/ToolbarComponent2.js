@@ -50,17 +50,16 @@ export default class ToolbarComponent2 extends Component {
               />
             </Link>
             {/* 방 제목  중앙 */}
-            <div id="navSessionInfo">
-              {/* <img id="header_img" alt="OpenVidu Logo" src={logo} /> */}
-
+            {/* <div id="navSessionInfo">
+             
               {this.props.sessionId && (
                 <div id="titleContent">
                   <span id="session-title">{mySessionId}</span>
                 </div>
               )}
-            </div>
+            </div> */}
 
-            <form class="hidden-xs">
+            <form class="hidden-xs" style={{ visibility: "hidden" }}>
               <div class="input-group">
                 <input
                   type="text"
@@ -83,7 +82,7 @@ export default class ToolbarComponent2 extends Component {
               </div>
             </form>
 
-            <button onClick={shareLink} title="URL복사"></button>
+            {/* <button onClick={shareLink} title="URL복사"></button> */}
 
             {/* 스피드다이얼로 표시 */}
           </Toolbar>

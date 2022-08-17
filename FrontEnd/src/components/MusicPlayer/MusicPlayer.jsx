@@ -4,14 +4,14 @@ import { alpha, styled } from "@mui/material/styles";
 
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#A6095D"),
-  lineHeight: "44px",
+  lineHeight: "30px",
   borderRadius: "30px",
-  fontSize: "22px",
-  padding: "9.5px 16px",
+  fontSize: "20px",
+  padding: "7px 1px",
   // height: 40px;
   // padding: 0 14px 0 0;
   position: "absolute",
-  bottom: "0",
+  bottom: "0.5%",
   left: "1%",
   maxWidth: "30%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
