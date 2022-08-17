@@ -130,9 +130,9 @@ function ReadyButton(props) {
               <b style={{ fontSize: "30px" }}> 자기 소개 시간!</b>
 
               <div style={{ fontSize: "20px", marginTop: "2vh" }}>
-                약 5분간 자기 소개를 시작합니다! 각자 자기 소개를 마음껏
-                해주세요! 이후 첫인상 선택이 이루어질 예정이니 적극적으로
-                참여하여 상대방에게 나의 매력을 어필하세요!
+                1명씩 돌아가며 <p style={{color:"blue"}}>1분 자기소개</p>를 진행합니다!
+                해당하는 사람은 테두리가 강조되며 시간 경과시 바로 다음 사람으로 넘어갑니다! 
+                제한 시간내에 자신의 첫 매력을 어필해보세요!! 
               </div>
             </motion.div>
           </motion.div>

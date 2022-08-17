@@ -2,19 +2,24 @@ import React from "react";
 
 import "./IntroduceRoom.css";
 
-import StreamComponent from "../../stream/StreamComponent";
+import IntroduceStream from "../../stream/IntroduceStream";
 import IntroduceTimer from "../../Common/timer/IntroduceTimer";
 
 function IntroduceRoom(props) {
   const localUser = props.localUser;
+  const participantNum = props.participantNum
+  const seq = props.seq;
   const setMode = (num) => {
     props.setMode(num);
   };
+  const seqPlus = () => {
+    props.seqPlus();
+  }
   return (
     <>
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser1">
-          <StreamComponent user={localUser} />
+          <IntroduceStream seq = {seq} user={localUser} />
         </div>
       )}
       {props.subscribers.map((sub, i) => (
@@ -23,13 +28,14 @@ function IntroduceRoom(props) {
           className="OT_root OT_publisher custom-class"
           id={"remoteUsers1" + i}
         >
-          <StreamComponent
+          <IntroduceStream
+          seq = {seq}
             user={sub}
             streamId={sub.streamManager.stream.streamId}
           />
         </div>
       ))}
-      {/* <IntroduceTimer style={{}} sec={15} setMode={setMode} /> */}
+      {/* <IntroduceTimer participantNum = {props.participantNum} seqPlus ={seqPlus} style={{}} sec={15} setMode={setMode} /> */}
     </>
   );
 }

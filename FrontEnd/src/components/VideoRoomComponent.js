@@ -25,7 +25,7 @@ import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
 import GameIntroRoom from "./VideoRooms/GameRoom/GameIntroRoom";
 import LiarSelectRoom from "./VideoRooms/LiarSelectRoom/LiarSelectRoom";
-
+import LastRoom from "./VideoRooms/LastRoom/LastRoom"
 import { get_session } from "../_actions/user_action";
 import { connect } from "react-redux";
 import SpeedDialBottom from "./Common/SpeedDialBottom";
@@ -83,6 +83,8 @@ class VideoRoomComponent extends Component {
       filter: true,
       roomLimit: 0,
       showFF: true,
+      seq : 1,
+      sec : 15
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -101,6 +103,11 @@ class VideoRoomComponent extends Component {
     this.onHandleDisplay = this.onHandleDisplay.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
     this.answerChanged = this.answerChanged.bind(this);
+    this.seqPlus = this.seqPlus.bind(this);
+  }
+  seqPlus(){
+    this.setState({seq: this.state.seq +1})
+    console.log("my seq is, ", this.state.seq)
   }
   handleFilter() {
     this.setState({ filter: !this.state.filter });
@@ -109,18 +116,19 @@ class VideoRoomComponent extends Component {
     this.setState({ display: "none" });
   }
   setRole() {
-    console.log("roomLimit si", this.state.roomLimit);
-    socket.emit("setRole", { roomLimit: this.state.roomLimit });
-    socket.on("setRole", (role) => {
-      localUser.setRole(role.role);
-      if (role.role === "mafia") {
+    socket.on("sequence", (cnt)=> {
+      console.log("cntcntcnt", cnt.sequence)
+      localUser.setSequence(cnt.sequence);
+      if(cnt.sequence === 1 || cnt.sequence ===2) {
+        localUser.setRole("mafia")
         axios.get(apiURL + "api/v1/game/isLiar", {
           params: {
             playerSeq: localUser.getPlayerSeq(),
             isLiar: 1,
           },
         });
-      } else if ((role.role = "citizen")) {
+      } else {
+        localUser.setRole("citizen")
         axios.get(apiURL + "api/v1/game/isLiar", {
           params: {
             playerSeq: localUser.getPlayerSeq(),
@@ -128,8 +136,10 @@ class VideoRoomComponent extends Component {
           },
         });
       }
-    });
-  }
+      })
+    }
+  
+  
   setMode(num) {
     this.setState({ mode: num });
     this.updateLayout();
@@ -218,7 +228,9 @@ class VideoRoomComponent extends Component {
     this.OV = new OpenVidu();
 
     localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
-
+    socket.emit("sequence")
+    
+    
     console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
     try {
       axios
@@ -227,7 +239,7 @@ class VideoRoomComponent extends Component {
         })
         .then((res) =>
           this.setState({ roomLimit: this.state.roomLimit + res.data }, () => {
-            this.setRole();
+            // this.setRole();
           })
         );
     } catch (error) {
@@ -240,7 +252,7 @@ class VideoRoomComponent extends Component {
       () => {
         this.subscribeToStreamCreated();
         this.connectToSession();
-        // this.setRole();
+        this.setRole();
       }
     );
   }
@@ -313,7 +325,7 @@ class VideoRoomComponent extends Component {
       videoSource: undefined,
       //videoSource: videoDevices[0].deviceId,
       publishAudio: !localUser.isAudioActive(),
-      publishVideo: localUser.isVideoActive(),
+      publishVideo: !localUser.isVideoActive(),
       resolution: "640x480",
       frameRate: 30,
       insertMode: "APPEND",
@@ -365,6 +377,7 @@ class VideoRoomComponent extends Component {
             isScreenShareActive: this.state.localUser.isScreenShareActive(),
             playerSeq: this.state.localUser.getPlayerSeq(),
             answer : this.state.localUser.getAnswer(),
+            seq : this.state.localUser.getSequence(),
           });
         }
         this.updateLayout();
@@ -378,7 +391,7 @@ class VideoRoomComponent extends Component {
     if (mySession) {
       mySession.disconnect();
     }
-    socket.emit("leaveSession", this.state.role, this.state.roomLimit);
+    socket.emit("leaveSession");
 
     // Empty all properties...
     this.OV = null;
@@ -505,6 +518,9 @@ class VideoRoomComponent extends Component {
           if (data.answer !== undefined) {
             user.setAnswer(data.answer);
           }
+          if(data.seq !== undefined){
+            user.setSequence(data.seq)
+          }
         }
       });
       this.setState({
@@ -597,6 +613,166 @@ class VideoRoomComponent extends Component {
               ></WaitingRoom>
             ) : this.state.mode === 1 ? (
               <IntroduceRoom1
+              seqPlus = {this.seqPlus}
+                localUser={localUser}
+                participantNum={this.state.participantNum}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+                seq = {this.state.seq}
+              />
+            ) : this.state.mode === 12 ? (
+              <IntroduceRoom2
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 13 ? (
+              <IntroduceRoom3
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 14 ? (
+              <IntroduceRoom4
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 15 ? (
+              <IntroduceRoom5
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 16 ? (
+              <IntroduceRoom6
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 2 ? (
+              <SelectRoom
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 3 ? (
+              <GameIntroRoom
+              answerChanged={this.answerChanged}
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 4 ? (
+              <DiscussRoom
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 5 ? (
+              <GameRoom
+              answerChanged={this.answerChanged}
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 6 ? (
+              <LiarSelectRoom
+                roomSeq={this.props.store.user.Room.url.split("_")[0]}
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 7 ? (
+              <FreeTalkRoom
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 8 ? (
+              <FinalSelectRoom
+              leaveSession = {this.leaveSession}
+                roomSeq={this.props.store.user.Room.url.split("_")[0]}
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : 
+            this.state.mode === 9 ? (
+              <LastRoom roomSeq={this.props.store.user.Room.url.split("_")[0]}
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+              />):null}
+          </div>
+        ) : (
+          <Grid container>
+            <Grid item xs={9} style={{ border: "2px solid #blue" }}>
+              <div id="layout" className="bounds9" style={{}}>
+              {this.state.mode === 0 ? (
+              <WaitingRoom
+                filter={this.state.filter}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+              ></WaitingRoom>
+            ) : this.state.mode === 1 ? (
+              <IntroduceRoom1
+              seqPlus ={this.seqPlus}
+                seq = {this.state.seq}
+                participantNum={this.state.participantNum}
                 localUser={localUser}
                 subscribers={this.state.subscribers}
                 chatDisplay={this.state.chatDisplay}
@@ -661,6 +837,7 @@ class VideoRoomComponent extends Component {
               />
             ) : this.state.mode === 3 ? (
               <GameIntroRoom
+              answerChanged={this.answerChanged}
                 participantNum={this.state.participantNum}
                 localUser={localUser}
                 subscribers={this.state.subscribers}
@@ -681,6 +858,7 @@ class VideoRoomComponent extends Component {
               />
             ) : this.state.mode === 5 ? (
               <GameRoom
+              answerChanged={this.answerChanged}
                 participantNum={this.state.participantNum}
                 localUser={localUser}
                 subscribers={this.state.subscribers}
@@ -712,6 +890,7 @@ class VideoRoomComponent extends Component {
               />
             ) : this.state.mode === 8 ? (
               <FinalSelectRoom
+              leaveSession = {this.leaveSession}
                 roomSeq={this.props.store.user.Room.url.split("_")[0]}
                 participantNum={this.state.participantNum}
                 localUser={localUser}
@@ -721,149 +900,18 @@ class VideoRoomComponent extends Component {
                 messageReceived={this.checkNotification}
                 setMode={this.setMode}
               />
-            ) : null}
+            ) : 
+            this.state.mode === 9 ? (
+              <LastRoom roomSeq={this.props.store.user.Room.url.split("_")[0]}
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+              />):null}
           </div>
-        ) : (
-          <Grid container>
-            <Grid item xs={9} style={{ border: "2px solid #blue" }}>
-              <div id="layout" className="bounds9" style={{}}>
-                {this.state.mode === 0 ? (
-                  <WaitingRoom
-                    filter={this.state.filter}
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                  ></WaitingRoom>
-                ) : this.state.mode === 1 ? (
-                  <IntroduceRoom1
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 12 ? (
-                  <IntroduceRoom2
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 13 ? (
-                  <IntroduceRoom3
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 14 ? (
-                  <IntroduceRoom4
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 15 ? (
-                  <IntroduceRoom5
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 16 ? (
-                  <IntroduceRoom6
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 2 ? (
-                  <SelectRoom
-                    participantNum={this.state.participantNum}
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 3 ? (
-                  <GameIntroRoom
-                    participantNum={this.state.participantNum}
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 4 ? (
-                  <DiscussRoom
-                    participantNum={this.state.participantNum}
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 5 ? (
-                  <GameRoom
-                    participantNum={this.state.participantNum}
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 6 ? (
-                  <LiarSelectRoom
-                    roomSeq={this.props.store.user.Room.url.split("_")[0]}
-                    participantNum={this.state.participantNum}
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 7 ? (
-                  <FreeTalkRoom
-                    participantNum={this.state.participantNum}
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : this.state.mode === 8 ? (
-                  <FinalSelectRoom
-                    roomSeq={this.props.store.user.Room.url.split("_")[0]}
-                    participantNum={this.state.participantNum}
-                    localUser={localUser}
-                    subscribers={this.state.subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    setMode={this.setMode}
-                  />
-                ) : null}
-              </div>
             </Grid>
             <Grid item xs={3}>
               {localUser !== undefined &&
@@ -928,8 +976,8 @@ class VideoRoomComponent extends Component {
             roomSeq={this.props.store.user.Room.url.split("_")[0]}
           />
         ) : this.state.mode === 1 ? (
-          <IntroduceTimer1 style={{}} sec={15} setMode={this.setMode} />
-        ) : this.state.mode === 4 ? (
+          <IntroduceTimer1 seqPlus={this.seqPlus} participantNum = {this.state.participantNum} seq = {this.state.seq} style={{}} sec={this.state.sec} setMode={this.setMode} />
+         ) : this.state.mode === 4 ? (
           <DiscussTimer1 style={{}} participantNum = {this.state.participantNum} sec={10} setMode={this.setMode} />
         ) : this.state.mode === 7 ? (
           <FreeTalkTimer1 style={{}} sec={5} setMode={this.setMode} />

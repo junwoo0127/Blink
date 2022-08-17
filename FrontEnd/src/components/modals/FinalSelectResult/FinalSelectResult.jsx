@@ -20,9 +20,8 @@ const apiURL = "http://localhost:8080/blink";
 export default function FinalSelectResult(props) {
   //variables
   const [res, setRes] = useState("");
-  setTimeout(() => {
-    props.handleClose();
-  }, 10000);
+  
+
 
   //function
   useEffect(() => {
@@ -39,7 +38,27 @@ export default function FinalSelectResult(props) {
       console.log(e);
     }
   },[props.open]);
-
+  const onClick = () => {
+    console.log("clicked!!")
+    console.log("length", res.length)
+    if(res.length > 0){res.forEach(element => {
+      console.log("this is nickname", props.user.nickname)
+      if(element.nickname === props.user.nickname || element.finalChoiceNickname === props.user.nickname){
+        console.log("elementnick", element.nickname, element.finalChoiceNickname )
+        props.handleClose()
+        props.setMode(9)
+      }
+      else if(props.user.nickname !== element.nickname || props.user.nickname !== element.finalChoiceNickname){
+        console.log("this is not same")
+        props.leaveSession()
+        props.handleClose()
+      }
+    })}
+    else {
+      props.leaveSession()
+    }
+    
+  }
   return (
     <div>
       {res.length > 0 ? (
@@ -69,8 +88,11 @@ export default function FinalSelectResult(props) {
               id="modal-modal-description"
               sx={{ mt: 2 }}
             >
-              {res}
+              <div> {res.map((couple, index) => (
+                      <span key={index}>{couple.nickname} 님과 {couple.finalChoiceNickname}님!<br/></span>))}</div>
+                      방이 잠시 후 폭파됩니다!
             </Typography>
+                      <button onClick = {onClick}>확인</button>
           </Box>
         </Modal>
       ) : (
@@ -81,11 +103,13 @@ export default function FinalSelectResult(props) {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              축하합니다!
+              아쉽네요...
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {res}
+              아무도 커플이 되지 못하였습니다..
+              이 방은 곧 폭파됩니다.
             </Typography>
+            <button onClick ={onClick}>확인</button>
           </Box>
         </Modal>
       )}
