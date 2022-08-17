@@ -54,7 +54,30 @@ export default class ToolbarComponent extends Component {
             key={"Share"}
             icon={<ShareIcon />}
             tooltipTitle={"Share"}
-          />
+          >
+            <form class="hidden-xs">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Some path"
+                  id="copy-input"
+                />
+                <span class="input-group-btn">
+                  <button
+                    class="btn btn-default"
+                    type="button"
+                    id="copy-button"
+                    data-toggle="tooltip"
+                    data-placement="button"
+                    title="Copy to Clipboard"
+                  >
+                    Share the URL
+                  </button>
+                </span>
+              </div>
+            </form>
+          </SpeedDialAction>
           <SpeedDialAction
             key={"Setting"}
             icon={<SettingsIcon />}
