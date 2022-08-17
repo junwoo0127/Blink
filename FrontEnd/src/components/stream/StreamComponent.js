@@ -64,7 +64,8 @@ export default class StreamComponent extends Component {
                 mutedSound={this.state.mutedSound}
               />
               {/* )} */}
-              <img
+              {/* {this.props.user.getAnswer() ? */}
+                {/* <img 
                 alt="E"
                 src={E}
                 style={{
@@ -75,9 +76,9 @@ export default class StreamComponent extends Component {
                   top: "1.5%",
                   // right:"1.5%",
                 }}
-              />
+              /> 
               <img
-                alt="E"
+                alt="I"
                 src={I}
                 style={{
                   position: "absolute",
@@ -88,6 +89,7 @@ export default class StreamComponent extends Component {
                   // right:"1.5%",
                 }}
               />
+              } */}
               <div id="statusIcons">
                 {!this.props.user.isVideoActive() ? (
                   <div id="camIcon">

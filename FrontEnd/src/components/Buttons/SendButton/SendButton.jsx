@@ -55,6 +55,7 @@ export default function SendButton(props) {
       props.handleOpen();
     }
   });
+  
 
   return (
     <>

@@ -215,7 +215,9 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
+
     localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
+
     console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
     try {
       axios
