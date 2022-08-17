@@ -3,9 +3,9 @@ import Box from "@mui/material/Box";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-
+import { motion, AnimatePresence } from "framer-motion";
 import Tooltip from "@mui/material/Tooltip";
-
+import $ from "jquery";
 import IconButton from "@mui/material/IconButton";
 import QuestionAnswer from "@mui/icons-material/QuestionAnswer";
 import ShareIcon from "@mui/icons-material/Share";
@@ -14,15 +14,42 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 
 // https://smartdevpreneur.com/how-to-customize-mui-speed-dial-size-color-hover/
+const backdrop = {
+  visible: {
+    opacity: 1,
+  },
+  hidden: { opacity: 0 },
+};
 
+const modal = {
+  hidden: {
+    y: "-100vh",
+    opacity: 0,
+  },
+  visible: {
+    y: "25vh",
+    opacity: 1,
+    transition: { delay: 0.5 },
+  },
+};
 export default class ToolbarComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+        open : false,
+    }
     this.toggleChat = this.toggleChat.bind(this);
+    
+    this.handleOpen =this.handleOpen.bind(this)
+  }
+
+  handleOpen() {
+    document.getElementById("copy-button").click()
   }
   toggleChat() {
     this.props.toggleChat();
   }
+  
 
   render() {
     const mySessionId = this.props.sessionId;
@@ -33,6 +60,7 @@ export default class ToolbarComponent extends Component {
       navigator.clipboard.writeText(url + "lobby?room=" + mySessionId);
     };
     return (
+      <div>
       <Box
         style={{ position: "absolute", top: "0", right: "1%", zIndex: 999999 }}
         sx={{ transform: "translateZ(0px)", flexGrow: 1 }}
@@ -54,29 +82,8 @@ export default class ToolbarComponent extends Component {
             key={"Share"}
             icon={<ShareIcon />}
             tooltipTitle={"Share"}
+            onClick = {this.handleOpen}
           >
-            <form class="hidden-xs">
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Some path"
-                  id="copy-input"
-                />
-                <span class="input-group-btn">
-                  <button
-                    class="btn btn-default"
-                    type="button"
-                    id="copy-button"
-                    data-toggle="tooltip"
-                    data-placement="button"
-                    title="Copy to Clipboard"
-                  >
-                    Share the URL
-                  </button>
-                </span>
-              </div>
-            </form>
           </SpeedDialAction>
           <SpeedDialAction
             key={"Setting"}
@@ -90,6 +97,46 @@ export default class ToolbarComponent extends Component {
           />
         </SpeedDial>
       </Box>
+        
+     
+            <div
+            
+              className="modal"
+              variants={modal}
+              style={{
+                display:"hidden",
+                borderRadius: "3vw",
+                border: "1px solid #f7dbf0",
+                backgroundColor: "#f7dbf0",
+              }}
+            > <form class="hidden-xs">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Some path"
+                id="copy-input"
+              />
+              <span class="input-group-btn">
+                <button
+                  class="btn btn-default"
+                  type="button"
+                  id="copy-button"
+                  data-toggle="tooltip"
+                  data-placement="button"
+                  title="Copy to Clipboard"
+                >
+                  Share the URL
+                </button>
+              </span>
+            </div>
+          </form>
+             
+            </div>
+       
+      
+          </div> 
     );
   }
 }
+

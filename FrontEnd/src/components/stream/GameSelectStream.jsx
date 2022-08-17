@@ -82,7 +82,7 @@ function GameSelectStream(props) {
         {props.user !== undefined &&
         props.user.getStreamManager() !== undefined ? (
           <div className="streamComponent">
-            <OvVideoComponent user={props.user} mutedSound={!mutedSound} />
+            <OvVideoComponent user={props.user} mutedSound={mutedSound} />
 
             <div id="statusIcons">
               {!props.user.isVideoActive() ? (
