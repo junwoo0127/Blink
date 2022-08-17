@@ -52,6 +52,9 @@ function SelectStreamComponent(props) {
       setOpen(true);
     }
   });
+  socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
+    setFinalCount(0)
+  })
 
   const onMouseLeave = () => {
     if (selected) {

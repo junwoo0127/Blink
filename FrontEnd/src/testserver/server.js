@@ -119,6 +119,9 @@ io.on("connection", (socket) => {
     mafiaCount = 0;
     citizenCount = 0;
     roles = ["mafia", "citizen"];
+    socket.emit("leaveSession", ({count: count, firstCount: firstCount, 
+    gameReady : gameReady, answerCount : answerCount, discussCount : discussCount,
+    gameSetCount : gameSetCount, finalCount:finalCount}))
     //   console.log(roomLimit);
     //   console.log(
     //     "count",

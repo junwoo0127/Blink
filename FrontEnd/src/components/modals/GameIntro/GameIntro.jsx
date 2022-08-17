@@ -59,6 +59,10 @@ export default function GameIntro(props) {
   socket.on("gameReadyCount", (cnt) => {
     setGameReady(cnt.gameReady);
   });
+  socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
+    setGameReady(0);
+  })
+
   const onClick2 = () => {
     socket.emit("gameReady");
     setDisabled(true);

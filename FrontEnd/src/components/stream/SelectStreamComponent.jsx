@@ -52,9 +52,12 @@ function SelectStreamComponent(props) {
   socket.on("selectFirst", (cnt) => {
     setFirstLoveCount(cnt.firstCount);
     if (cnt.firstCount === props.participantNum) {
-      props.mode(6);
+      props.mode(3);
     }
   });
+  socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
+    setFirstLoveCount(0)
+  })
 
   const onMouseLeave = () => {
     if (selected) {
