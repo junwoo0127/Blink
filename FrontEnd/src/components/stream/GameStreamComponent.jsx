@@ -127,4 +127,4 @@ function GameStreamComponent(props) {
     </div>
   );
 }
-export default GameStreamComponent;
+export default React.memo(GameStreamComponent);
