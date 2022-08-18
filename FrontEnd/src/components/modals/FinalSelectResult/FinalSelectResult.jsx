@@ -35,7 +35,7 @@ function FinalSelectResult(props) {
     } catch (e) {
       console.log(e);
     }
-  }, [props.open]);
+  }, []);
   const onClick = () => {
     console.log("clicked!!");
     console.log("length", res.length);
