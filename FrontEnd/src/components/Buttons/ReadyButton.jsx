@@ -7,7 +7,7 @@ import { alpha, styled } from "@mui/material/styles";
 import "./ReadyButton.css";
 import axios from "axios";
 const ButtonCo = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText("#A6095D"),
+  color: theme.palette.getContrastText("#beaee2"),
   lineHeight: "30px",
   borderRadius: "30px",
   fontSize: "20px",
@@ -16,10 +16,10 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // padding: 0 14px 0 0;
   position: "absolute",
   bottom: "1%",
-  left: "35%",
-  maxWidth: "30%",
+  left: "37.5%",
+  maxWidth: "25%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
-  backgroundColor: "#A6095D",
+  backgroundColor: "#beaee2",
   "&:hover": {
     // backgroundColor: "#A6095D",
     background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
@@ -141,9 +141,10 @@ function ReadyButton(props) {
               <b style={{ fontSize: "30px" }}> 자기 소개 시간!</b>
 
               <div style={{ fontSize: "20px", marginTop: "2vh" }}>
-                1명씩 돌아가며 <p style={{color:"blue"}}>1분 자기소개</p>를 진행합니다!
-                해당하는 사람은 테두리가 강조되며 시간 경과시 바로 다음 사람으로 넘어갑니다! 
-                제한 시간내에 자신의 첫 매력을 어필해보세요!! 
+                1명씩 돌아가며 <p style={{ color: "blue" }}>1분 자기소개</p>를
+                진행합니다! 해당하는 사람은 테두리가 강조되며 시간 경과시 바로
+                다음 사람으로 넘어갑니다! 제한 시간내에 자신의 첫 매력을
+                어필해보세요!!
               </div>
             </motion.div>
           </motion.div>

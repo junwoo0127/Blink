@@ -11,7 +11,7 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
 const ButtonCo = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText("#A6095D"),
+  color: theme.palette.getContrastText("#beaee2"),
   // lineHeight: "44px",
   borderRadius: "30px",
   fontSize: "20px",
@@ -25,7 +25,7 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // left: "30%",
   // maxWidth: "40%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
-  backgroundColor: "#A6095D",
+  backgroundColor: "#beaee2",
   "&:hover": {
     // backgroundColor: "#A6095D",
     background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
@@ -101,7 +101,6 @@ function Game(props) {
     props.user.setAnswer(true);
     props.answerChanged(true);
   };
- 
 
   const onNo = () => {
     //no count 1업하기
@@ -113,13 +112,10 @@ function Game(props) {
   socket.on("yes", (cnt) => {
     setAnswerCount(cnt.answerCount);
     console.log("answercount total:", cnt.answerCount);
-   
-    
   });
   socket.on("no", (cnt) => {
     setAnswerCount(cnt.answerCount);
     console.log("answercount total:", cnt.answerCount);
-  
   });
 
   return (

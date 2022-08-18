@@ -9,7 +9,7 @@ import pino from "../../../assets/pino.png";
 import { styled } from "@mui/material/styles";
 
 const ButtonCo = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText("#A6095D"),
+  color: theme.palette.getContrastText("#beaee2"),
   // lineHeight: "44px",
   borderRadius: "30px",
   fontSize: "20px",
@@ -23,7 +23,7 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   left: "30%",
   maxWidth: "40%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
-  backgroundColor: "#A6095D",
+  backgroundColor: "#beaee2",
   "&:hover": {
     // backgroundColor: "#A6095D",
     background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
@@ -59,9 +59,20 @@ export default function GameIntro(props) {
   socket.on("gameReadyCount", (cnt) => {
     setGameReady(cnt.gameReady);
   });
-  socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
-    setGameReady(0);
-  })
+  socket.on(
+    "leaveSession",
+    (
+      count,
+      firstCount,
+      gameReady,
+      answerCount,
+      discussCount,
+      finalCount,
+      gameSetCount
+    ) => {
+      setGameReady(0);
+    }
+  );
 
   const onClick2 = () => {
     socket.emit("gameReady");
