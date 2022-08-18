@@ -4,6 +4,31 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
+import a7 from "../../../assets/a13,a7.png";
+import a8 from "../../../assets/a8.png";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+
+const ButtonCo = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#beaee2"),
+  // lineHeight: "44px",
+  borderRadius: "30px",
+  fontSize: "20px",
+  color: "white !important",
+  // padding: "9.5px 16px",
+  // height: 40px;
+  // padding: 0 14px 0 0;
+  // position: "absolute",
+  // top: "100%",
+  left: "35%",
+  maxWidth: "30%",
+  // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  backgroundColor: "#beaee2",
+  "&:hover": {
+    // backgroundColor: "#A6095D",
+    background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  },
+}));
 
 const style = {
   position: "absolute",
@@ -84,6 +109,18 @@ function FinalSelectResult(props) {
             }}
             sx={style}
           >
+            <img
+              alt="a7"
+              src={a7}
+              style={{ position: "absolute", width: "50px", left: "7%" }}
+            />
+
+            <img
+              alt="a7"
+              src={a7}
+              style={{ position: "absolute", width: "50px", left: "83%" }}
+            />
+
             <Typography
               style={{ textAlign: "center", fontSize: "30px" }}
               id="modal-modal-title"
@@ -108,7 +145,7 @@ function FinalSelectResult(props) {
               </div>
               방이 잠시 후 폭파됩니다!
             </Typography>
-            <button onClick={onClick}>확인</button>
+            <ButtonCo onClick={onClick}>확인</ButtonCo>
           </Box>
         </Modal>
       ) : (
@@ -125,6 +162,17 @@ function FinalSelectResult(props) {
             }}
             sx={style}
           >
+            <img
+              alt="a8"
+              src={a8}
+              style={{ position: "absolute", width: "50px", left: "7%" }}
+            />
+
+            <img
+              alt="a8"
+              src={a8}
+              style={{ position: "absolute", width: "50px", left: "83%" }}
+            />
             <Typography
               style={{ textAlign: "center", fontSize: "30px" }}
               id="modal-modal-title"
@@ -140,7 +188,7 @@ function FinalSelectResult(props) {
             >
               아무도 커플이 되지 못하였습니다.. 이 방은 곧 폭파됩니다.
             </Typography>
-            <button onClick={onClick}>확인</button>
+            <ButtonCo onClick={onClick}>확인</ButtonCo>
           </Box>
         </Modal>
       )}

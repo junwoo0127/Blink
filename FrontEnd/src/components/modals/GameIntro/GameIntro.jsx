@@ -7,6 +7,8 @@ import io from "socket.io-client";
 import axios from "axios";
 import pino from "../../../assets/pino.png";
 import { styled } from "@mui/material/styles";
+import a11L from "../../../assets/a11L.png";
+import a11R from "../../../assets/allR.png";
 
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#beaee2"),
@@ -20,8 +22,30 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // position: "absolute",
   // top: "100%",
   marginTop: "2vh",
-  left: "30%",
-  maxWidth: "40%",
+  left: "32.5%",
+  maxWidth: "35%",
+  // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  backgroundColor: "#beaee2",
+  "&:hover": {
+    // backgroundColor: "#A6095D",
+    background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  },
+}));
+
+const ButtonCo2 = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#beaee2"),
+  // lineHeight: "44px",
+  borderRadius: "30px",
+  fontSize: "20px",
+  color: "white !important",
+  // padding: "9.5px 16px",
+  // height: 40px;
+  // padding: 0 14px 0 0;
+  // position: "absolute",
+  // top: "100%",
+  marginTop: "2vh",
+  left: "27.5%",
+  maxWidth: "45%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   backgroundColor: "#beaee2",
   "&:hover": {
@@ -107,7 +131,7 @@ function GameIntro(props) {
             style={{
               position: "absolute",
               width: "50px",
-              left: "10%",
+              left: "7%",
             }}
           />
           <img
@@ -116,7 +140,7 @@ function GameIntro(props) {
             style={{
               position: "absolute",
               width: "50px",
-              left: "80%",
+              left: "83%",
             }}
           />
           <Typography
@@ -156,9 +180,9 @@ function GameIntro(props) {
               보세요!
             </div>
           </Typography>
-          <ButtonCo fullWidth variant="contained" onClick={onClick}>
+          <ButtonCo2 fullWidth variant="contained" onClick={onClick}>
             역할 확인하기
-          </ButtonCo>
+          </ButtonCo2>
         </Box>
       </Modal>
       <Modal
@@ -174,6 +198,17 @@ function GameIntro(props) {
           }}
           sx={style}
         >
+          <img
+            alt="a11L"
+            src={a11L}
+            style={{ position: "absolute", width: "50px", left: "7%" }}
+          />
+
+          <img
+            alt="a11R"
+            src={a11R}
+            style={{ position: "absolute", width: "50px", left: "83%" }}
+          />
           <Typography
             style={{ textAlign: "center", fontSize: "30px" }}
             id="modal-modal-title"

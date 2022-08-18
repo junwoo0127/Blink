@@ -25,15 +25,15 @@ import Container from "@mui/material/Container";
 // 회글씨  #686868
 
 const ButtonCo = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText("#A6095D"),
+  color: theme.palette.getContrastText("#beaee2"),
   lineHeight: "44px",
   borderRadius: "30px",
   fontSize: "22px",
   padding: "9.5px 16px",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
-  backgroundColor: "#A6095D",
+  backgroundColor: "#beaee2",
   "&:hover": {
-    // backgroundColor: "#A6095D",
+    // backgroundColor: "#beaee2",
     background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   },
 }));
@@ -50,7 +50,7 @@ const TextFieldLogin = styled(TextField)({
   "& .MuiFormLabel-root": {
     color: "#141414", // 클릭전 텍스트
     left: "0.5%",
-    top: "10%",
+    top: "7%",
     // textAlign: "center !important",
   },
   "& label.Mui-focused": {

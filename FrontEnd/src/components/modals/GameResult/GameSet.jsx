@@ -8,9 +8,12 @@ import io from "socket.io-client";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import a4 from "../../../assets/a4.png";
+import a5 from "../../../assets/a5.png";
+import a13 from "../../../assets/a13,a7.png";
 
 const ButtonCo = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText("#A6095D"),
+  color: theme.palette.getContrastText("#beaee2"),
   // lineHeight: "44px",
   borderRadius: "30px",
   fontSize: "20px",
@@ -23,7 +26,7 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // left: "32.5%",
   maxWidth: "40%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
-  backgroundColor: "#A6095D",
+  backgroundColor: "#beaee2",
   "&:hover": {
     // backgroundColor: "#A6095D",
     background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
@@ -145,6 +148,18 @@ function GameSet(props) {
           }}
           sx={style}
         >
+          <img
+            alt="a13"
+            src={a13}
+            style={{ position: "absolute", width: "50px", left: "7%" }}
+          />
+
+          <img
+            alt="a13"
+            src={a13}
+            style={{ position: "absolute", width: "50px", left: "83%" }}
+          />
+
           <Typography id="modal-modal-title" variant="h6" component="h2">
             <p
               style={{
@@ -194,6 +209,17 @@ function GameSet(props) {
                   backgroundColor: "#f7dbf0",
                 }}
               >
+                <img
+                  alt="a4"
+                  src={a4}
+                  style={{ position: "absolute", width: "50px", left: "7%" }}
+                />
+
+                <img
+                  alt="a4"
+                  src={a4}
+                  style={{ position: "absolute", width: "50px", left: "83%" }}
+                />
                 <b style={{ fontSize: "30px" }}>첫 인상 결과표</b>
                 <div
                   style={{
@@ -210,6 +236,12 @@ function GameSet(props) {
                     {firstMatch.map((select, index) => (
                       <span key={index}>{select.nickname} 님은</span>
                     ))}
+                  </div>
+                  <div
+                    className="selectPerson"
+                    style={{ display: "flex", flexDirection: "column" }}
+                  >
+                    <span style={{ color: "#FF1744" }}>→ → ❤ ❤ ❤ → →</span>
                   </div>
                   <div
                     className="selectedPerson"
@@ -249,6 +281,18 @@ function GameSet(props) {
                   backgroundColor: "#f7dbf0",
                 }}
               >
+                <img
+                  alt="a5"
+                  src={a5}
+                  style={{ position: "absolute", width: "50px", left: "7%" }}
+                />
+
+                <img
+                  alt="a5"
+                  src={a5}
+                  style={{ position: "absolute", width: "50px", left: "83%" }}
+                />
+
                 <b style={{ fontSize: "30px" }}>{res}님이 확인중입니다.</b>
                 <div style={{ fontSize: "20px", marginTop: "2vh" }}>
                   1등이 아니다!!

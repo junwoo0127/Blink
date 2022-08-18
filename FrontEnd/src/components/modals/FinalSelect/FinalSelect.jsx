@@ -2,9 +2,10 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import a2 from "../../../assets/a2,a3.png";
 
 const ButtonCo = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText("#A6095D"),
+  color: theme.palette.getContrastText("#beaee2"),
   // lineHeight: "44px",
   borderRadius: "30px",
   fontSize: "20px",
@@ -12,12 +13,12 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // padding: "9.5px 16px",
   // height: 40px;
   // padding: 0 14px 0 0;
-  position: "absolute",
+  // position: "absolute",
   top: "100%",
-  left: "32.5%",
+  // left: "32.5%",
   maxWidth: "35%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
-  backgroundColor: "#A6095D",
+  backgroundColor: "#beaee2",
   "&:hover": {
     // backgroundColor: "#A6095D",
     background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
@@ -64,6 +65,17 @@ function FirstSelect(props) {
                 backgroundColor: "#f7dbf0",
               }}
             >
+              <img
+                alt="a2"
+                src={a2}
+                style={{ position: "absolute", width: "50px", left: "7%" }}
+              />
+
+              <img
+                alt="a2"
+                src={a2}
+                style={{ position: "absolute", width: "50px", left: "83%" }}
+              />
               <b style={{ fontSize: "30px" }}> 최후의 선택!</b>
               <div style={{ fontSize: "20px", marginTop: "2vh" }}>
                 자기가 진정 원하는 사람을 뽑아주세요!

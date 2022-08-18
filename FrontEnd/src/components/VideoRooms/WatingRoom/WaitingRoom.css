@@ -44,7 +44,7 @@
 
 .bounds {
   /*  */
-  border: 1px solid red;
+  /* border: 1px solid red; */
   background-color: transparent !important;
   /* background-color: #494949; */
   overflow: hidden;
@@ -60,7 +60,7 @@
 }
 .bounds9 {
   /*  */
-  border: 1px solid red;
+  /* border: 1px solid red; */
   background-color: transparent !important;
   /* background-color: #494949; */
   overflow: hidden;
