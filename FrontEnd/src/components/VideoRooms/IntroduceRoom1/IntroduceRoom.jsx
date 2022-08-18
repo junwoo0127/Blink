@@ -15,8 +15,7 @@ function IntroduceRoom(props) {
   };
   const seqPlus = () => {
     props.seqPlus();
-  };
-
+  }
   return (
     <>
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (

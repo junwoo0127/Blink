@@ -12,6 +12,12 @@ import ShareIcon from "@mui/icons-material/Share";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 // https://smartdevpreneur.com/how-to-customize-mui-speed-dial-size-color-hover/
 const backdrop = {
@@ -35,21 +41,29 @@ const modal = {
 export default class ToolbarComponent extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-        open : false,
-    }
+      open: false,
+    };
+
     this.toggleChat = this.toggleChat.bind(this);
-    
-    this.handleOpen =this.handleOpen.bind(this)
+
+    this.handleOpen = this.handleOpen.bind(this);
   }
 
   handleOpen() {
-    document.getElementById("copy-button").click()
+    document.getElementById("copy-button").click();
   }
+
   toggleChat() {
     this.props.toggleChat();
   }
   
+
+  toggleShare() {
+    this.props.toggleShare();
+    console.log("발싸");
+  }
 
   render() {
     const mySessionId = this.props.sessionId;
@@ -61,55 +75,60 @@ export default class ToolbarComponent extends Component {
     };
     return (
       <div>
-      <Box
-        style={{ position: "absolute", top: "0", right: "1%", zIndex: 999999 }}
-        sx={{ transform: "translateZ(0px)", flexGrow: 1 }}
-      >
-        <SpeedDial
-          // sx={{ position: "absolute", bottom: 100, right: 100 }}
-          ariaLabel="SpeedDial playground example"
-          icon={<DensityMediumIcon />}
-          direction={"down"}
+        <Box
+          style={{
+            position: "absolute",
+            top: "0",
+            right: "1%",
+            zIndex: 999999,
+          }}
+          sx={{ transform: "translateZ(0px)", flexGrow: 1 }}
         >
-          <SpeedDialAction
-            key={"Chat"}
-            icon={<QuestionAnswer />}
-            tooltipTitle={"Chat"}
-            onClick={this.toggleChat}
-          ></SpeedDialAction>
-
-          <SpeedDialAction
-            key={"Share"}
-            icon={<ShareIcon />}
-            tooltipTitle={"Share"}
-            onClick = {this.handleOpen}
+          <SpeedDial
+            // sx={{ position: "absolute", bottom: 100, right: 100 }}
+            ariaLabel="SpeedDial playground example"
+            icon={<DensityMediumIcon />}
+            direction={"down"}
           >
-          </SpeedDialAction>
-          <SpeedDialAction
-            key={"Setting"}
-            icon={<SettingsIcon />}
-            tooltipTitle={"Setting"}
-          />
-          <SpeedDialAction
-            key={"More"}
-            icon={<MoreHorizIcon />}
-            tooltipTitle={"More"}
-          />
-        </SpeedDial>
-      </Box>
-        
-     
-            <div
-            
-              className="modal"
-              variants={modal}
-              style={{
-                display:"hidden",
-                borderRadius: "3vw",
-                border: "1px solid #f7dbf0",
-                backgroundColor: "#f7dbf0",
-              }}
-            > <form class="hidden-xs">
+            <SpeedDialAction
+              key={"Chat"}
+              icon={<QuestionAnswer />}
+              tooltipTitle={"Chat"}
+              onClick={this.toggleChat}
+            ></SpeedDialAction>
+
+            <SpeedDialAction
+              key={"Share"}
+              icon={<ShareIcon />}
+              tooltipTitle={"Share"}
+              onClick={this.handleOpen}
+            ></SpeedDialAction>
+
+            <SpeedDialAction
+              key={"Setting"}
+              icon={<SettingsIcon />}
+              tooltipTitle={"Setting"}
+            />
+            <SpeedDialAction
+              key={"More"}
+              icon={<MoreHorizIcon />}
+              tooltipTitle={"More"}
+            />
+          </SpeedDial>
+        </Box>
+
+        <div
+          className="modal"
+          variants={modal}
+          style={{
+            display: "hidden",
+            borderRadius: "3vw",
+            border: "1px solid #f7dbf0",
+            backgroundColor: "#f7dbf0",
+          }}
+        >
+          {" "}
+          <form class="hidden-xs">
             <div class="input-group">
               <input
                 type="text"
@@ -131,11 +150,8 @@ export default class ToolbarComponent extends Component {
               </span>
             </div>
           </form>
-             
-            </div>
-       
-      
-          </div> 
+        </div>
+      </div>
     );
   }
 }

@@ -15,7 +15,7 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // height: 40px;
   // padding: 0 14px 0 0;
   position: "absolute",
-  bottom: "0.5%",
+  bottom: "1%",
   left: "35%",
   maxWidth: "30%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
@@ -91,9 +91,20 @@ function ReadyButton(props) {
       }, 5000);
     }
   });
-  socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
-    setCount(0)
-  })
+  socket.on(
+    "leaveSession",
+    (
+      count,
+      firstCount,
+      gameReady,
+      answerCount,
+      discussCount,
+      finalCount,
+      gameSetCount
+    ) => {
+      setCount(0);
+    }
+  );
 
   return (
     <>
