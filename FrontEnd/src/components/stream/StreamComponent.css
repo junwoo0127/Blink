@@ -91,12 +91,12 @@ canvas {
 } */
 
 #yes {
-  background: #00e7f4;
+  border-color: #00e7f4;
   border-radius: 50%;
 }
 
 #no {
-  background: #fffc19;
+  border-color: #fffc19;
   border-radius: 50%;
 }
 

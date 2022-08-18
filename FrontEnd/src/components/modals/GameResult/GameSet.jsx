@@ -61,7 +61,7 @@ const modal = {
     transition: { delay: 0.5 },
   },
 };
-export default function GameSet(props) {
+function GameSet(props) {
   //variables
   const [res, setRes] = useState("");
   const [firstMatch, setFirstMatch] = useState([]);
@@ -216,7 +216,9 @@ export default function GameSet(props) {
                     style={{ display: "flex", flexDirection: "column" }}
                   >
                     {firstMatch.map((selected, index) => (
-                      <span key={index}>{selected.firstChoiceNickname} 님!</span>
+                      <span key={index}>
+                        {selected.firstChoiceNickname} 님!
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -313,3 +315,4 @@ export default function GameSet(props) {
     </div>
   );
 }
+export default React.memo(GameSet);

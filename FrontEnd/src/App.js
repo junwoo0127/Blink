@@ -38,7 +38,6 @@ function App() {
           //cursor:"url('https://blog.kakaocdn.net/dn/BQXpN/btq3qNR67Lg/8tx8tGzkOcr5BuX5dyIaKk/img.png')50 50, auto",
         }}
       >
-        <BGMPlayer />
         <Routes>
           <Route path="/*" element={<NLandinPage />} />
           <Route path="/login" element={<NLoginPage />} />

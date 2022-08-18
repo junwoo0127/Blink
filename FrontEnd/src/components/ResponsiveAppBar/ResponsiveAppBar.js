@@ -56,6 +56,7 @@ const ResponsiveAppBar = () => {
       position="sticky"
       style={{ background: "transparent", boxShadow: "none" }}
     >
+      {/* <BGMPlayer /> */}
       <Container maxWidth="false">
         <Toolbar disableGutters>
           <Link to="/">
@@ -147,4 +148,4 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;
+export default React.memo(ResponsiveAppBar);

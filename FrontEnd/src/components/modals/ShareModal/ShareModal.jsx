@@ -42,7 +42,7 @@ const modal = {
     transition: { delay: 0.5 },
   },
 };
-function FirstSelect(props) {
+function ShareModal(props) {
   return (
     <div>
       <AnimatePresence exitBeforeEnter>
@@ -98,7 +98,7 @@ function FirstSelect(props) {
   );
 }
 
-export default FirstSelect;
+export default React.memo(ShareModal);
 
 {
   /* <form class="hidden-xs">

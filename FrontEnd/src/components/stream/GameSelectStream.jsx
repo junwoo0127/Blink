@@ -135,4 +135,4 @@ function GameSelectStream(props) {
     </div>
   );
 }
-export default GameSelectStream;
+export default React.memo(GameSelectStream);
