@@ -35,9 +35,20 @@ const Timer = (props) => {
   socket.on("discussCount", (cnt) => {
     setDiscussCount(cnt.discussCount);
   });
-  socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
-    setDiscussCount(0)
-  })
+  socket.on(
+    "leaveSession",
+    (
+      count,
+      firstCount,
+      gameReady,
+      answerCount,
+      discussCount,
+      finalCount,
+      gameSetCount
+    ) => {
+      setDiscussCount(0);
+    }
+  );
 
   // 초가 변할 때만 실행되는 useEffect
   // initialTime을 검사해서 0이 되면 interval을 멈춘다.
@@ -64,7 +75,7 @@ const Timer = (props) => {
   }, [sec]);
 
   return (
-    <div style={{ position: "absolute", top: "95.5%", left: "48%" }}>
+    <div style={{ position: "absolute", top: "94%", left: "48.5%" }}>
       {!red ? (
         <div className={red ? "timeout" : null}>
           {min} : {sec}

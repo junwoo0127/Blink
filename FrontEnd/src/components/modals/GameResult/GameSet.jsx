@@ -18,10 +18,10 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // padding: "9.5px 16px",
   // height: 40px;
   // padding: 0 14px 0 0;
-  position: "absolute",
+  // position: "absolute",
   top: "100%",
   // left: "32.5%",
-  // maxWidth: "35%",
+  maxWidth: "40%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   backgroundColor: "#A6095D",
   "&:hover": {

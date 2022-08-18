@@ -212,7 +212,7 @@ function LoginPage(props) {
                 onClick={onSubmitHandler}
                 fullWidth
                 variant="contained"
-                sx={{ mb: 3 }}
+                sx={{ mt: 2, mb: 3 }}
               >
                 <b>로그인</b>
               </ButtonCo>
@@ -228,14 +228,15 @@ function LoginPage(props) {
               회원이 아니신가요? <b>지금 가입하세요</b>
             </Link>
             <br></br>
-            <Link
+            {/* 기능 구현 보류 */}
+            {/* <Link
               href="#"
               underline="hover"
               variant="subtitle2"
               color="inherit"
             >
               아이디 혹은 비밀번호 찾기
-            </Link>
+            </Link> */}
           </Typography>
         </Box>
       </Container>

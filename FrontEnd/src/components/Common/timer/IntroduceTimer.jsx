@@ -58,7 +58,7 @@ const IntroduceTimer = (props) => {
   return (
     <div
       id="tttime"
-      style={{ position: "absolute", top: "95.5%", left: "48%" }}
+      style={{ position: "absolute", top: "94%", left: "48.5%" }}
     >
       {!red ? (
         <div className={red ? "timeout" : null}>

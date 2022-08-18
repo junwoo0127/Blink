@@ -12,6 +12,21 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 import FaceRetouchingNaturalIcon from "@mui/icons-material/FaceRetouchingNatural";
 import PowerSettingsNew from "@mui/icons-material/PowerSettingsNew";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { alpha, styled } from "@mui/material/styles";
+
+const SpeedDialB = styled(SpeedDial)({
+  "& .MuiButtonBase-root": {
+    width: "42px",
+    height: "42px",
+    color: "#144444 !important",
+    backgroundColor: "#fff !important",
+  },
+
+  "& .MuiSpeedDial-actions": {
+    marginRight: "-42px !important",
+  },
+});
 
 // const actions = [
 //   { icon: <PowerSettingsNew />, name: "Leave" },
@@ -52,11 +67,12 @@ export default class ToolbarComponent extends Component {
 
     return (
       <Box
-        style={{ position: "absolute", bottom: "0", right: "1%" }}
+        style={{ position: "absolute", bottom: "calc(1% - 8px)", right: "1%" }}
         sx={{ transform: "translateZ(0px)", flexGrow: 1 }}
       >
-        <SpeedDial
+        <SpeedDialB
           // sx={{ position: "absolute", bottom: 100, right: 100 }}
+          style={{}}
           ariaLabel="SpeedDial playground example"
           direction={"left"}
           icon={<SpeedDialIcon openIcon={<CloseIcon />} />}
@@ -113,7 +129,7 @@ export default class ToolbarComponent extends Component {
             }
             tooltipTitle={"Mic"}
           />
-        </SpeedDial>
+        </SpeedDialB>
       </Box>
     );
   }
