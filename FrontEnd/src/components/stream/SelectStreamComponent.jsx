@@ -55,9 +55,20 @@ function SelectStreamComponent(props) {
       props.mode(3);
     }
   });
-  socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
-    setFirstLoveCount(0)
-  })
+  socket.on(
+    "leaveSession",
+    (
+      count,
+      firstCount,
+      gameReady,
+      answerCount,
+      discussCount,
+      finalCount,
+      gameSetCount
+    ) => {
+      setFirstLoveCount(0);
+    }
+  );
 
   const onMouseLeave = () => {
     if (selected) {
@@ -82,7 +93,7 @@ function SelectStreamComponent(props) {
         {props.user !== undefined &&
         props.user.getStreamManager() !== undefined ? (
           <div className="streamComponent">
-            <OvVideoComponent user={props.user} mutedSound={!mutedSound} />
+            <OvVideoComponent user={props.user} mutedSound={mutedSound} />
 
             <div id="statusIcons">
               {!props.user.isVideoActive() ? (
@@ -101,7 +112,7 @@ function SelectStreamComponent(props) {
                 //           <FavoriteIcon id="statusLike"/>
                 //       </div>
                 //   ): 
-                //   <div id="LikeIcon">
+                //   <div id="">
                 //       <FavoriteBorderIcon id="statusLike"/>
               //   </div> */}
             </div>

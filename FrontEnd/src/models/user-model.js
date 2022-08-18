@@ -9,6 +9,8 @@ class UserModel {
   role;
   playerSeq;
   answer;
+  sequence;
+  gender;
 
   constructor() {
     this.connectionId = "";
@@ -21,6 +23,8 @@ class UserModel {
     this.role = "";
     this.playerSeq = "";
     this.answer = "";
+    this.sequence = "";
+    this.gender = "";
   }
 
   isAudioActive() {
@@ -33,6 +37,12 @@ class UserModel {
 
   isScreenShareActive() {
     return this.screenShareActive;
+  }
+  getGender() {
+    return this.gender;
+  }
+  getSequence() {
+    return this.sequence;
   }
   getAnswer() {
     return this.answer;
@@ -61,6 +71,12 @@ class UserModel {
   }
   isRemote() {
     return !this.isLocal();
+  }
+  setGender(gender){
+    this.gender = gender;
+  }
+  setSequence(sequence){
+    this.sequence = sequence;
   }
   setAnswer(answer) {
     this.answer = answer;

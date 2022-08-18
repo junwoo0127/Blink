@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import "./DiscussRoom.css";
 import Timer from "../../Common/timer/DiscussTimer";
-import StreamComponent from "../../stream/StreamComponent";
+import DiscussStream from "../../stream/DiscussStream";
 import DiscussStart from "../../modals/DiscussStart/DiscussStart";
 import io from "socket.io-client";
 import E from "../../../assets/E.png";
@@ -18,14 +18,19 @@ function DiscussRoom(props) {
   const setMode = (num) => {
     props.setMode(num);
   };
+ 
+  useEffect(() => {
+    console.log("dsajfl;f", props.subscribers)
+  })
 
   return (
     <>
       <DiscussStart />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser9">
-          <StreamComponent
-            id={localUser.getAnswer() ? "yes" : "no"}
+          <DiscussStream
+          
+            // id={localUser.getAnswer() ? "yes" : "no"}
             user={localUser}
           />
         </div>
@@ -36,8 +41,8 @@ function DiscussRoom(props) {
           className="OT_root OT_publisher custom-class"
           id={"remoteUsers9" + i}
         >
-          <StreamComponent
-            id={sub.getAnswer() ? "yes" : "no"}
+          <DiscussStream
+           // id={sub.getAnswer() ? "yes" : "no"}
             user={sub}
             streamId={sub.streamManager.stream.streamId}
           />

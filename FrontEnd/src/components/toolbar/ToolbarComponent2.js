@@ -23,10 +23,10 @@ export default class ToolbarComponent2 extends Component {
     const mySessionId = this.props.sessionId;
     const localUser = this.props.user;
     const url = "http://localhost:3000/";
-    const shareLink = (e) => {
-      console.log();
-      navigator.clipboard.writeText(url + "lobby?room=" + mySessionId);
-    };
+    // const shareLink = (e) => {
+    //   console.log();
+    //   navigator.clipboard.writeText(url + "lobby?room=" + mySessionId);
+    // };
     return (
       <AppBar
         position="sticky"
@@ -59,7 +59,10 @@ export default class ToolbarComponent2 extends Component {
               )}
             </div> */}
 
-            <form class="hidden-xs" style={{ visibility: "hidden" }}>
+            <form
+              class="hidden-xs"
+              style={{ position: "absolute", right: "1px", width: "230px" }}
+            >
               <div class="input-group">
                 <input
                   type="text"
@@ -76,7 +79,7 @@ export default class ToolbarComponent2 extends Component {
                     data-placement="button"
                     title="Copy to Clipboard"
                   >
-                    Share the URL
+                    Share URL
                   </button>
                 </span>
               </div>

@@ -172,7 +172,7 @@ export default function GameIntro(props) {
             당신의 역할은?
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {role === "maifa" ? (
+            {role === "mafia" ? (
               <div style={{ textAlign: "center", fontSize: "20px" }}>
                 당신은 <span style={{ color: "red" }}>거짓말쟁이</span>입니다!
                 다른 사람들에게 들키지 않고 우승을 차지하세요!{" "}

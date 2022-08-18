@@ -18,10 +18,10 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // padding: "9.5px 16px",
   // height: 40px;
   // padding: 0 14px 0 0;
-  position: "absolute",
+  // position: "absolute",
   top: "100%",
   // left: "32.5%",
-  // maxWidth: "35%",
+  maxWidth: "40%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   backgroundColor: "#A6095D",
   "&:hover": {
@@ -216,7 +216,7 @@ export default function GameSet(props) {
                     style={{ display: "flex", flexDirection: "column" }}
                   >
                     {firstMatch.map((selected, index) => (
-                      <span key={index}>{selected.firstMatchNickname} 님!</span>
+                      <span key={index}>{selected.firstChoiceNickname} 님!</span>
                     ))}
                   </div>
                 </div>

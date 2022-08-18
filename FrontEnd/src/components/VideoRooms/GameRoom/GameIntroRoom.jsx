@@ -23,6 +23,7 @@ function GameRoom(props) {
   const setGameEnd = () => {
     setGameOpen(false);
   };
+ 
 
   return (
     <>
@@ -33,6 +34,7 @@ function GameRoom(props) {
         setGameStart={setGameStart}
       />
       <Game
+        answerChanged ={props.answerChanged}
         user={props.localUser}
         participantNum={props.participantNum}
         open={gameOpen}

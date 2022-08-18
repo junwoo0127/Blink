@@ -30,9 +30,7 @@ function SelectStreamComponent(props) {
   const onMouseOver = () => {
     setShowForm(true);
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   const onClick = async () => {
     setSelected(true);
     // props.onSelect();
@@ -49,7 +47,7 @@ function SelectStreamComponent(props) {
   socket.on("selectFinal", (cnt) => {
     setFinalCount(cnt.finalCount);
     if (cnt.finalCount === props.participantNum) {
-      setOpen(true);
+      props.handleOpen();
     }
   });
   socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
@@ -66,11 +64,7 @@ function SelectStreamComponent(props) {
 
   return (
     <div>
-      <FinalSelectResult
-        roomSeq={roomSeq}
-        open={open}
-        handleClose={handleClose}
-      />
+     
       <button
         disabled={props.disabled}
         className="OT_widget-container"
@@ -84,7 +78,7 @@ function SelectStreamComponent(props) {
         {props.user !== undefined &&
         props.user.getStreamManager() !== undefined ? (
           <div className="streamComponent">
-            <OvVideoComponent user={props.user} mutedSound={!mutedSound} />
+            <OvVideoComponent user={props.user} mutedSound={mutedSound} />
 
             <div id="statusIcons">
               {!props.user.isVideoActive() ? (
@@ -98,6 +92,16 @@ function SelectStreamComponent(props) {
                   <MicOffIcon id="statusMic" />
                 </div>
               ) : null}
+              {/* //   selected ? (
+                //       <div id="LikedIcon">
+                //           <FavoriteIcon id="statusLike"/>
+                //       </div>
+                //   ): 
+                //   <div id="LikeIcon">
+                //       <FavoriteBorderIcon id="statusLike"/>
+              //   </div> */}
+            </div>
+            <div id="LikeIcon">
               {showForm ? (
                 selected ? (
                   <FavoriteIcon id="statusLike" style={{ fontSize: "200px" }} />
@@ -105,15 +109,8 @@ function SelectStreamComponent(props) {
                   <FavoriteBorderIcon style={{ fontSize: "200px" }} />
                 )
               ) : null}
-              {/* //   selected ? (
-            //       <div id="LikedIcon">
-            //           <FavoriteIcon id="statusLike"/>
-            //       </div>
-            //   ): 
-            //   <div id="LikeIcon">
-            //       <FavoriteBorderIcon id="statusLike"/>
-            //   </div> */}
             </div>
+
 
             <div>
               {!props.user.isLocal() && (

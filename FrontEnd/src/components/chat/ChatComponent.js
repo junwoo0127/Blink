@@ -68,6 +68,7 @@ export default class ChatComponent extends Component {
           message: message,
           nickname: this.props.user.getNickname(),
           streamId: this.props.user.getStreamManager().stream.streamId,
+          gender : this.props.user.getGender()
         };
         this.props.user.getStreamManager().stream.session.signal({
           data: JSON.stringify(data),
@@ -98,8 +99,7 @@ export default class ChatComponent extends Component {
         <div id="chatComponent" style={styleChat}>
           <div id="chatToolbar">
             <span>
-              {this.props.user.getStreamManager().stream.session.sessionId} -
-              CHAT
+              채팅방
             </span>
             <IconButton id="closeButton" onClick={this.close}>
               <HighlightOffIcon color="secondary" />
@@ -117,12 +117,7 @@ export default class ChatComponent extends Component {
                     : " right")
                 }
               >
-                <canvas
-                  id={"userImg-" + i}
-                  width="60"
-                  height="60"
-                  className="user-img"
-                />
+              
                 <div className="msg-detail">
                   <div className="msg-info">
                     <p> {data.nickname}</p>

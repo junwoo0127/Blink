@@ -23,9 +23,11 @@ function GameRoom(props) {
   const selectNo = () => {
     setAnswer(false);
   };
+ 
   return (
     <>
       <Game
+        answerChanged = {props.answerChanged}
         participantNum={props.participantNum}
         open={gameOpen}
         setMode={setMode}

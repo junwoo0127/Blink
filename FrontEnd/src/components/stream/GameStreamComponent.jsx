@@ -91,7 +91,7 @@ function GameStreamComponent(props) {
           <div className="streamComponent">
             <OvVideoComponent
               user={props.user}
-              mutedSound={!mutedSound}
+              mutedSound={mutedSound}
             />
             
               
