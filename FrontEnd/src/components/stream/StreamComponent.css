@@ -91,21 +91,20 @@ canvas {
 } */
 
 #yes {
-  background: #00E7F4;
+  background: #00e7f4;
   border-radius: 50%;
 }
 
-
 #no {
-  background: #FFFC19;
+  background: #fffc19;
   border-radius: 50%;
 }
 
 #myTurn {
-  border-radius : 50%;
-  background :#df0b0e;
+  border-radius: 50%;
+
   border-color: #df0b0e;
-    box-shadow: 0 0 10px #df0b0e;;
+  box-shadow: 0 0 10px #df0b0e;
 }
 
 #statusIcons {
