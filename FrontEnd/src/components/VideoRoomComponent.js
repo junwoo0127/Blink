@@ -336,7 +336,7 @@ class VideoRoomComponent extends Component {
       videoSource: undefined,
       //videoSource: videoDevices[0].deviceId,
       publishAudio: localUser.isAudioActive(),
-      publishVideo: !localUser.isVideoActive(),
+      publishVideo: localUser.isVideoActive(),
       resolution: "640x480",
       frameRate: 30,
       insertMode: "APPEND",

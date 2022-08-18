@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./StreamComponent.css";
 import OvVideoComponent from "./OvVideo";
-
+import OvVideo from "./OvVideo2";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
@@ -82,8 +82,11 @@ function GameSelectStream(props) {
         {props.user !== undefined &&
         props.user.getStreamManager() !== undefined ? (
           <div className="streamComponent">
-            <OvVideoComponent user={props.user} mutedSound={mutedSound} />
-
+            {/* <OvVideoComponent user={props.user} mutedSound={mutedSound} /> */}
+            <OvVideo
+              user={this.props.user}
+              mutedSound={this.state.mutedSound}
+            />
             <div id="statusIcons">
               {!props.user.isVideoActive() ? (
                 <div id="camIcon">
