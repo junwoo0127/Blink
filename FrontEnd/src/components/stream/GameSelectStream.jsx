@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./StreamComponent.css";
-import OvVideoComponent from "./OvVideoNoFilter";
+import OvVideoComponent from "./OvVideo";
 import OvVideo from "./OvVideo2";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
