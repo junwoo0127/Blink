@@ -19,7 +19,7 @@ import IntroduceRoom3 from "./VideoRooms/IntroduceRoom3/IntroduceRoom";
 import IntroduceRoom4 from "./VideoRooms/IntroduceRoom4/IntroduceRoom";
 import IntroduceRoom5 from "./VideoRooms/IntroduceRoom5/IntroduceRoom";
 import IntroduceRoom6 from "./VideoRooms/IntroduceRoom6/IntroduceRoom";
-
+import ShareModal from "./modals/ShareModal/ShareModal";
 import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom";
 import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
@@ -230,6 +230,7 @@ class VideoRoomComponent extends Component {
     socket.emit("sequence");
 
     console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
+
     try {
       axios
         .get(apiURL + "api/v1/rooms/roomSize", {
@@ -844,7 +845,12 @@ class VideoRoomComponent extends Component {
             setMode={this.setMode}
           />
         ) : this.state.mode === 7 ? (
-          <FreeTalkTimer1 style={{}} sec={10} setMode={this.setMode} />
+          <FreeTalkTimer1
+            participantNum={this.state.participantNum}
+            style={{}}
+            sec={5}
+            setMode={this.setMode}
+          />
         ) : null}
       </div>
     );

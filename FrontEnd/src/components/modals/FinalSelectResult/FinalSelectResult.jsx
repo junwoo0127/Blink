@@ -101,15 +101,30 @@ export default function FinalSelectResult(props) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Box
+            style={{
+              borderRadius: "3vw",
+              border: "4px solid #f7dbf0",
+              backgroundColor: "#f7dbf0",
+            }}
+            sx={style}
+          >
+            <Typography
+              style={{ textAlign: "center", fontSize: "30px" }}
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+            >
               아쉽네요...
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              아무도 커플이 되지 못하였습니다..
-              이 방은 곧 폭파됩니다.
+            <Typography
+              style={{ textAlign: "center", fontSize: "20px" }}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+            >
+              아무도 커플이 되지 못하였습니다.. 이 방은 곧 폭파됩니다.
             </Typography>
-            <button onClick ={onClick}>확인</button>
+            <button onClick={onClick}>확인</button>
           </Box>
         </Modal>
       )}

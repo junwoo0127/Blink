@@ -113,7 +113,7 @@ function SelectStreamComponent(props) {
                 //           <FavoriteIcon id="statusLike"/>
                 //       </div>
                 //   ): 
-                //   <div id="LikeIcon">
+                //   <div id="">
                 //       <FavoriteBorderIcon id="statusLike"/>
               //   </div> */}
             </div>

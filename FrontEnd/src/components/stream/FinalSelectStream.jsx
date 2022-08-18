@@ -124,6 +124,7 @@ function SelectStreamComponent(props) {
               ) : null}
             </div>
 
+
             <div>
               {!props.user.isLocal() && (
                 <IconButton id="volumeButton" onClick={toggleSound}>

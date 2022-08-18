@@ -77,8 +77,8 @@ function Game(props) {
 
   //function
   const userChanged = () => {
-    props.userChanged()
-  }
+    props.userChanged();
+  };
   useEffect(() => {
     if (
       disabled === true &&
@@ -99,7 +99,7 @@ function Game(props) {
     socket.emit("yes", props.participantNum);
     setDisabled(true);
     props.user.setAnswer(true);
-    props.answerChanged(true)
+    props.answerChanged(true);
   };
  
 
@@ -108,8 +108,7 @@ function Game(props) {
     socket.emit("no", props.participantNum);
     setDisabled(true);
     props.user.setAnswer(false);
-    props.answerChanged(false)
-  
+    props.answerChanged(false);
   };
   socket.on("yes", (cnt) => {
     setAnswerCount(cnt.answerCount);
@@ -153,13 +152,31 @@ function Game(props) {
           >
             {quiz.question}
           </Typography>
-          <div style={{ textAlign: "center" }}>
-            <ButtonCo onClick={onYes} disabled={disabled}  variant="contained">
+
+          <div
+            style={{
+              textAlign: "center",
+              marginLeft: "0.5vh",
+              marginRight: "0.5vh",
+            }}
+          >
+            <ButtonCo
+              style={{ marginLeft: "0.5vh", marginRight: "0.5vh" }}
+              onClick={onYes}
+              disabled={disabled}
+              variant="contained"
+            >
               {/* 이미지 가져오기 카훗처럼 */}
               <CheckCircleIcon style={{ color: "#00E7F4 " }} />
               {quiz.answerA}
             </ButtonCo>
-            <ButtonCo onClick={onNo} disabled={disabled}  variant="contained"> 
+
+            <ButtonCo
+              style={{ marginLeft: "0.5vh", marginRight: "0.5vh" }}
+              onClick={onNo}
+              disabled={disabled}
+              variant="contained"
+            >
               <CheckCircleIcon style={{ color: "#FFFC19 " }} />
               {quiz.answerB}
             </ButtonCo>
