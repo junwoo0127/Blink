@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import { motion } from "framer-motion";
+
 const padNumber = (num, length) => {
   return String(num).padStart(length, "0");
 };

@@ -9,6 +9,7 @@ import { increaseCount } from "../../../_reducers/quiz_counter";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import a10 from "../../../assets/a10.png";
 
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#beaee2"),
@@ -133,6 +134,18 @@ function Game(props) {
           }}
           sx={style}
         >
+          <img
+            alt="a10"
+            src={a10}
+            style={{ position: "absolute", width: "50px", left: "7%" }}
+          />
+
+          <img
+            alt="a10"
+            src={a10}
+            style={{ position: "absolute", width: "50px", left: "83%" }}
+          />
+
           <Typography
             style={{ textAlign: "center", fontSize: "30px" }}
             id="modal-modal-title"

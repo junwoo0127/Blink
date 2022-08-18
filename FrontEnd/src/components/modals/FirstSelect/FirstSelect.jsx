@@ -2,6 +2,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import a3 from "../../../assets/a2,a3.png";
 
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#beaee2"),
@@ -64,6 +65,27 @@ function FirstSelect(props) {
                 backgroundColor: "#f7dbf0",
               }}
             >
+              <img
+                alt="a3"
+                src={a3}
+                style={{ position: "absolute", width: "50px", left: "7%" }}
+              />
+              ​{" "}
+              <img
+                alt="a3"
+                src={a3}
+                style={{ position: "absolute", width: "50px", left: "83%" }}
+              />
+              {/* <img
+                alt="a1"
+                src={a1}
+                style={{ position: "absolute", width: "50px", left: "7%" }}
+              />
+              <img
+                alt="a1"
+                src={a1}
+                style={{ position: "absolute", width: "50px", left: "83%" }}
+              /> */}
               <b style={{ fontSize: "30px" }}> 첫 인상 선택 시간!</b>
               <div style={{ fontSize: "20px", marginTop: "2vh" }}>
                 자기소개는 잘 하셨나요? 상대방의 소개는 어떠셨나요? 지금부터

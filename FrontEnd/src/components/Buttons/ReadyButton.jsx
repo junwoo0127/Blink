@@ -6,6 +6,9 @@ import Button from "@mui/material/Button";
 import { alpha, styled } from "@mui/material/styles";
 import "./ReadyButton.css";
 import axios from "axios";
+
+import a1 from "../../assets/a1.png";
+
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#beaee2"),
   lineHeight: "30px",
@@ -138,6 +141,16 @@ function ReadyButton(props) {
                 backgroundColor: "#f7dbf0",
               }}
             >
+              <img
+                alt="a1"
+                src={a1}
+                style={{ position: "absolute", width: "50px", left: "7%" }}
+              />
+              <img
+                alt="a1"
+                src={a1}
+                style={{ position: "absolute", width: "50px", left: "83%" }}
+              />
               <b style={{ fontSize: "30px" }}> 자기 소개 시간!</b>
 
               <div style={{ fontSize: "20px", marginTop: "2vh" }}>
