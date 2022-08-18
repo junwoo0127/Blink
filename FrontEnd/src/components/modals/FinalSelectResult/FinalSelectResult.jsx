@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
-import { useHistory } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -21,12 +20,9 @@ const apiURL = "http://localhost:8080/blink";
 function FinalSelectResult(props) {
   //variables
   const [res, setRes] = useState("");
-  let history = useHistory();
 
   //function
-  function handleOut() {
-    history.push("/");
-  }
+
   useEffect(() => {
     try {
       axios
@@ -64,12 +60,12 @@ function FinalSelectResult(props) {
         ) {
           console.log("this is not same");
           props.handleClose();
-          handleOut();
+          window.location.href = "/";
         }
       });
     } else {
       props.handleClose();
-      handleOut();
+      window.location.href = "/";
     }
   };
   return (
