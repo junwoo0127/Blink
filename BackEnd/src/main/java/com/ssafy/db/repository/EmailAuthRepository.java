@@ -12,4 +12,5 @@ import com.ssafy.db.entity.EmailAuth;
 @Repository
 public interface EmailAuthRepository extends JpaRepository<EmailAuth, Long>{
 	EmailAuth findByEmail(@Param("mail_adr") String email);
+	boolean existsByEmail(@Param("mail_adr") String email);
 }

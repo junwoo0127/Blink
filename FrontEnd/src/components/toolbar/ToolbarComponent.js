@@ -48,6 +48,11 @@ export default class ToolbarComponent extends Component {
   render() {
     const mySessionId = this.props.sessionId;
     const localUser = this.props.user;
+    const url = "http://localhost:3000/";
+    const shareLink = (e) => {
+      console.log();
+      navigator.clipboard.writeText(url + "lobby?room=" + mySessionId);
+    };
     return (
       <AppBar className="toolbar" id="header">
         <Toolbar className="toolbar">
@@ -60,6 +65,31 @@ export default class ToolbarComponent extends Component {
               </div>
             )}
           </div>
+
+          <form class="hidden-xs">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Some path"
+                id="copy-input"
+              />
+              <span class="input-group-btn">
+                <button
+                  class="btn btn-default"
+                  type="button"
+                  id="copy-button"
+                  data-toggle="tooltip"
+                  data-placement="button"
+                  title="Copy to Clipboard"
+                >
+                  Share the URL
+                </button>
+              </span>
+            </div>
+          </form>
+
+        
 
           <div className="buttonsContent">
             <IconButton
@@ -87,12 +117,6 @@ export default class ToolbarComponent extends Component {
                 <VideocamOffIcon color="secondary" />
               )}
             </IconButton>
-
-            {localUser !== undefined && localUser.isScreenShareActive() && (
-              <IconButton onClick={this.stopScreenShare} id="navScreenButton">
-                <StopScreenShare color="secondary" />
-              </IconButton>
-            )}
 
             <IconButton
               color="secondary"

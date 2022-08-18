@@ -1,21 +1,52 @@
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
+import { useLocation } from "react-router";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import "./VideoRoomComponent.css";
 import { OpenVidu } from "openvidu-browser";
-
-import StreamComponent from "./stream/StreamComponent";
+import $ from "jquery";
+import io from "socket.io-client";
 import ChatComponent from "./chat/ChatComponent";
-import Ready from "./readybutton/Ready";
+import GameRoom from "./VideoRooms/GameRoom/GameRoom";
+import ReadyButton from "./Buttons/ReadyButton";
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
-import ToolbarComponent from "./toolbar/ToolbarComponent";
+import ToolbarComponent from "./toolbar/ToolbarComponent2";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
+import IntroduceRoom1 from "./VideoRooms/IntroduceRoom1/IntroduceRoom";
+import IntroduceRoom2 from "./VideoRooms/IntroduceRoom2/IntroduceRoom";
+import IntroduceRoom3 from "./VideoRooms/IntroduceRoom3/IntroduceRoom";
+import IntroduceRoom4 from "./VideoRooms/IntroduceRoom4/IntroduceRoom";
+import IntroduceRoom5 from "./VideoRooms/IntroduceRoom5/IntroduceRoom";
+import IntroduceRoom6 from "./VideoRooms/IntroduceRoom6/IntroduceRoom";
+
+import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom";
+import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
+import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
+import GameIntroRoom from "./VideoRooms/GameRoom/GameIntroRoom";
+import LiarSelectRoom from "./VideoRooms/LiarSelectRoom/LiarSelectRoom";
+import LastRoom from "./VideoRooms/LastRoom/LastRoom"
+import { get_session } from "../_actions/user_action";
+import { connect } from "react-redux";
+import SpeedDialBottom from "./Common/SpeedDialBottom";
+import SpeedDialTop from "./Common/SpeedDialTop";
+import FinalSelectRoom from "./VideoRooms/FinalSelectRoom/FinalSelectRoom";
+import FreeTalkRoom from "./VideoRooms/FreeTalkRoom/FreeTalkRoom";
+import IntroduceTimer1 from "../components/Common/timer/IntroduceTimer";
+import DiscussTimer1 from "../components/Common/timer/DiscussTimer";
+import FreeTalkTimer1 from "../components/Common/timer/FreeTalkTimer";
+import Grid from "@mui/material/Grid";
 
 var localUser = new UserModel();
+const socket = io.connect("http://localhost:4000");
+
+const apiURL = "http://localhost:8080/blink/";
 
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
+    // console.log(this.props.store.user.Room.url);
+
     this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
       ? this.props.openviduServerUrl
       : "https://" + window.location.hostname + ":4443";
@@ -28,14 +59,16 @@ class VideoRoomComponent extends Component {
     // : "ssafy47ssafy47";
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
-    let sessionName = this.props.sessionName
-      ? this.props.sessionName
-      : "SessionA";
-    let userName = this.props.user
-      ? this.props.user
-      : "OpenVidu_User" + Math.floor(Math.random() * 100);
+    console.log(this.props.store);
+    let sessionName = this.props.store.user.Room.url;
+    console.log(window.location.hash);
+    // console.log(this.props.store.user.Room);
+
+    let userName = this.props.store.user.Room.nickname;
+
     this.remotes = [];
     this.localUserAccessAllowed = false;
+
     this.state = {
       mySessionId: sessionName,
       myUserName: userName,
@@ -44,6 +77,14 @@ class VideoRoomComponent extends Component {
       subscribers: [],
       chatDisplay: "none",
       currentVideoDevice: undefined,
+      participantNum: 1,
+      mode: 0,
+      display: "block",
+      filter: true,
+      roomLimit: 0,
+      showFF: true,
+      seq : 1,
+      sec : 15,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -53,10 +94,88 @@ class VideoRoomComponent extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.nicknameChanged = this.nicknameChanged.bind(this);
-
+    this.setMode = this.setMode.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
+    this.initializeSessionView = this.initializeSessionView.bind(this);
+    this.setRole = this.setRole.bind(this);
+    this.onHandleDisplay = this.onHandleDisplay.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
+    this.answerChanged = this.answerChanged.bind(this);
+    this.seqPlus = this.seqPlus.bind(this);
+  }
+  seqPlus(){
+    this.setState({seq: this.state.seq +1})
+    console.log("my seq is, ", this.sta)
+  }
+  handleFilter() {
+    this.setState({ filter: !this.state.filter });
+  }
+  onHandleDisplay() {
+    this.setState({ display: "none" });
+  }
+  setRole() {
+    socket.on("sequence", (cnt)=> {
+      console.log("cntcntcnt", cnt.sequence)
+      localUser.setSequence(cnt.sequence);
+      if(cnt.sequence === 1 || cnt.sequence ===2) {
+        localUser.setRole("mafia")
+        axios.get(apiURL + "api/v1/game/isLiar", {
+          params: {
+            playerSeq: localUser.getPlayerSeq(),
+            isLiar: 1,
+          },
+        });
+      } else {
+        localUser.setRole("citizen")
+        axios.get(apiURL + "api/v1/game/isLiar", {
+          params: {
+            playerSeq: localUser.getPlayerSeq(),
+            isLiar: 0,
+          },
+        });
+      }
+      })
+    }
+  
+  
+  setMode(num) {
+    this.setState({ mode: num });
+    this.updateLayout();
+    console.log("this is mode about", this.state.mode);
+  }
+  initializeSessionView() {
+    // Tooltips
+    // $('[data-toggle="tooltip"]').tooltip();
+    // Input clipboard
+    $("#copy-input").val(
+      "http://localhost:3000/lobby?room=" + this.props.store.user.Room.url
+    );
+    $("#copy-button").bind("click", function () {
+      var input = document.getElementById("copy-input");
+      input.focus();
+      input.setSelectionRange(0, input.value.length);
+      try {
+        var success = document.execCommand("copy");
+        if (success) {
+          $("#copy-button").trigger("copied", ["Copied!"]);
+        } else {
+          $("#copy-button").trigger("copied", ["Copy with Ctrl-c"]);
+        }
+      } catch (err) {
+        $("#copy-button").trigger("copied", ["Copy with Ctrl-c"]);
+      }
+    });
+
+    // Handler for updating the tooltip message.
+    // $('#copy-button').bind('copied', function (event, message) {
+    //   $(this).attr('title', message)
+    //     .tooltip('fixTitle')
+    //     .tooltip('show')
+    //     .attr('title', "Copy to Clipboard")
+    //     .tooltip('fixTitle');
+    // });
   }
 
   componentDidMount() {
@@ -81,12 +200,23 @@ class VideoRoomComponent extends Component {
     window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
     this.joinSession();
+    // try {
+    //   axios
+    //     .get(apiURL + "api/v1/rooms/roomSize", {
+    //       params: { roomSeq: this.props.store.user.Room.url.split("_")[0] },
+    //     })
+    //     .then((res) => this.setState({ roomLimit: res.data }));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   componentWillUnmount() {
     window.removeEventListener("beforeunload", this.onbeforeunload);
     window.removeEventListener("resize", this.updateLayout);
     window.removeEventListener("resize", this.checkSize);
+
+    console.log("leaveSession");
     this.leaveSession();
   }
 
@@ -96,7 +226,25 @@ class VideoRoomComponent extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
+
+    localUser.setPlayerSeq(this.props.store.user.Room.playerSeq);
+    socket.emit("sequence")
     
+    
+    console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
+    try {
+      axios
+        .get(apiURL + "api/v1/rooms/roomSize", {
+          params: { roomSeq: this.props.store.user.Room.url.split("_")[0] },
+        })
+        .then((res) =>
+          this.setState({ roomLimit: this.state.roomLimit + res.data }, () => {
+            // this.setRole();
+          })
+        );
+    } catch (error) {
+      console.log(error);
+    }
     this.setState(
       {
         session: this.OV.initSession(),
@@ -104,6 +252,7 @@ class VideoRoomComponent extends Component {
       () => {
         this.subscribeToStreamCreated();
         this.connectToSession();
+        this.setRole();
       }
     );
   }
@@ -165,13 +314,18 @@ class VideoRoomComponent extends Component {
   async connectWebCam() {
     var devices = await this.OV.getDevices();
     var videoDevices = devices.filter((device) => device.kind === "videoinput");
+    var path =
+      window.location.pathname.slice(-1) == "/"
+        ? window.location.pathname
+        : window.location.pathname + "/";
+    window.history.pushState("", "", path + "#" + this.state.mySessionId);
 
     let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
       videoSource: undefined,
       //videoSource: videoDevices[0].deviceId,
-      publishAudio: localUser.isAudioActive(),
-      publishVideo: localUser.isVideoActive(),
+      publishAudio: !localUser.isAudioActive(),
+      publishVideo: !localUser.isVideoActive(),
       resolution: "640x480",
       frameRate: 30,
       insertMode: "APPEND",
@@ -194,7 +348,7 @@ class VideoRoomComponent extends Component {
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
     this.subscribeToStreamDestroyed();
-
+    this.initializeSessionView();
     this.setState(
       { currentVideoDevice: videoDevices[0], localUser: localUser },
       () => {
@@ -221,6 +375,9 @@ class VideoRoomComponent extends Component {
             isVideoActive: this.state.localUser.isVideoActive(),
             nickname: this.state.localUser.getNickname(),
             isScreenShareActive: this.state.localUser.isScreenShareActive(),
+            playerSeq: this.state.localUser.getPlayerSeq(),
+            answer : this.state.localUser.getAnswer(),
+            seq : this.state.localUser.getSequence(),
           });
         }
         this.updateLayout();
@@ -234,13 +391,14 @@ class VideoRoomComponent extends Component {
     if (mySession) {
       mySession.disconnect();
     }
+    socket.emit("leaveSession");
 
     // Empty all properties...
     this.OV = null;
     this.setState({
       session: undefined,
       subscribers: [],
-      mySessionId: "SessionA",
+      mySessionId: "SessionB",
       myUserName: "OpenVidu_User" + Math.floor(Math.random() * 100),
       localUser: undefined,
     });
@@ -269,6 +427,15 @@ class VideoRoomComponent extends Component {
     this.sendSignalUserChanged({
       nickname: this.state.localUser.getNickname(),
     });
+
+  }
+  answerChanged(answer){
+    let localUser = this.state.localUser;
+    localUser.setAnswer(answer);
+    this.setState({localUser:localUser});
+    this.sendSignalUserChanged({
+      answer : this.state.localUser.getAnswer()
+    })
   }
 
   deleteSubscriber(stream) {
@@ -290,8 +457,10 @@ class VideoRoomComponent extends Component {
     this.state.session.on("streamCreated", (event) => {
       const subscriber = this.state.session.subscribe(event.stream, undefined);
       // var subscribers = this.state.subscribers;
+      this.setState({ participantNum: (this.state.participantNum += 1) });
       subscriber.on("streamPlaying", (e) => {
         console.log("here!!!");
+        console.log("subscribers!!", subscriber);
         console.log(subscriber.videos[0].video.parentElement.classList);
         subscriber.videos[0].video.parentElement.classList.remove(
           "custom-class"
@@ -303,6 +472,7 @@ class VideoRoomComponent extends Component {
       newUser.setType("remote");
       const nickname = event.stream.connection.data.split("%")[0];
       newUser.setNickname(JSON.parse(nickname).clientData);
+
       this.remotes.push(newUser);
       if (this.localUserAccessAllowed) {
         this.updateSubscribers();
@@ -313,7 +483,9 @@ class VideoRoomComponent extends Component {
   subscribeToStreamDestroyed() {
     // On every Stream destroyed...
     this.state.session.on("streamDestroyed", (event) => {
+      socket.emit("leaveSession", this.state.role, this.state.roomLimit);
       // Remove the stream from 'subscribers' array
+      this.setState({ participantNum: (this.state.participantNum -= 1) });
       this.deleteSubscriber(event.stream);
       setTimeout(() => {}, 20);
       event.preventDefault();
@@ -340,11 +512,21 @@ class VideoRoomComponent extends Component {
           if (data.isScreenShareActive !== undefined) {
             user.setScreenShareActive(data.isScreenShareActive);
           }
+          if (data.playerSeq !== undefined) {
+            user.setPlayerSeq(data.playerSeq);
+          }
+          if (data.answer !== undefined) {
+            user.setAnswer(data.answer);
+          }
+          if(data.seq !== undefined){
+            user.setSequence(data.seq)
+          }
         }
       });
       this.setState({
         subscribers: remoteUsers,
       });
+      console.log("subscribers!!!", this.state.subscribers);
     });
   }
 
@@ -364,6 +546,8 @@ class VideoRoomComponent extends Component {
 
   toggleChat(property) {
     let display = property;
+
+    this.setState({ showFF: !this.state.showFF });
 
     if (display === undefined) {
       display = this.state.chatDisplay === "none" ? "block" : "none";
@@ -406,7 +590,7 @@ class VideoRoomComponent extends Component {
     return (
       <div className="container" id="container">
         <ToolbarComponent
-          sessionId={mySessionId}
+          sessionId={this.props.store.user.Room.url}
           user={localUser}
           showNotification={this.state.messageReceived}
           camStatusChanged={this.camStatusChanged}
@@ -414,46 +598,236 @@ class VideoRoomComponent extends Component {
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />
-
-        <div id="layout" className="bounds">
-          <Ready />
-          <MusicPlayer />
-          {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
-              <div className="OT_root OT_publisher custom-class" id="localUser">
-                <StreamComponent
-                  user={localUser}
-                  handleNickname={this.nicknameChanged}
-                />
-              </div>
-            )}
-          {this.state.subscribers.map((sub, i) => (
-            <div
-              key={i}
-              className="OT_root OT_publisher custom-class"
-              id="remoteUsers"
-            >
-              <StreamComponent
-                user={sub}
-                streamId={sub.streamManager.stream.streamId}
+        {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
+        LiarSelect>>FreeTalk>>FinalSelect */}
+        
+          <Grid container>
+            <Grid item xs={9} style={{ border: "2px solid #blue" }}>
+              <div id="layout" className="bounds9" style={{}}>
+              {this.state.mode === 0 ? (
+              <WaitingRoom
+                filter={this.state.filter}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+              ></WaitingRoom>
+            ) : this.state.mode === 1 ? (
+              <IntroduceRoom1
+              seqPlus ={this.seqPlus}
+                seq = {this.state.seq}
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
               />
-            </div>
-          ))}
-          {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
-              <div
-                className="OT_root OT_publisher custom-class"
-                style={chatDisplay}
-              >
-                <ChatComponent
-                  user={localUser}
-                  chatDisplay={this.state.chatDisplay}
-                  close={this.toggleChat}
-                  messageReceived={this.checkNotification}
-                />
-              </div>
-            )}
-        </div>
+            ) : this.state.mode === 12 ? (
+              <IntroduceRoom2
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 13 ? (
+              <IntroduceRoom3
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 14 ? (
+              <IntroduceRoom4
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 15 ? (
+              <IntroduceRoom5
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 16 ? (
+              <IntroduceRoom6
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 2 ? (
+              <SelectRoom
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 3 ? (
+              <GameIntroRoom
+              answerChanged={this.answerChanged}
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 4 ? (
+              <DiscussRoom
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 5 ? (
+              <GameRoom
+              answerChanged={this.answerChanged}
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 6 ? (
+              <LiarSelectRoom
+                roomSeq={this.props.store.user.Room.url.split("_")[0]}
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 7 ? (
+              <FreeTalkRoom
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : this.state.mode === 8 ? (
+              <FinalSelectRoom
+              leaveSession = {this.leaveSession}
+                roomSeq={this.props.store.user.Room.url.split("_")[0]}
+                participantNum={this.state.participantNum}
+                localUser={localUser}
+                subscribers={this.state.subscribers}
+                chatDisplay={this.state.chatDisplay}
+                close={this.toggleChat}
+                messageReceived={this.checkNotification}
+                setMode={this.setMode}
+              />
+            ) : 
+            this.state.mode === 9 ? (
+              <LastRoom roomSeq={this.props.store.user.Room.url.split("_")[0]}
+              participantNum={this.state.participantNum}
+              localUser={localUser}
+              subscribers={this.state.subscribers}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              setMode={this.setMode}
+              />):null}
+          </div>
+            </Grid>
+            <Grid item xs={3}>
+              {localUser !== undefined &&
+                localUser.getStreamManager() !== undefined && (
+                  <div
+                    className="OT_root OT_publisher custom-class"
+                    
+                  >
+                    <ChatComponent
+                      style={{}}
+                      user={localUser}
+                      chatDisplay="block"
+                      
+                      messageReceived={this.checkNotification}
+                    />
+                  </div>
+                )}
+            </Grid>
+          </Grid>
+        
+        {/* 채팅 없애기 옮기는거 실패 앱솔이여서안됨 그냥 없애거나 디자인바꾸기 */}
+        {/* {localUser !== undefined && localUser.getStreamManager() !== undefined && (
+          <div
+            className="OT_root OT_publisher custom-class"
+            style={chatDisplay}
+          >
+            <ChatComponent
+              style={{}}
+              user={localUser}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+            />
+          </div>
+        )} */}
+        {/* <ReadyButton
+            onHandleDisplay={this.onHandleDisplay}
+            display={this.state.display}
+            participantNum={this.state.participantNum}
+            setMode={this.setMode}
+          /> */}
+        {/* </div> */}
+        {/* <MusicPlayer /> */}{" "}
+        {/* <SpeedDialTop
+          sessionId={mySessionId}
+          showNotification={this.state.messageReceived}
+          toggleChat={this.toggleChat}
+          
+        /> */}
+        <SpeedDialBottom
+          handleFilter={this.handleFilter}
+          user={localUser}
+          camStatusChanged={this.camStatusChanged}
+          micStatusChanged={this.micStatusChanged}
+          leaveSession={this.leaveSession}
+        />
+        {this.state.mode === 0 ? (
+          <ReadyButton
+            onHandleDisplay={this.onHandleDisplay}
+            display={this.state.display}
+            participantNum={this.state.participantNum}
+            setMode={this.setMode}
+            roomSeq={this.props.store.user.Room.url.split("_")[0]}
+          />
+        ) : this.state.mode === 1 ? (
+          <IntroduceTimer1 seqPlus={this.seqPlus} participantNum = {this.state.participantNum} seq = {this.state.seq} style={{}} sec={this.state.sec} setMode={this.setMode} />
+         ) : this.state.mode === 4 ? (
+          <DiscussTimer1 style={{}} participantNum = {this.state.participantNum} sec={10} setMode={this.setMode} />
+        ) : this.state.mode === 7 ? (
+          <FreeTalkTimer1 style={{}} sec={5} setMode={this.setMode} />
+        ) : null}
       </div>
     );
   }
@@ -546,4 +920,12 @@ class VideoRoomComponent extends Component {
     });
   }
 }
-export default VideoRoomComponent;
+const mapStateToProps = (state) => ({
+  store: state,
+ 
+});
+const mapDispatchToProps = (dispatch) => ({
+  getStore: () => dispatch(get_session),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(VideoRoomComponent);
