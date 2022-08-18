@@ -7,7 +7,7 @@ import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
-
+import OvVideo from "./OvVideo2";
 import IconButton from "@mui/material/IconButton";
 import E from "../../assets/E.png";
 import I from "../../assets/I.png";
@@ -64,14 +64,22 @@ export default class StreamComponent extends Component {
               ) : ( */}
 
               {this.props.seq === this.props.user.getSequence() ? (
-                <OvVideoComponent
+                // <OvVideoComponent
+                //   user={this.props.user}
+                //   mutedSound={this.state.mutedSound}
+                // />
+                <OvVideo
                   user={this.props.user}
                   mutedSound={this.state.mutedSound}
                 />
               ) : (
-                <OvVideoComponent
+                // <OvVideoComponent
+                //   user={this.props.user}
+                //   mutedSound={!this.state.mutedSound}
+                // />
+                <OvVideo
                   user={this.props.user}
-                  mutedSound={!this.state.mutedSound}
+                  mutedSound={this.state.mutedSound}
                 />
               )}
               {/* )} */}

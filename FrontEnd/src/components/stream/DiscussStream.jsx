@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./StreamComponent.css";
 import OvVideoComponent from "./OvVideo";
-
+import OvVideo from "./OvVideo2";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
@@ -21,7 +21,6 @@ export default class StreamComponent extends Component {
     this.toggleSound = this.toggleSound.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
-    
   }
 
   toggleSound() {
@@ -35,11 +34,11 @@ export default class StreamComponent extends Component {
     this.setState({ showForm: false });
   }
 
-
   render() {
     return (
       <div>
-        <div id ={this.props.user.getAnswer() ? "yes": "no"}
+        <div
+          id={this.props.user.getAnswer() ? "yes" : "no"}
           className="OT_widget-container"
           onMouseOver={this.onMouseOver}
           onMouseLeave={this.onMouseLeave}
@@ -53,10 +52,15 @@ export default class StreamComponent extends Component {
           this.props.user.getStreamManager() !== undefined ? (
             <div className="streamComponent">
               {/* 화면 송출 부분 ex>> id="video-str_CAM_WG4m_con_QdcVOVkZVu" */}
-              <OvVideoComponent
+              {/* <OvVideoComponent
+                user={this.props.user}
+                mutedSound={this.state.mutedSound}
+              /> */}
+              <OvVideo
                 user={this.props.user}
                 mutedSound={this.state.mutedSound}
               />
+
               <div id="statusIcons">
                 {!this.props.user.isVideoActive() ? (
                   <div id="camIcon">
