@@ -21,8 +21,8 @@ const BGMPlayer = () => {
   return (
     <main style={{ position: "absolute", right: "30%" }}>
       <ReactPlayer
-        // width="0"
-        // height="0"
+        width="0"
+        height="0"
         playing={playing}
         url="Longing.mp3"
         volume={volume}
