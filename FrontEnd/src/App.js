@@ -16,7 +16,7 @@ import Profile from "./components/Profile/Profile";
 import Lobby from "./components/Lobby/Lobby";
 import LobbySetting from "./components/LobbySetting/LobbySetting";
 import Auth from "./hoc/auth";
-
+import BGMPlayer from "./components/MusicPlayer/BGMPlayer";
 // 고려할만할듯 로딩페이지 처럼
 // import Error404 from '../common/error/Error404';
 // import Error500 from '../common/error/Error500';
@@ -38,6 +38,7 @@ function App() {
           //cursor:"url('https://blog.kakaocdn.net/dn/BQXpN/btq3qNR67Lg/8tx8tGzkOcr5BuX5dyIaKk/img.png')50 50, auto",
         }}
       >
+        <BGMPlayer />
         <Routes>
           <Route path="/*" element={<NLandinPage />} />
           <Route path="/login" element={<NLoginPage />} />

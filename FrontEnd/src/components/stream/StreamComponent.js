@@ -59,14 +59,14 @@ export default class StreamComponent extends Component {
  
                   <Filter user={this.props.user} /> 
               ) : ( */}
-              {/* <OvVideoComponent
-                user={this.props.user}
-                mutedSound={this.state.mutedSound}
-              /> */}
-              <OvVideo
+              <OvVideoComponent
                 user={this.props.user}
                 mutedSound={this.state.mutedSound}
               />
+              {/* <OvVideo
+                user={this.props.user}
+                mutedSound={this.state.mutedSound}
+              /> */}
               {/* )} */}
               {/* {this.props.user.getAnswer() ? */}
               {/* <img 
