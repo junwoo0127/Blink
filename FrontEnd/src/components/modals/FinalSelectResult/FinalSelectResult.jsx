@@ -20,8 +20,9 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // padding: 0 14px 0 0;
   // position: "absolute",
   // top: "100%",
+  marginTop: "2vh",
   left: "35%",
-  maxWidth: "30%",
+  width: "30%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   backgroundColor: "#beaee2",
   "&:hover": {

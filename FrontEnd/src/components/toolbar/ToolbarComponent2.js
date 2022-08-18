@@ -18,7 +18,7 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   borderRadius: "30px",
   fontSize: "20px",
   padding: "3px 0px",
-  maxWidth: "18%",
+  maxWidth: "50%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   backgroundColor: "#beaee2",
   "&:hover": {

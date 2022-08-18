@@ -272,14 +272,18 @@ function GameSet(props) {
                     style={{ display: "flex", flexDirection: "column" }}
                   >
                     {firstMatch.map((select, index) => (
-                      <span key={index}>{select.nickname} 님은</span>
+                      <span key={index}>{select.nickname} 님은 </span>
                     ))}
                   </div>
                   <div
                     className="selectPerson"
                     style={{ display: "flex", flexDirection: "column" }}
                   >
-                    <span style={{ color: "#FF1744" }}>→ → ❤ ❤ ❤ → →</span>
+                    {firstMatch.map((select, index) => (
+                      <span key={index} style={{ color: "#FF1744" }}>
+                        → → ❤ ❤ ❤ → →
+                      </span>
+                    ))}
                   </div>
                   <div
                     className="selectedPerson"
@@ -322,13 +326,23 @@ function GameSet(props) {
                 <img
                   alt="a5"
                   src={a5}
-                  style={{ position: "absolute", width: "50px", left: "7%" }}
+                  style={{
+                    position: "absolute",
+                    width: "50px",
+                    top: "15%",
+                    left: "7%",
+                  }}
                 />
 
                 <img
                   alt="a5"
                   src={a5}
-                  style={{ position: "absolute", width: "50px", left: "83%" }}
+                  style={{
+                    position: "absolute",
+                    width: "50px",
+                    top: "15%",
+                    left: "83%",
+                  }}
                 />
 
                 <b style={{ fontSize: "30px" }}>{res}님이 확인중입니다.</b>
