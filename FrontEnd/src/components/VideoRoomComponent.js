@@ -14,11 +14,6 @@ import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent2";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
 import IntroduceRoom1 from "./VideoRooms/IntroduceRoom1/IntroduceRoom";
-import IntroduceRoom2 from "./VideoRooms/IntroduceRoom2/IntroduceRoom";
-import IntroduceRoom3 from "./VideoRooms/IntroduceRoom3/IntroduceRoom";
-import IntroduceRoom4 from "./VideoRooms/IntroduceRoom4/IntroduceRoom";
-import IntroduceRoom5 from "./VideoRooms/IntroduceRoom5/IntroduceRoom";
-import IntroduceRoom6 from "./VideoRooms/IntroduceRoom6/IntroduceRoom";
 import ShareModal from "./modals/ShareModal/ShareModal";
 import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom";
 import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
@@ -628,51 +623,6 @@ class VideoRoomComponent extends Component {
                   seqPlus={this.seqPlus}
                   seq={this.state.seq}
                   participantNum={this.state.participantNum}
-                  localUser={localUser}
-                  subscribers={this.state.subscribers}
-                  chatDisplay={this.state.chatDisplay}
-                  close={this.toggleChat}
-                  messageReceived={this.checkNotification}
-                  setMode={this.setMode}
-                />
-              ) : this.state.mode === 12 ? (
-                <IntroduceRoom2
-                  localUser={localUser}
-                  subscribers={this.state.subscribers}
-                  chatDisplay={this.state.chatDisplay}
-                  close={this.toggleChat}
-                  messageReceived={this.checkNotification}
-                  setMode={this.setMode}
-                />
-              ) : this.state.mode === 13 ? (
-                <IntroduceRoom3
-                  localUser={localUser}
-                  subscribers={this.state.subscribers}
-                  chatDisplay={this.state.chatDisplay}
-                  close={this.toggleChat}
-                  messageReceived={this.checkNotification}
-                  setMode={this.setMode}
-                />
-              ) : this.state.mode === 14 ? (
-                <IntroduceRoom4
-                  localUser={localUser}
-                  subscribers={this.state.subscribers}
-                  chatDisplay={this.state.chatDisplay}
-                  close={this.toggleChat}
-                  messageReceived={this.checkNotification}
-                  setMode={this.setMode}
-                />
-              ) : this.state.mode === 15 ? (
-                <IntroduceRoom5
-                  localUser={localUser}
-                  subscribers={this.state.subscribers}
-                  chatDisplay={this.state.chatDisplay}
-                  close={this.toggleChat}
-                  messageReceived={this.checkNotification}
-                  setMode={this.setMode}
-                />
-              ) : this.state.mode === 16 ? (
-                <IntroduceRoom6
                   localUser={localUser}
                   subscribers={this.state.subscribers}
                   chatDisplay={this.state.chatDisplay}

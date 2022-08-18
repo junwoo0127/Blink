@@ -7,6 +7,7 @@ import StreamComponent from "../../stream/StreamComponent";
 function WaitingRoom(props) {
   const localUser = props.localUser;
   const filter = props.filter;
+
   return (
     <>
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (

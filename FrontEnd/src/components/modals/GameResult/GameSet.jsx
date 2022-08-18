@@ -128,7 +128,7 @@ function GameSet(props) {
   };
   socket.on("firstMatchConfirm", () => {
     setOpen(false);
-    props.mode(7);
+    props.mode(8);
   });
   return (
     <div>

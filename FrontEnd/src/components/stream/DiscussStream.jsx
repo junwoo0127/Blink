@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./StreamComponent.css";
-import OvVideoComponent from "./OvVideo";
+import OvVideoComponent from "./OvVIdeoNoFilter";
 import OvVideo from "./OvVideo2";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
@@ -21,7 +21,6 @@ export default class StreamComponent extends Component {
     this.toggleSound = this.toggleSound.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
-    
   }
 
   toggleSound() {
@@ -34,7 +33,6 @@ export default class StreamComponent extends Component {
   onMouseLeave() {
     this.setState({ showForm: false });
   }
-
 
   render() {
     return (

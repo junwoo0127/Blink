@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./StreamComponent.css";
-import OvVideoComponent from "./OvVideo";
+import OvVideoComponent from "./OvVIdeoNoFilter";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
@@ -123,7 +123,6 @@ function SelectStreamComponent(props) {
                 )
               ) : null}
             </div>
-
 
             <div>
               {!props.user.isLocal() && (

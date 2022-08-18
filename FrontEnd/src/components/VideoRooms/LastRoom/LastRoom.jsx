@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import "./LastRoom.css";
 import Timer from "../../Common/timer/FreeTalkTimer";
-import StreamComponent from "../../stream/StreamComponent";
+import StreamComponent from "../../stream/LastStream";
 import FreeTalkStart from "../../modals/FreeTalkStart/FreeTalkStart";
 import io from "socket.io-client";
 
@@ -19,7 +19,6 @@ function FreeTalkRoom(props) {
 
   return (
     <>
-      
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser12">
           <StreamComponent user={localUser} />

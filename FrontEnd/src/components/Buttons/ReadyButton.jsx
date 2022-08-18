@@ -76,6 +76,9 @@ function ReadyButton(props) {
     console.log("clicked");
     setDisable(true);
   };
+  const handleSelect = () => {
+    props.handleSelect();
+  };
   socket.on("getReady", (cnt) => {
     setCount(cnt.count);
     console.log("how many clicked", count);
@@ -83,12 +86,11 @@ function ReadyButton(props) {
     if (cnt.count === roomLimit && count > 1) {
       //비교 값이 참가자 수가 아니라 정해놓은 인원수로 해야함
       console.log("start");
-      setOpen(true);
       props.onHandleDisplay();
       setTimeout(() => {
-        setOpen(false);
-        props.setMode(8);
-      }, 5000);
+        props.setMode(2);
+        setOpen(true);
+      }, 1000);
     }
   });
   socket.on(
@@ -138,14 +140,23 @@ function ReadyButton(props) {
                 backgroundColor: "#f7dbf0",
               }}
             >
-              <b style={{ fontSize: "30px" }}> 자기 소개 시간!</b>
-
+              <b style={{ fontSize: "30px" }}> 첫 인상 선택 시간!</b>
               <div style={{ fontSize: "20px", marginTop: "2vh" }}>
-                1명씩 돌아가며 <p style={{ color: "blue" }}>1분 자기소개</p>를
-                진행합니다! 해당하는 사람은 테두리가 강조되며 시간 경과시 바로
-                다음 사람으로 넘어갑니다! 제한 시간내에 자신의 첫 매력을
-                어필해보세요!!
+                자기소개는 잘 하셨나요? 상대방의 소개는 어떠셨나요? 지금부터
+                소개만을 듣고 첫 인상을 선택하도록 하겠습니다! 선택하기 버튼을
+                누르시고 나면 상대방의 비디오 위에 마우스를 갖다댈 경우 하트가
+                생성됩니다. 그리고 누르시면 선택됩니다. 선택은 한 번 하시면
+                변경하실 수 없으니 주의하여 주세요!
               </div>
+              <ButtonCo
+                fullWidth
+                variant="contained"
+                style={{ fontFamily: "CookieR" }}
+                onClick={handleSelect}
+              >
+                {" "}
+                선택하기{" "}
+              </ButtonCo>
             </motion.div>
           </motion.div>
         )}
