@@ -20,6 +20,8 @@ const apiURL = "http://localhost:8080/blink";
 export default function FinalSelectResult(props) {
   //variables
   const [res, setRes] = useState("");
+  
+
 
   //function
   useEffect(() => {
@@ -35,37 +37,28 @@ export default function FinalSelectResult(props) {
     } catch (e) {
       console.log(e);
     }
-  }, [props.open]);
+  },[props.open]);
   const onClick = () => {
-    console.log("clicked!!");
-    console.log("length", res.length);
-    if (res.length > 0) {
-      res.forEach((element) => {
-        console.log("this is nickname", props.user.nickname);
-        if (
-          element.nickname === props.user.nickname ||
-          element.finalChoiceNickname === props.user.nickname
-        ) {
-          console.log(
-            "elementnick",
-            element.nickname,
-            element.finalChoiceNickname
-          );
-          props.handleClose();
-          props.setMode(9);
-        } else if (
-          props.user.nickname !== element.nickname ||
-          props.user.nickname !== element.finalChoiceNickname
-        ) {
-          console.log("this is not same");
-          props.leaveSession();
-          props.handleClose();
-        }
-      });
-    } else {
-      props.leaveSession();
+    console.log("clicked!!")
+    console.log("length", res.length)
+    if(res.length > 0){res.forEach(element => {
+      console.log("this is nickname", props.user.nickname)
+      if(element.nickname === props.user.nickname || element.finalChoiceNickname === props.user.nickname){
+        console.log("elementnick", element.nickname, element.finalChoiceNickname )
+        props.handleClose()
+        props.setMode(9)
+      }
+      else if(props.user.nickname !== element.nickname || props.user.nickname !== element.finalChoiceNickname){
+        console.log("this is not same")
+        props.leaveSession()
+        props.handleClose()
+      }
+    })}
+    else {
+      props.leaveSession()
     }
-  };
+    
+  }
   return (
     <div>
       {res.length > 0 ? (
@@ -95,18 +88,11 @@ export default function FinalSelectResult(props) {
               id="modal-modal-description"
               sx={{ mt: 2 }}
             >
-              <div>
-                {" "}
-                {res.map((couple, index) => (
-                  <span key={index}>
-                    {couple.nickname} 님과 {couple.finalChoiceNickname}님!
-                    <br />
-                  </span>
-                ))}
-              </div>
-              방이 잠시 후 폭파됩니다!
+              <div> {res.map((couple, index) => (
+                      <span key={index}>{couple.nickname} 님과 {couple.finalChoiceNickname}님!<br/></span>))}</div>
+                      방이 잠시 후 폭파됩니다!
             </Typography>
-            <button onClick={onClick}>확인</button>
+                      <button onClick = {onClick}>확인</button>
           </Box>
         </Modal>
       ) : (

@@ -101,6 +101,7 @@ function Game(props) {
     props.user.setAnswer(true);
     props.answerChanged(true);
   };
+ 
 
   const onNo = () => {
     //no count 1업하기
@@ -112,10 +113,13 @@ function Game(props) {
   socket.on("yes", (cnt) => {
     setAnswerCount(cnt.answerCount);
     console.log("answercount total:", cnt.answerCount);
+   
+    
   });
   socket.on("no", (cnt) => {
     setAnswerCount(cnt.answerCount);
     console.log("answercount total:", cnt.answerCount);
+  
   });
 
   return (

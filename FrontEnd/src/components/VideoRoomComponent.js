@@ -83,7 +83,6 @@ class VideoRoomComponent extends Component {
       filter: true,
       roomLimit: 0,
       showFF: true,
-
       seq: 1,
       sec: 15,
     };
@@ -103,7 +102,6 @@ class VideoRoomComponent extends Component {
     this.setRole = this.setRole.bind(this);
     this.onHandleDisplay = this.onHandleDisplay.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
-
     this.answerChanged = this.answerChanged.bind(this);
     this.seqPlus = this.seqPlus.bind(this);
   }
@@ -246,6 +244,19 @@ class VideoRoomComponent extends Component {
     } catch (error) {
       console.log(error);
     }
+    try {
+      axios
+        .get(apiURL + "api/v1/players", {
+          params: {
+            playerSeq: localUser.getPlayerSeq(),
+          },
+        })
+        .then((res) => {
+          localUser.setGender(res.data.gender);
+        });
+    } catch (e) {
+      console.log(e);
+    }
     this.setState(
       {
         session: this.OV.initSession(),
@@ -325,8 +336,8 @@ class VideoRoomComponent extends Component {
       audioSource: undefined,
       videoSource: undefined,
       //videoSource: videoDevices[0].deviceId,
-      publishAudio: !localUser.isAudioActive(),
-      publishVideo: !localUser.isVideoActive(),
+      publishAudio: localUser.isAudioActive(),
+      publishVideo: localUser.isVideoActive(),
       resolution: "640x480",
       frameRate: 30,
       insertMode: "APPEND",
@@ -818,6 +829,7 @@ class VideoRoomComponent extends Component {
           />
         ) : this.state.mode === 1 ? (
           <IntroduceTimer1
+            user={localUser}
             seqPlus={this.seqPlus}
             participantNum={this.state.participantNum}
             seq={this.state.seq}

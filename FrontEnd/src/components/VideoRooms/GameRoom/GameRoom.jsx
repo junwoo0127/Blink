@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import "./GameRoom.css";
-import GameIntro from "../../modals/GameIntro/GameIntro";
+
 import StreamComponent from "../../stream/StreamComponent";
 import Game from "../../modals/Game/Game";
 function GameRoom(props) {
@@ -23,11 +23,11 @@ function GameRoom(props) {
   const selectNo = () => {
     setAnswer(false);
   };
- 
+
   return (
     <>
       <Game
-        answerChanged = {props.answerChanged}
+        answerChanged={props.answerChanged}
         participantNum={props.participantNum}
         open={gameOpen}
         setMode={setMode}

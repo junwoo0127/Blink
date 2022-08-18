@@ -127,6 +127,7 @@ const FormControl1 = styled(FormControl)({
 });
 
 function Lobby(props) {
+  
   const [mbti, setMbti] = useState("");
 
   const [subject, setSubject] = useState("");

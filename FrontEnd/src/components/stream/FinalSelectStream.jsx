@@ -9,7 +9,7 @@ import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
 import io from "socket.io-client";
-
+import OvVideo from "./OvVideo2";
 import FinalSelectResult from "../modals/FinalSelectResult/FinalSelectResult";
 import axios from "axios";
 import { useRef } from "react";
@@ -50,9 +50,20 @@ function SelectStreamComponent(props) {
       props.handleOpen();
     }
   });
-  socket.on("leaveSession", (count, firstCount,gameReady, answerCount, discussCount, finalCount, gameSetCount )=> {
-    setFinalCount(0)
-  })
+  socket.on(
+    "leaveSession",
+    (
+      count,
+      firstCount,
+      gameReady,
+      answerCount,
+      discussCount,
+      finalCount,
+      gameSetCount
+    ) => {
+      setFinalCount(0);
+    }
+  );
 
   const onMouseLeave = () => {
     if (selected) {
@@ -64,7 +75,6 @@ function SelectStreamComponent(props) {
 
   return (
     <div>
-     
       <button
         disabled={props.disabled}
         className="OT_widget-container"
@@ -78,8 +88,11 @@ function SelectStreamComponent(props) {
         {props.user !== undefined &&
         props.user.getStreamManager() !== undefined ? (
           <div className="streamComponent">
-            <OvVideoComponent user={props.user} mutedSound={mutedSound} />
-
+            {/* <OvVideoComponent user={props.user} mutedSound={mutedSound} /> */}
+            <OvVideo
+              user={this.props.user}
+              mutedSound={this.state.mutedSound}
+            />
             <div id="statusIcons">
               {!props.user.isVideoActive() ? (
                 <div id="camIcon">

@@ -7,7 +7,7 @@ import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
-
+import OvVideo from "./OvVideo2";
 import IconButton from "@mui/material/IconButton";
 import E from "../../assets/E.png";
 import I from "../../assets/I.png";
@@ -40,7 +40,10 @@ export default class StreamComponent extends Component {
   render() {
     return (
       <div>
-        <div id = {this.props.seq === this.props.user.getSequence() ? "myTurn" : null}
+        <div
+          id={
+            this.props.seq === this.props.user.getSequence() ? "myTurn" : null
+          }
           className="OT_widget-container"
           onMouseOver={this.onMouseOver}
           onMouseLeave={this.onMouseLeave}
@@ -59,13 +62,29 @@ export default class StreamComponent extends Component {
  
                   <Filter user={this.props.user} /> 
               ) : ( */}
-              <OvVideoComponent
-                user={this.props.user}
-                mutedSound={this.state.mutedSound}
-              />
+
+              {this.props.seq === this.props.user.getSequence() ? (
+                // <OvVideoComponent
+                //   user={this.props.user}
+                //   mutedSound={this.state.mutedSound}
+                // />
+                <OvVideo
+                  user={this.props.user}
+                  mutedSound={this.state.mutedSound}
+                />
+              ) : (
+                // <OvVideoComponent
+                //   user={this.props.user}
+                //   mutedSound={!this.state.mutedSound}
+                // />
+                <OvVideo
+                  user={this.props.user}
+                  mutedSound={this.state.mutedSound}
+                />
+              )}
               {/* )} */}
               {/* {this.props.user.getAnswer() ? */}
-                {/* <img 
+              {/* <img 
                 alt="E"
                 src={E}
                 style={{
@@ -104,7 +123,7 @@ export default class StreamComponent extends Component {
                 ) : null}
               </div>
 
-              <div>
+              {/* <div>
                 {!this.props.user.isLocal() && (
                   <IconButton id="volumeButton" onClick={this.toggleSound}>
                     {this.state.mutedSound ? (
@@ -114,7 +133,7 @@ export default class StreamComponent extends Component {
                     )}
                   </IconButton>
                 )}
-              </div>
+              </div> */}
             </div>
           ) : null}
         </div>

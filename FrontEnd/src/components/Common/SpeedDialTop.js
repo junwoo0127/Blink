@@ -58,6 +58,7 @@ export default class ToolbarComponent extends Component {
   toggleChat() {
     this.props.toggleChat();
   }
+  
 
   toggleShare() {
     this.props.toggleShare();
@@ -154,3 +155,4 @@ export default class ToolbarComponent extends Component {
     );
   }
 }
+
