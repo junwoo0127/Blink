@@ -73,4 +73,4 @@ function SelectRoom(props) {
   );
 }
 
-export default SelectRoom;
+export default React.memo(SelectRoom);

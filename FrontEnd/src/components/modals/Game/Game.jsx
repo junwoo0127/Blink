@@ -183,4 +183,4 @@ function Game(props) {
   );
 }
 
-export default Game;
+export default React.memo(Game);

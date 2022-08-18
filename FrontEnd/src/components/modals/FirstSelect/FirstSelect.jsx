@@ -89,4 +89,4 @@ function FirstSelect(props) {
   );
 }
 
-export default FirstSelect;
+export default React.memo(FirstSelect);

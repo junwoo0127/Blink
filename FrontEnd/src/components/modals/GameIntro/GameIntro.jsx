@@ -43,7 +43,7 @@ const style = {
   borderRadius: "10px",
 };
 const socket = io.connect("http://localhost:4000");
-export default function GameIntro(props) {
+function GameIntro(props) {
   //variables
   const role = props.role;
   const [open, setOpen] = useState(props.open);
@@ -209,3 +209,5 @@ export default function GameIntro(props) {
     </div>
   );
 }
+
+export default React.memo(GameIntro);
