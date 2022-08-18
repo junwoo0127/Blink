@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./StreamComponent.css";
-import OvVideoComponent from "./OvVideo";
+import OvVideoComponent from "./OvVideoNoFilter";
 import Filter from "../Filter/Filter";
 import OvVideo from "./OvVideo2";
 import MicOffIcon from "@mui/icons-material/MicOff";

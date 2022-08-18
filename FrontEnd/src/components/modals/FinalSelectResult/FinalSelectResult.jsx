@@ -79,7 +79,7 @@ function FinalSelectResult(props) {
     } catch (e) {
       console.log(e);
     }
-  });
+  }, [props.open]);
   if (props.open === true) {
     setTimeout(() => {
       setOpen(true);

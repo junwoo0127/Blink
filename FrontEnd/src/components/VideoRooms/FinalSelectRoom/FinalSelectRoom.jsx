@@ -44,6 +44,7 @@ function SelectRoom(props) {
         user={localUser}
         leaveSession={leaveSession}
         setMode={setMode}
+        handleClose={handleClose}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser13">
