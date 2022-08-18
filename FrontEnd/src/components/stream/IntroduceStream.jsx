@@ -64,23 +64,23 @@ export default class StreamComponent extends Component {
               ) : ( */}
 
               {this.props.seq === this.props.user.getSequence() ? (
-                // <OvVideoComponent
-                //   user={this.props.user}
-                //   mutedSound={this.state.mutedSound}
-                // />
-                <OvVideo
+                <OvVideoComponent
                   user={this.props.user}
                   mutedSound={this.state.mutedSound}
                 />
               ) : (
-                // <OvVideoComponent
+                // <OvVideo
                 //   user={this.props.user}
-                //   mutedSound={!this.state.mutedSound}
+                //   mutedSound={this.state.mutedSound}
                 // />
-                <OvVideo
+                <OvVideoComponent
                   user={this.props.user}
-                  mutedSound={this.state.mutedSound}
+                  mutedSound={!this.state.mutedSound}
                 />
+                // <OvVideo
+                //   user={this.props.user}
+                //   mutedSound={this.state.mutedSound}
+                // />
               )}
               {/* )} */}
               {/* {this.props.user.getAnswer() ? */}

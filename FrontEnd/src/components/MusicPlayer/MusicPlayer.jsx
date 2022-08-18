@@ -40,9 +40,7 @@ const useAudio = (url) => {
   });
   return [playing, toggle];
 };
-function MusicPlayer({
-  url = "https://docs.google.com/uc?export=open&id=14JlzHWUE2TqAsN237ft43SOw02xDPori",
-}) {
+function MusicPlayer({ url = "../../assets/UCC BGM.mp3" }) {
   const [playing, toggle] = useAudio(url);
 
   return (

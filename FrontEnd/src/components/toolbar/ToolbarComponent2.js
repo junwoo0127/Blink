@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AppBar from "@mui/material/AppBar";
-
+import MusicPlayer from "../MusicPlayer/MusicPlayer";
 import Toolbar from "@mui/material/Toolbar";
 
 import Container from "@mui/material/Container";
@@ -68,6 +68,7 @@ export default class ToolbarComponent2 extends Component {
                 }}
               />
             </Link>
+
             {/* 방 제목  중앙 */}
             {/* <div id="navSessionInfo">
              

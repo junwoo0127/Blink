@@ -95,7 +95,7 @@ function SelectStreamComponent(props) {
         props.user.getStreamManager() !== undefined ? (
           <div className="streamComponent">
             <OvVideoComponent user={props.user} mutedSound={mutedSound} />
-
+            {/* <OvVideo user={props.user} mutedSound={mutedSound} /> */}
             <div id="statusIcons">
               {!props.user.isVideoActive() ? (
                 <div id="camIcon">

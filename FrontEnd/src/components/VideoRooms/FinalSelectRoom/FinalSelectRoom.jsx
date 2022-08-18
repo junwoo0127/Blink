@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
 import "./FinalSelectRoom.css";
-import FinalSelectResult from "../../modals/FinalSelectResult/FinalSelectResult"
+import FinalSelectResult from "../../modals/FinalSelectResult/FinalSelectResult";
 import FinalSelectStream from "../../stream/FinalSelectStream";
 import StreamComponent from "../../stream/StreamComponent";
+import FinalSelect from "../../modals/FinalSelect/FinalSelect";
 function SelectRoom(props) {
   //variables
 
@@ -11,12 +12,12 @@ function SelectRoom(props) {
   const [selected, setSelected] = useState(false);
   const [open, setOpen] = useState(false);
   const roomSeq = props.roomSeq;
-
+  const [openFinal, setOpenFinal] = useState(true);
   //function
-  
+
   const leaveSession = () => {
     props.leaveSession();
-  }
+  };
   const onSelect = () => {
     setSelected(true);
   };
@@ -25,21 +26,24 @@ function SelectRoom(props) {
     console.log("modeChanged", mode);
   };
   const handleOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
+  const handleCloseFinal = () => {
+    setOpenFinal(false);
+  };
   return (
     <>
-     <FinalSelectResult
+      <FinalSelect open={openFinal} handleCloseFinal={handleCloseFinal} />
+      <FinalSelectResult
         roomSeq={roomSeq}
         open={open}
-        user = {localUser}
-        leaveSession ={leaveSession}
-        handleClose = {handleClose}
-        setMode = {setMode}
-        
+        user={localUser}
+        leaveSession={leaveSession}
+        handleClose={handleClose}
+        setMode={setMode}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser13">
@@ -53,7 +57,7 @@ function SelectRoom(props) {
           id={"remoteUsers13" + i}
         >
           <FinalSelectStream
-            handleOpen = {handleOpen}
+            handleOpen={handleOpen}
             roomSeq={roomSeq}
             localUser={localUser}
             participantNum={props.participantNum}

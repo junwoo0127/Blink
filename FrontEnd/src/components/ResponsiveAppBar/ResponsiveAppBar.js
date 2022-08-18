@@ -15,6 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
+import BGMPlayer from "../MusicPlayer/BGMPlayer";
 
 const pages = ["login", "register", "join", "videoroom"];
 const settings = [
@@ -55,6 +56,7 @@ const ResponsiveAppBar = () => {
       position="sticky"
       style={{ background: "transparent", boxShadow: "none" }}
     >
+      <BGMPlayer />
       <Container maxWidth="false">
         <Toolbar disableGutters>
           <Link to="/">
