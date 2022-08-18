@@ -22,8 +22,30 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // position: "absolute",
   // top: "100%",
   marginTop: "2vh",
-  left: "30%",
-  maxWidth: "40%",
+  left: "32.5%",
+  maxWidth: "35%",
+  // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  backgroundColor: "#beaee2",
+  "&:hover": {
+    // backgroundColor: "#A6095D",
+    background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
+  },
+}));
+
+const ButtonCo2 = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#beaee2"),
+  // lineHeight: "44px",
+  borderRadius: "30px",
+  fontSize: "20px",
+  color: "white !important",
+  // padding: "9.5px 16px",
+  // height: 40px;
+  // padding: 0 14px 0 0;
+  // position: "absolute",
+  // top: "100%",
+  marginTop: "2vh",
+  left: "27.5%",
+  maxWidth: "45%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   backgroundColor: "#beaee2",
   "&:hover": {
@@ -158,9 +180,9 @@ function GameIntro(props) {
               보세요!
             </div>
           </Typography>
-          <ButtonCo fullWidth variant="contained" onClick={onClick}>
+          <ButtonCo2 fullWidth variant="contained" onClick={onClick}>
             역할 확인하기
-          </ButtonCo>
+          </ButtonCo2>
         </Box>
       </Modal>
       <Modal

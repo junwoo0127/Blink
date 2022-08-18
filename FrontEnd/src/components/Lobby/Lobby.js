@@ -376,7 +376,7 @@ function Lobby(props) {
                 flexDirection: "column",
                 alignItems: "center",
 
-                border: "1.5px solid #beaee2",
+                border: "3px solid #beaee2",
                 borderRadius: "10px",
               }}
               style={{
