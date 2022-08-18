@@ -83,6 +83,7 @@ function FinalSelectResult(props) {
   if (props.open === true) {
     setTimeout(() => {
       setOpen(true);
+      props.handleClose();
     }, 3000);
   }
   const onClick = () => {
@@ -112,7 +113,7 @@ function FinalSelectResult(props) {
         }
       });
     } else {
-      props.handleClose();
+      setOpen(false);
       window.location.href = "/";
     }
   };
@@ -200,7 +201,7 @@ function FinalSelectResult(props) {
         </Modal>
       ) : (
         <Modal
-          open={props.open}
+          open={open}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
