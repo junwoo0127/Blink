@@ -776,16 +776,6 @@ class VideoRoomComponent extends Component {
             setMode={this.setMode}
             roomSeq={this.props.store.user.Room.url.split("_")[0]}
           />
-        ) : this.state.mode === 1 ? (
-          <IntroduceTimer1
-            user={localUser}
-            seqPlus={this.seqPlus}
-            participantNum={this.state.participantNum}
-            seq={this.state.seq}
-            style={{}}
-            sec={this.state.sec}
-            setMode={this.setMode}
-          />
         ) : this.state.mode === 4 ? (
           <DiscussTimer1
             style={{}}

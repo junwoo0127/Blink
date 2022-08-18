@@ -49,21 +49,10 @@ export default class StreamComponent extends Component {
           {this.state.showForm ? (
             <span id="nickname">{this.props.user.getNickname()}</span>
           ) : null}
-          {this.props.modeNum === 4 ? (
-            <span id="mbti">{this.props.user.getMbti()}</span>
-          ) : null}
+
           {this.props.user !== undefined &&
           this.props.user.getStreamManager() !== undefined ? (
-            <div
-              className="streamComponent"
-              id={
-                this.props.user.getAnswer()
-                  ? "yes"
-                  : this.props.user.getAnswer() !== false
-                  ? "basic"
-                  : "no"
-              }
-            >
+            <div className="streamComponent">
               {/* 화면 송출 부분 ex>> id="video-str_CAM_WG4m_con_QdcVOVkZVu" */}
 
               {/* {this.props.filter ? (

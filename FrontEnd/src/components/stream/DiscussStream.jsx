@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./StreamComponent.css";
+import "./DiscussStream.css";
 import OvVideoComponent from "./OvVideo";
 import OvVideo from "./OvVideo2";
 import MicOffIcon from "@mui/icons-material/MicOff";
@@ -47,7 +47,9 @@ export default class StreamComponent extends Component {
           {this.state.showForm ? (
             <span id="nickname">{this.props.user.getNickname()}</span>
           ) : null}
-
+          {this.props.modeNum === 4 ? (
+            <span id="mbti">{this.props.user.getMbti()}</span>
+          ) : null}
           {this.props.user !== undefined &&
           this.props.user.getStreamManager() !== undefined ? (
             <div className="streamComponent" id="basic">

@@ -21,7 +21,7 @@ function LiarSelectRoom(props) {
     const value = liarSelect + 1;
     setLiarSelect(value); //거짓말장이 선택할때마다 증가 후, 자식에 넘겨서 그 값이 사용자의 역할에 따라 2 혹은 3이 되면 select를 할 수 없게 됨.
     setSelectedLiar([...selectedLiar, liar]);
-    console.log("roleorole",localUser.role)
+    console.log("roleorole", localUser.role);
     if (localUser.getRole() === "mafia") {
       if (value === 1) {
         setDisabled(false);

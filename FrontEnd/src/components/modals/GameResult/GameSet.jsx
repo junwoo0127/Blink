@@ -65,7 +65,7 @@ function GameSet(props) {
   //variables
   const [res, setRes] = useState("");
   const [firstMatch, setFirstMatch] = useState([]);
-
+  const [open2, setOpen2] = useState(false);
   const [open, setOpen] = useState(false);
   //function
   useEffect(() => {
@@ -106,6 +106,11 @@ function GameSet(props) {
     setTimeout(() => {
       props.handleClose();
       setOpen(true);
+    }, 3000);
+  }
+  if (open === true) {
+    setTimeout(() => {
+      setOpen2(true);
     }, 4000);
   }
   // const selectPerson = () => {
@@ -132,8 +137,41 @@ function GameSet(props) {
   });
   return (
     <div>
+      <AnimatePresence exitBeforeEnter>
+        {props.open && (
+          <motion.div
+            className="backdrop"
+            variants={backdrop}
+            animate="visible"
+            initial="hidden"
+            exit="hidden"
+            style={{ zIndex: "5555" }}
+          >
+            <motion.div
+              className="modal"
+              variants={modal}
+              style={{
+                borderRadius: "3vw",
+                border: "1px solid #f7dbf0",
+                backgroundColor: "#f7dbf0",
+              }}
+            >
+              <b style={{ fontSize: "30px" }}>승자는....</b>
+              <div
+                style={{
+                  display: "flex",
+                  textAlign: "center",
+                  fontSize: "20px",
+                  marginTop: "2vh",
+                }}
+              ></div>
+              <div>두구구두구두구</div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <Modal
-        open={props.open}
+        open={open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -176,7 +214,7 @@ function GameSet(props) {
       </Modal>
       {props.user.getNickname() === res ? (
         <AnimatePresence exitBeforeEnter>
-          {open && (
+          {open2 && (
             <motion.div
               className="backdrop"
               variants={backdrop}
@@ -231,7 +269,7 @@ function GameSet(props) {
         </AnimatePresence>
       ) : (
         <AnimatePresence exitBeforeEnter>
-          {open && (
+          {open2 && (
             <motion.div
               className="backdrop"
               variants={backdrop}
@@ -251,7 +289,7 @@ function GameSet(props) {
               >
                 <b style={{ fontSize: "30px" }}>{res}님이 확인중입니다.</b>
                 <div style={{ fontSize: "20px", marginTop: "2vh" }}>
-                  1등이 아니다!!
+                  당신의 결과가 보여지고 있어요!!
                 </div>
               </motion.div>
             </motion.div>

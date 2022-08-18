@@ -28,21 +28,19 @@ function SelectRoom(props) {
   const handleOpen = () => {
     setOpen(true);
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   const handleCloseFinal = () => {
     setOpenFinal(false);
   };
   return (
     <>
       <FinalSelect open={openFinal} handleCloseFinal={handleCloseFinal} />
+
       <FinalSelectResult
         roomSeq={roomSeq}
         open={open}
         user={localUser}
         leaveSession={leaveSession}
-        handleClose={handleClose}
         setMode={setMode}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
