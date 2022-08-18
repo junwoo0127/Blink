@@ -19,7 +19,9 @@ const BGMPlayer = () => {
   }, 1000);
 
   return (
-    <main style={{ position: "absolute", right: "10%", zIndex: "1000" }}>
+    <main
+      style={{ position: "absolute", right: "6%", top: "20px", zIndex: "1000" }}
+    >
       <ReactPlayer
         width="0"
         height="0"
