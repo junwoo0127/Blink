@@ -60,11 +60,11 @@ class VideoRoomComponent extends Component {
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     console.log(this.props.store);
-    let sessionName = "3"; //민 this.props.store.user.Room.url;
+    let sessionName = this.props.store.user.Room.url;
     console.log(window.location.hash);
     // console.log(this.props.store.user.Room);
 
-    let userName = "3"; //민 this.props.store.user.Room.nickname;
+    let userName = this.props.store.user.Room.nickname;
 
     this.remotes = [];
     this.localUserAccessAllowed = false;
@@ -151,7 +151,7 @@ class VideoRoomComponent extends Component {
     // $('[data-toggle="tooltip"]').tooltip();
     // Input clipboard
     $("#copy-input").val(
-      "http://localhost:3000/lobby?room=" //민  + this.props.store.user.Room.url
+      "http://localhost:3000/lobby?room=" + this.props.store.user.Room.url
     );
     $("#copy-button").bind("click", function () {
       var input = document.getElementById("copy-input");
@@ -236,7 +236,7 @@ class VideoRoomComponent extends Component {
     try {
       axios
         .get(apiURL + "api/v1/rooms/roomSize", {
-          //민 params: { roomSeq: this.props.store.user.Room.url.split("_")[0] },
+          params: { roomSeq: this.props.store.user.Room.url.split("_")[0] },
         })
         .then((res) =>
           this.setState({ roomLimit: this.state.roomLimit + res.data }, () => {
@@ -590,7 +590,7 @@ class VideoRoomComponent extends Component {
     return (
       <div className="container" id="container">
         <ToolbarComponent
-          //민 sessionId={this.props.store.user.Room.url}
+          sessionId={this.props.store.user.Room.url}
           user={localUser}
           showNotification={this.state.messageReceived}
           camStatusChanged={this.camStatusChanged}
@@ -713,7 +713,7 @@ class VideoRoomComponent extends Component {
                 />
               ) : this.state.mode === 6 ? (
                 <LiarSelectRoom
-                  //민 roomSeq={this.props.store.user.Room.url.split("_")[0]}
+                  roomSeq={this.props.store.user.Room.url.split("_")[0]}
                   participantNum={this.state.participantNum}
                   localUser={localUser}
                   subscribers={this.state.subscribers}
@@ -814,7 +814,7 @@ class VideoRoomComponent extends Component {
             display={this.state.display}
             participantNum={this.state.participantNum}
             setMode={this.setMode}
-            //민 roomSeq={this.props.store.user.Room.url.split("_")[0]}
+            roomSeq={this.props.store.user.Room.url.split("_")[0]}
           />
         ) : this.state.mode === 1 ? (
           <IntroduceTimer1

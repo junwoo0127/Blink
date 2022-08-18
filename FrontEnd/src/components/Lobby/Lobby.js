@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser, makeRoom, enterRoom } from "../../_actions/user_action";
 import { useSelector } from "react-redux";
-import {settingGender} from "../../_reducers/gender_reducer";
+import { settingGender } from "../../_reducers/gender_reducer";
 import { styled } from "@mui/material/styles";
 
 import MemberPage from "../Common/MemberPage";
@@ -127,7 +127,6 @@ const FormControl1 = styled(FormControl)({
 });
 
 function Lobby(props) {
-  
   const [mbti, setMbti] = useState("");
 
   const [subject, setSubject] = useState("");
@@ -165,7 +164,7 @@ function Lobby(props) {
 
   const genderHandle = (event) => {
     setGender(event.target.value);
-    dispatch(settingGender(event.target.value))
+    dispatch(settingGender(event.target.value));
   };
 
   const bloodHandle = (event) => {
@@ -252,7 +251,11 @@ function Lobby(props) {
         {/* 방장이면 보임 */}
         {isMaster ? (
           <div>
-            <Typography align="center" style={{ fontSize: "22px" }}>
+            <Typography
+              sx={{ mb: 1 }}
+              align="center"
+              style={{ fontSize: "22px" }}
+            >
               방 정보
             </Typography>
             <form
@@ -354,7 +357,7 @@ function Lobby(props) {
         <div>
           <Typography
             align="center"
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, mb: 1 }}
             style={{ fontSize: "22px" }}
           >
             인적사항
@@ -513,9 +516,7 @@ function Lobby(props) {
                       onChange={mbtiHandle}
                       style={{ padding: "0px 30px" }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
+                      {/* <MenuItem value=""> <em>None</em> </MenuItem> */}
                       <MenuItem value="ENFJ">ENFJ</MenuItem>
                       <MenuItem value="ENTJ">ENTJ</MenuItem>
                       <MenuItem value="ENFP">ENFP</MenuItem>
@@ -551,12 +552,13 @@ function Lobby(props) {
                       onChange={mytypeHandle}
                       style={{ padding: "0px 30px" }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      {/* <MenuItem value=""> <em>None</em> </MenuItem> */}
+                      <MenuItem value={10}>강아지상</MenuItem>
+                      <MenuItem value={20}>고양이상</MenuItem>
+                      <MenuItem value={30}>여우상</MenuItem>
+                      <MenuItem value={40}>곰상</MenuItem>
+                      <MenuItem value={50}>꼬부기상</MenuItem>
+                      <MenuItem value={60}>토끼상</MenuItem>
                     </Select>
                     {/* <FormHelperText>With label + helper text</FormHelperText> */}
                   </FormControl1>

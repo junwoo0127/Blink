@@ -225,7 +225,7 @@ function LandingPage(props) {
                   onClick={onclickMakeRoom}
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 1, mb: 3 }}
+                  sx={{ mt: 3, mb: 3 }}
                 >
                   <b>방 생성하기</b>
                 </ButtonCo>
