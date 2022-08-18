@@ -233,17 +233,23 @@ function GameSet(props) {
                     style={{ display: "flex", flexDirection: "column" }}
                   >
                     {firstMatch.map((select, index) => (
-                      <span key={index}>{select.nickname} 님은</span>
+                      <span key={index}>{select.nickname} 님</span>
                     ))}
                   </div>
+
+                  <div
+                    className="selectPerson"
+                    style={{ display: "flex", flexDirection: "column" }}
+                  >
+                    <span style={{ color: "#FF1744" }}>→ → ❤ ❤ ❤ → →</span>
+                  </div>
+
                   <div
                     className="selectedPerson"
                     style={{ display: "flex", flexDirection: "column" }}
                   >
                     {firstMatch.map((selected, index) => (
-                      <span key={index}>
-                        {selected.firstChoiceNickname} 님!
-                      </span>
+                      <span key={index}>{selected.firstChoiceNickname} 님</span>
                     ))}
                   </div>
                 </div>
