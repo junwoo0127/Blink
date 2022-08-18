@@ -3,14 +3,14 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
 const ButtonC = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText("#A6095D"),
+  color: theme.palette.getContrastText("#beaee2"),
   lineHeight: "44px",
   borderRadius: "30px",
   fontSize: "22px",
   padding: "9.5px 16px",
-  backgroundColor: "#A6095D",
+  backgroundColor: "#beaee2",
   "&:hover": {
-    backgroundColor: "#A6095D",
+    backgroundColor: "#beaee2",
   },
 }));
 // 재사용 적용안됨 보류
