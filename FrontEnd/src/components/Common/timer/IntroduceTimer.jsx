@@ -6,8 +6,6 @@ const padNumber = (num, length) => {
   return String(num).padStart(length, "0");
 };
 
-
-
 const IntroduceTimer = (props) => {
   // 아무것도 입력하지 않으면 undefined가 들어오기 때문에 유효성 검사부터..
   const tempMin = props.min ? parseInt(props.min) : 0;
@@ -20,19 +18,15 @@ const IntroduceTimer = (props) => {
   const [min, setMin] = useState(padNumber(tempMin, 2));
   const [red, setRed] = useState(false);
 
-
- 
   useEffect(() => {
-    
     interval.current = setInterval(() => {
       initialTime.current -= 1;
       setMin(padNumber(parseInt(initialTime.current / 60), 2));
       setSec(padNumber(initialTime.current % 60, 2));
     }, 1000);
     return () => clearInterval(interval.current);
-  },[props.seq]);
-  
- 
+  }, [props.seq]);
+
   // 초가 변할 때만 실행되는 useEffect
   // initialTime을 검사해서 0이 되면 interval을 멈춘다.
   const [countSound] = useState(
@@ -40,27 +34,24 @@ const IntroduceTimer = (props) => {
   );
 
   useEffect(() => {
-    if(initialTime.current >10){
+    if (initialTime.current > 10) {
       setRed(false);
-    }
-    else if (initialTime.current <= 10 && initialTime.current >0) {
-      if(initialTime.current == 10){
-
+    } else if (initialTime.current <= 10 && initialTime.current > 0) {
+      if (initialTime.current == 10) {
         countSound.volume = 0.5;
         countSound.play();
         setRed(true);
       }
-     
-    }
-    else if (initialTime.current <= 0) {
+    } else if (initialTime.current <= 0) {
       countSound.pause();
       clearInterval(interval.current);
-      props.seqPlus()
-      if(props.seq === props.participantNum){props.setMode(2)}
-      setMin(padNumber(tempMin,2))
-      setSec(padNumber(tempSec,2))
-      initialTime.current =tempMin * 60 + tempSec
-    
+      props.seqPlus();
+      if (props.seq === props.participantNum) {
+        props.setMode(2);
+      }
+      setMin(padNumber(tempMin, 2));
+      setSec(padNumber(tempSec, 2));
+      initialTime.current = tempMin * 60 + tempSec;
     }
   }, [sec]);
 
