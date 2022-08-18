@@ -166,7 +166,7 @@ function Lobby(props) {
                 flexDirection: "column",
                 alignItems: "center",
 
-                border: "1.5px solid #beaee2",
+                border: "3px solid #beaee2",
                 borderRadius: "10px",
               }}
               style={{
@@ -302,9 +302,9 @@ function Lobby(props) {
                       onChange={mbtiHandle}
                       style={{ padding: "0px 30px" }}
                     >
-                      <MenuItem value="">
+                      {/* <MenuItem value="">
                         <em>None</em>
-                      </MenuItem>
+                      </MenuItem> */}
                       <MenuItem value={1}>ENFJ</MenuItem>
                       <MenuItem value={2}>ENTJ</MenuItem>
                       <MenuItem value={3}>ENFP</MenuItem>
@@ -340,12 +340,14 @@ function Lobby(props) {
                       onChange={favHandle}
                       style={{ padding: "0px 30px" }}
                     >
-                      <MenuItem value="">
+                      {/* <MenuItem value="">
                         <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      </MenuItem> */}
+                      <MenuItem value={10}>곰상</MenuItem>
+                      <MenuItem value={20}>여우상</MenuItem>
+                      <MenuItem value={30}>강아지상</MenuItem>
+                      <MenuItem value={40}>고양이상</MenuItem>
+                      <MenuItem value={50}>토끼상</MenuItem>
                     </Select>
                     {/* <FormHelperText>With label + helper text</FormHelperText> */}
                   </FormControl1>

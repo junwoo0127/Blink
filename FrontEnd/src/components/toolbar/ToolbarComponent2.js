@@ -82,7 +82,10 @@ export default class ToolbarComponent2 extends Component {
                     textAlign: "center",
                   }}
                 >
-                  <div style={{ margin: "3px 0px 0px" }}>
+                  <div
+                    style={{ margin: "3px 0px 0px" }}
+                    //  class="input-group"
+                  >
                     <input
                       style={{
                         position: "absolute",
