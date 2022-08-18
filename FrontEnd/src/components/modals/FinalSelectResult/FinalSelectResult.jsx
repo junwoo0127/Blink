@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
+import a7 from "../../../assets/a13,a7.png";
+import a8 from "../../../assets/a8.png";
 
 const style = {
   position: "absolute",
@@ -82,6 +84,18 @@ function FinalSelectResult(props) {
             }}
             sx={style}
           >
+            <img
+              alt="a7"
+              src={a7}
+              style={{ position: "absolute", width: "50px", left: "7%" }}
+            />
+
+            <img
+              alt="a7"
+              src={a7}
+              style={{ position: "absolute", width: "50px", left: "83%" }}
+            />
+
             <Typography
               style={{ textAlign: "center", fontSize: "30px" }}
               id="modal-modal-title"
@@ -123,6 +137,18 @@ function FinalSelectResult(props) {
             }}
             sx={style}
           >
+            <img
+              alt="a8"
+              src={a8}
+              style={{ position: "absolute", width: "50px", left: "7%" }}
+            />
+
+            <img
+              alt="a8"
+              src={a8}
+              style={{ position: "absolute", width: "50px", left: "83%" }}
+            />
+
             <Typography
               style={{ textAlign: "center", fontSize: "30px" }}
               id="modal-modal-title"

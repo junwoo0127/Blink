@@ -5,8 +5,10 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import io from "socket.io-client";
 import axios from "axios";
-import pino from "../../../assets/pino.png";
 import { styled } from "@mui/material/styles";
+import pino from "../../../assets/pino.png";
+import a11L from "../../../assets/a11L.png";
+import a11R from "../../../assets/allR.png";
 
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#beaee2"),
@@ -107,7 +109,7 @@ function GameIntro(props) {
             style={{
               position: "absolute",
               width: "50px",
-              left: "10%",
+              left: "7%",
             }}
           />
           <img
@@ -116,7 +118,7 @@ function GameIntro(props) {
             style={{
               position: "absolute",
               width: "50px",
-              left: "80%",
+              left: "83%",
             }}
           />
           <Typography
@@ -174,6 +176,18 @@ function GameIntro(props) {
           }}
           sx={style}
         >
+          <img
+            alt="a11L"
+            src={a11L}
+            style={{ position: "absolute", width: "50px", left: "7%" }}
+          />
+
+          <img
+            alt="a11R"
+            src={a11R}
+            style={{ position: "absolute", width: "50px", left: "83%" }}
+          />
+
           <Typography
             style={{ textAlign: "center", fontSize: "30px" }}
             id="modal-modal-title"

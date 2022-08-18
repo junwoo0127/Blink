@@ -2,6 +2,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import a2 from "../../../assets/a2,a3.png";
 
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#beaee2"),
@@ -64,6 +65,17 @@ function FirstSelect(props) {
                 backgroundColor: "#f7dbf0",
               }}
             >
+              <img
+                alt="a2"
+                src={a2}
+                style={{ position: "absolute", width: "50px", left: "7%" }}
+              />
+              ​{" "}
+              <img
+                alt="a2"
+                src={a2}
+                style={{ position: "absolute", width: "50px", left: "83%" }}
+              />
               <b style={{ fontSize: "30px" }}> 최후의 선택!</b>
               <div style={{ fontSize: "20px", marginTop: "2vh" }}>
                 자기가 진정 원하는 사람을 뽑아주세요!
