@@ -64,7 +64,7 @@ const modal = {
     transition: { delay: 0.5 },
   },
 };
-export default function GameSet(props) {
+function GameSet(props) {
   //variables
   const [res, setRes] = useState("");
   const [firstMatch, setFirstMatch] = useState([]);
@@ -352,3 +352,4 @@ export default function GameSet(props) {
     </div>
   );
 }
+export default React.memo(GameSet);

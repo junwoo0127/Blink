@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 const apiURL = "http://localhost:8080/blink";
-export default function FinalSelectResult(props) {
+function FinalSelectResult(props) {
   //variables
   const [res, setRes] = useState("");
 
@@ -37,7 +37,7 @@ export default function FinalSelectResult(props) {
     } catch (e) {
       console.log(e);
     }
-  }, [props.open]);
+  }, []);
   const onClick = () => {
     console.log("clicked!!");
     console.log("length", res.length);
@@ -171,3 +171,4 @@ export default function FinalSelectResult(props) {
     </div>
   );
 }
+export default React.memo(FinalSelectResult);

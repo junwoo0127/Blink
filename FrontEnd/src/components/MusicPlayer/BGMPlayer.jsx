@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
 
 const BGMPlayer = () => {
   const [volume, setVolume] = useState(0.3);
-
-  const [bgm] = useState(new Audio(require("../../assets/Longing.mp3")));
+  const [playing, setPlaying] = useState(false);
+  const [mute, setMute] = useState(true);
+  const handlePlaying = () => {
+    setPlaying(true);
+  };
+  const handleMute = () => {
+    setMute(false);
+  };
   useEffect(() => {
-    bgm.play = true;
+    setPlaying(true);
   }, []);
-  useEffect(() => {
-    bgm.volume = volume;
-  }, [volume]);
+  setTimeout(() => {
+    handleMute();
+  }, 1000);
+
   return (
-    <main>
+    <main style={{ position: "absolute", right: "30%" }}>
+      <ReactPlayer
+        width="0"
+        height="0"
+        playing={playing}
+        url="Longing.mp3"
+        volume={volume}
+        controls={true}
+        muted={mute}
+        loop
+      />
       <section>
         <input
           type="range"
@@ -23,9 +41,10 @@ const BGMPlayer = () => {
             setVolume(event.target.valueAsNumber);
           }}
         />
+        {/* <button></button> */}
       </section>
     </main>
   );
 };
 
-export default BGMPlayer;
+export default React.memo(BGMPlayer);

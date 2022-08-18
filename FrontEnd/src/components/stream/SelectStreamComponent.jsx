@@ -144,4 +144,4 @@ function SelectStreamComponent(props) {
     </div>
   );
 }
-export default SelectStreamComponent;
+export default React.memo(SelectStreamComponent);

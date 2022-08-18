@@ -90,7 +90,7 @@ function ReadyButton(props) {
       props.onHandleDisplay();
       setTimeout(() => {
         setOpen(false);
-        props.setMode(1);
+        props.setMode(8);
       }, 5000);
     }
   });

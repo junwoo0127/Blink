@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-export default function DiscussStart() {
+function DiscussStart() {
   //variables
 
   const [open, setOpen] = useState(true);
@@ -74,3 +74,4 @@ export default function DiscussStart() {
     </div>
   );
 }
+export default React.memo(DiscussStart);

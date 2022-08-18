@@ -9,6 +9,7 @@ import { applyMiddleware, createStore } from "redux";
 import promiseMiddleware from "redux-promise";
 import ReduxThunk from "redux-thunk";
 import Reducer from "./_reducers";
+import BGMPlayer from "./components/MusicPlayer/BGMPlayer";
 
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
@@ -25,8 +26,7 @@ root.render(
         window.__REDUX_DEVTOOLS_EXTENSION__()
     )}
   >
-    {" "}
-    <App />
+    <BGMPlayer /> <App />
   </Provider>
 );
 
