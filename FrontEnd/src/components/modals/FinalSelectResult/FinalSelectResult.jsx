@@ -19,7 +19,7 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // height: 40px;
   // padding: 0 14px 0 0;
   // position: "absolute",
-  top: "100%",
+  // top: "100%",
   left: "35%",
   maxWidth: "30%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
