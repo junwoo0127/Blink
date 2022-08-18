@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./GameIntroRoom.css";
 import GameIntro from "../../modals/GameIntro/GameIntro";
-import StreamComponent from "../../stream/StreamComponent";
+import StreamComponent from "../../stream/GameStreamComponent";
 import Game from "../../modals/Game/Game";
 function GameRoom(props) {
   //variables
@@ -23,7 +23,6 @@ function GameRoom(props) {
   const setGameEnd = () => {
     setGameOpen(false);
   };
- 
 
   return (
     <>
@@ -34,12 +33,13 @@ function GameRoom(props) {
         setGameStart={setGameStart}
       />
       <Game
-        answerChanged ={props.answerChanged}
+        answerChanged={props.answerChanged}
         user={props.localUser}
         participantNum={props.participantNum}
         open={gameOpen}
         setGameEnd={setGameEnd}
         setMode={setMode}
+        modeNum={props.modeNum}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser8">

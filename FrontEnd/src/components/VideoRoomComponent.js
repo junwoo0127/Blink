@@ -14,7 +14,7 @@ import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent2";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
 import IntroduceRoom1 from "./VideoRooms/IntroduceRoom1/IntroduceRoom";
-import ShareModal from "./modals/ShareModal/ShareModal";
+
 import WaitingRoom from "./VideoRooms/WatingRoom/WatingRoom";
 import SelectRoom from "./VideoRooms/SelectRoom/SelectRoom";
 import DiscussRoom from "./VideoRooms/DiscussRoom/DiscussRoom";
@@ -225,7 +225,6 @@ class VideoRoomComponent extends Component {
     socket.emit("sequence");
 
     console.log("this is playerSeq", this.props.store.user.Room.playerSeq);
-
     try {
       axios
         .get(apiURL + "api/v1/rooms/roomSize", {
@@ -331,7 +330,7 @@ class VideoRoomComponent extends Component {
       audioSource: undefined,
       videoSource: undefined,
       //videoSource: videoDevices[0].deviceId,
-      publishAudio: localUser.isAudioActive(),
+      publishAudio: !localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
       resolution: "640x480",
       frameRate: 30,
@@ -795,12 +794,7 @@ class VideoRoomComponent extends Component {
             setMode={this.setMode}
           />
         ) : this.state.mode === 7 ? (
-          <FreeTalkTimer1
-            participantNum={this.state.participantNum}
-            style={{}}
-            sec={5}
-            setMode={this.setMode}
-          />
+          <FreeTalkTimer1 style={{}} sec={10} setMode={this.setMode} />
         ) : null}
       </div>
     );

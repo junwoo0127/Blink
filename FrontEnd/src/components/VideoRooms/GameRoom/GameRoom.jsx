@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "./GameRoom.css";
 
-import StreamComponent from "../../stream/StreamComponent";
+import StreamComponent from "../../stream/GameStreamComponent";
 import Game from "../../modals/Game/Game";
 function GameRoom(props) {
   //variables
@@ -33,6 +33,7 @@ function GameRoom(props) {
         setMode={setMode}
         setGameEnd={setGameEnd}
         user={props.localUser}
+        modeNum={props.modeNum}
       />
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser10">

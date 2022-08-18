@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 const BGMPlayer = () => {
-  const [volume, setVolume] = useState(0.3);
+  const [volume, setVolume] = useState(0.1);
   const [playing, setPlaying] = useState(false);
   const [mute, setMute] = useState(true);
   const handlePlaying = () => {
@@ -19,7 +19,7 @@ const BGMPlayer = () => {
   }, 1000);
 
   return (
-    <main style={{ position: "absolute", right: "30%" }}>
+    <main style={{ position: "absolute", right: "10%", zIndex: "1000" }}>
       <ReactPlayer
         width="0"
         height="0"
@@ -35,7 +35,7 @@ const BGMPlayer = () => {
           type="range"
           min={0}
           max={1}
-          step={0.02}
+          step={0.01}
           value={volume}
           onChange={(event) => {
             setVolume(event.target.valueAsNumber);

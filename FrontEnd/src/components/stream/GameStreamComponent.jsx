@@ -1,130 +1,139 @@
-import React, { useEffect, useState } from "react";
+import React, { Component } from "react";
 import "./StreamComponent.css";
-import OvVideoComponent from "./OvVideo";
+import OvVideoComponent from "./OvVideoNoFilter";
+import Filter from "../Filter/Filter";
 import OvVideo from "./OvVideo2";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+
 import IconButton from "@mui/material/IconButton";
-import io from "socket.io-client";
-import { useRef } from "react";
-const socket = io.connect("http://localhost:4000");
-function GameStreamComponent(props) {
-  const [nickname, setNickName] = useState(props.user.getNickname());
-  const [showForm, setShowForm] = useState(false);
-  const [mutedSound, setMutedSound] = useState(false);
-  const [selected, setSelected] = useState(false);
-  const [firstLoveCount, setFirstLoveCount] = useState(0);
-  const toggleSound = () => {
-    setMutedSound(!mutedSound);
-  };
+import E from "../../assets/E.png";
+import I from "../../assets/I.png";
 
-  const onMouseOver = () => {
-    setShowForm(true);
-  };
+export default class StreamComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nickname: this.props.user.getNickname(),
+      showForm: false,
+      mutedSound: false,
+    };
 
-  const onClick = () => {
-    setSelected(true);
-    // props.onSelect();
-    setShowForm(true);
-    props.onSelect();
-    socket.emit("selectFirst");
-  };
-  socket.on("selectFirst", (cnt) => {
-    console.log(cnt.firstCount);
-  });
+    this.toggleSound = this.toggleSound.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
+  }
 
-  //첫사랑 선택 몇명이 했는지 신호 계속 받기
-  const interval = useRef(null);
-  useEffect(() => {
-    interval.current = setInterval(() => {
-      socket.emit("getLoveCount");
-    }, 3000);
-    return () => clearInterval(interval.current);
-  }, []);
-  socket.on("getLoveCount", (cnt) => {
-    setFirstLoveCount(cnt.firstCount);
-    console.log(cnt.firstCount);
-  });
-  //참가자 수만큼 카운트 쌓였으면 신호 그만 보내기
-  useEffect(() => {
-    if (firstLoveCount == 3) {
-      clearInterval(interval.current);
-    }
-  }, [firstLoveCount]);
-  //참가자 모두 선택했다면 모드 변경
-  useEffect(() => {
-    if (firstLoveCount === 3) {
-      props.mode(3);
-    }
-  }, [firstLoveCount]);
-  const onMouseLeave = () => {
-    if (selected) {
-      setShowForm(true);
-    } else {
-      setShowForm(false);
-    }
-  };
+  toggleSound() {
+    this.setState({ mutedSound: !this.state.mutedSound });
+  }
 
-  return (
-    <div>
-      <button
-        disabled={props.disabled}
-        className="OT_widget-container"
-        onMouseOver={onMouseOver}
-        onClick={onClick}
-        onMouseLeave={onMouseLeave}
-      >
-        {props.user !== undefined &&
-        props.user.getStreamManager() !== undefined ? (
-          <div className="streamComponent">
-            <OvVideoComponent user={props.user} mutedSound={mutedSound} />
-            {/* <OvVideo
-              user={this.props.user}
-              mutedSound={this.state.mutedSound}
-            /> */}
+  onMouseOver() {
+    this.setState({ showForm: true });
+  }
+  onMouseLeave() {
+    this.setState({ showForm: false });
+  }
 
-            <div id="statusIcons">
-              {!props.user.isVideoActive() ? (
-                <div id="camIcon">
-                  <VideocamOffIcon id="statusCam" />
-                </div>
-              ) : null}
+  render() {
+    return (
+      <div>
+        <div
+          className="OT_widget-container"
+          onMouseOver={this.onMouseOver}
+          onMouseLeave={this.onMouseLeave}
+        >
+          {/* 마우스 닉네임 접근시 보임  */}
+          {this.state.showForm ? (
+            <span id="nickname">{this.props.user.getNickname()}</span>
+          ) : null}
+          {this.props.modeNum === 4 ? (
+            <span id="mbti">{this.props.user.getMbti()}</span>
+          ) : null}
+          {this.props.user !== undefined &&
+          this.props.user.getStreamManager() !== undefined ? (
+            <div
+              className="streamComponent"
+              id={
+                this.props.user.getAnswer()
+                  ? "yes"
+                  : this.props.user.getAnswer() !== false
+                  ? "basic"
+                  : "no"
+              }
+            >
+              {/* 화면 송출 부분 ex>> id="video-str_CAM_WG4m_con_QdcVOVkZVu" */}
 
-              {!props.user.isAudioActive() ? (
-                <div id="micIcon">
-                  <MicOffIcon id="statusMic" />
-                </div>
-              ) : null}
-              {showForm ? (
-                selected ? (
-                  <div id="LikeIcon">
-                    <FavoriteIcon id="statusLike" />
+              {/* {this.props.filter ? (
+ 
+                  <Filter user={this.props.user} /> 
+              ) : ( */}
+              <OvVideoComponent
+                user={this.props.user}
+                mutedSound={this.state.mutedSound}
+              />
+              {/* <OvVideo
+                user={this.props.user}
+                mutedSound={this.state.mutedSound}
+              /> */}
+              {/* )} */}
+              {/* {this.props.user.getAnswer() ? */}
+              {/* <img 
+                alt="E"
+                src={E}
+                style={{
+                  position: "absolute",
+                  width: "40px",
+                  // bottom: "1.5%",
+                  left: "1.5%",
+                  top: "1.5%",
+                  // right:"1.5%",
+                }}
+              /> 
+              <img
+                alt="I"
+                src={I}
+                style={{
+                  position: "absolute",
+                  width: "40px",
+                  bottom: "1.5%",
+                  left: "1.5%",
+                  // top: "1.5%",
+                  // right:"1.5%",
+                }}
+              />
+              } */}
+              <div id="statusIcons">
+                {!this.props.user.isVideoActive() ? (
+                  <div id="camIcon">
+                    <VideocamOffIcon id="statusCam" />
                   </div>
-                ) : (
-                  <FavoriteBorderIcon />
-                )
-              ) : null}
-            </div>
+                ) : null}
 
-            <div>
-              {!props.user.isLocal() && (
-                <IconButton id="volumeButton" onClick={toggleSound}>
-                  {mutedSound ? (
-                    <VolumeOffIcon color="secondary" />
-                  ) : (
-                    <VolumeUpIcon />
-                  )}
-                </IconButton>
-              )}
+                {!this.props.user.isAudioActive() ? (
+                  <div id="micIcon">
+                    <MicOffIcon id="statusMic" />
+                  </div>
+                ) : null}
+              </div>
+
+              <div>
+                {!this.props.user.isLocal() && (
+                  <IconButton id="volumeButton" onClick={this.toggleSound}>
+                    {this.state.mutedSound ? (
+                      <VolumeOffIcon color="secondary" />
+                    ) : (
+                      <VolumeUpIcon />
+                    )}
+                  </IconButton>
+                )}
+              </div>
             </div>
-          </div>
-        ) : null}
-      </button>
-    </div>
-  );
+          ) : null}
+        </div>
+      </div>
+    );
+  }
 }
-export default React.memo(GameStreamComponent);

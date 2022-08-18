@@ -56,7 +56,6 @@ const ResponsiveAppBar = () => {
       position="sticky"
       style={{ background: "transparent", boxShadow: "none" }}
     >
-      {/* <BGMPlayer /> */}
       <Container maxWidth="false">
         <Toolbar disableGutters>
           <Link to="/">
@@ -67,6 +66,7 @@ const ResponsiveAppBar = () => {
               }}
             />
           </Link>
+          {/* <BGMPlayer /> */}
 
           {/*   참고
 @media only screen and (max-width: 700px) {

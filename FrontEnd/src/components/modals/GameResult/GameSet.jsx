@@ -100,7 +100,7 @@ function GameSet(props) {
     } catch (e) {
       console.log(e);
     }
-  }, []);
+  }, [props.open]);
   if (props.open === true) {
     console.log("modalopened");
     setTimeout(() => {

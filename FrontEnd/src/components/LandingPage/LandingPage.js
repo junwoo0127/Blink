@@ -183,6 +183,7 @@ function LandingPage(props) {
                     onChange={onLinkHandler}
                     id="link"
                     label="참가링크"
+                    placeholder=""
                     name="link"
                     type="text"
                     autoComplete="email"

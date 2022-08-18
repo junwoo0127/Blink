@@ -11,6 +11,7 @@ class UserModel {
   answer;
   sequence;
   gender;
+  mbti;
 
   constructor() {
     this.connectionId = "";
@@ -25,6 +26,7 @@ class UserModel {
     this.answer = "";
     this.sequence = "";
     this.gender = "";
+    this.mbti = ";";
   }
 
   isAudioActive() {
@@ -37,6 +39,9 @@ class UserModel {
 
   isScreenShareActive() {
     return this.screenShareActive;
+  }
+  getMbti() {
+    return this.mbti;
   }
   getGender() {
     return this.gender;
@@ -72,10 +77,13 @@ class UserModel {
   isRemote() {
     return !this.isLocal();
   }
-  setGender(gender){
+  setMbti(mbti) {
+    this.mbti = mbti;
+  }
+  setGender(gender) {
     this.gender = gender;
   }
-  setSequence(sequence){
+  setSequence(sequence) {
     this.sequence = sequence;
   }
   setAnswer(answer) {

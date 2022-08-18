@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AppBar from "@mui/material/AppBar";
 import MusicPlayer from "../MusicPlayer/MusicPlayer";
 import Toolbar from "@mui/material/Toolbar";
-
+import BGMPlayer from "../MusicPlayer/BGMPlayer";
 import Container from "@mui/material/Container";
 
 // import styled from "styled-components";

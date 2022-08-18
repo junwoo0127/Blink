@@ -89,18 +89,25 @@ canvas {
   font-family: Arial, Helvetica, sans-serif;
 }
 /* video {
-  -o-object-fit: cover;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  color: #ffffff;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font-family: Arial, Helvetica, sans-serif;
-} */
+    -o-object-fit: cover;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+  } */
 
+#yes {
+  border-style: "solid";
+  border-color: #00e7f4;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00e7f4;
+  border-width: 10px;
+}
 #basic {
   border-style: "solid";
   border-color: #8007e4;
@@ -108,12 +115,19 @@ canvas {
   box-shadow: 0 0 20px #8007e4;
   border-width: 10px;
 }
+#no {
+  border-style: "solid";
+  border-color: #fffc19;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #fffc19;
+  border-width: 10px;
+}
 
 #myTurn {
   border-radius: 50%;
   border-style: "solid";
   border-color: #df0b0e;
-  box-shadow: 0 0 20px #df0b0e;
+  box-shadow: 0 0 10px #df0b0e;
 }
 
 #statusIcons {

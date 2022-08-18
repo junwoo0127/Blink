@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./StreamComponent.css";
-import OvVideoComponent from "./OvVideo";
+import OvVideoComponent from "./OvVideoNoFilter";
 import Filter from "../Filter/Filter";
 import OvVideo from "./OvVideo2";
 import MicOffIcon from "@mui/icons-material/MicOff";
@@ -52,7 +52,7 @@ export default class StreamComponent extends Component {
 
           {this.props.user !== undefined &&
           this.props.user.getStreamManager() !== undefined ? (
-            <div className="streamComponent">
+            <div className="streamComponent" id="basic">
               {/* 화면 송출 부분 ex>> id="video-str_CAM_WG4m_con_QdcVOVkZVu" */}
 
               {/* {this.props.filter ? (

@@ -26,7 +26,7 @@ root.render(
         window.__REDUX_DEVTOOLS_EXTENSION__()
     )}
   >
-    <BGMPlayer /> <App />
+    <App />
   </Provider>
 );
 
