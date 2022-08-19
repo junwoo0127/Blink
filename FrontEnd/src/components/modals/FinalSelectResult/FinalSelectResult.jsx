@@ -8,7 +8,7 @@ import a7 from "../../../assets/a13,a7.png";
 import a8 from "../../../assets/a8.png";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
-
+import a5 from "../../../assets/a5.png";
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#beaee2"),
   // lineHeight: "44px",
@@ -20,6 +20,7 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // padding: 0 14px 0 0;
   // position: "absolute",
   // top: "100%",
+  marginTop: "2vh",
   left: "35%",
   maxWidth: "30%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
@@ -138,6 +139,27 @@ function FinalSelectResult(props) {
                 backgroundColor: "#f7dbf0",
               }}
             >
+              <img
+                alt="a5"
+                src={a5}
+                style={{
+                  position: "absolute",
+                  width: "50px",
+                  top: "15%",
+                  left: "7%",
+                }}
+              />
+
+              <img
+                alt="a5"
+                src={a5}
+                style={{
+                  position: "absolute",
+                  width: "50px",
+                  top: "15%",
+                  left: "83%",
+                }}
+              />
               <b style={{ fontSize: "30px" }}> 과연 커플이 탄생했을까요??</b>
               <div style={{ fontSize: "20px", marginTop: "2vh" }}>
                 두구두구두구두구

@@ -17,7 +17,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
+import Animation from "../Animation";
 const ButtonCo = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText("#beaee2"),
   lineHeight: "44px",
@@ -130,11 +130,12 @@ function LandingPage(props) {
   return (
     <div>
       <MemberPage></MemberPage>
+      <Animation />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 5,
+            marginTop: 0.00001,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -144,6 +145,7 @@ function LandingPage(props) {
             height: "100vh",
           }}
         >
+          {" "}
           <div
             style={{
               // width: "40vw",
@@ -165,7 +167,6 @@ function LandingPage(props) {
               }}
             />
           </div>
-
           <form style={{ display: "flex", flexDirection: "column" }}>
             {/* 로그인 x : 로그인 o 상태 */}
             {info === "" ? (

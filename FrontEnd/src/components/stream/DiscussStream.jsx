@@ -47,8 +47,8 @@ export default class StreamComponent extends Component {
           {this.state.showForm ? (
             <span id="nickname">{this.props.user.getNickname()}</span>
           ) : null}
-          {this.props.modeNum === 4 ? (
-            <span id="mbti">{this.props.user.getMbti()}</span>
+          {this.props.modeNum === 4 && this.state.showForm ? (
+            <span id="mbti">{this.props.res}</span>
           ) : null}
           {this.props.user !== undefined &&
           this.props.user.getStreamManager() !== undefined ? (

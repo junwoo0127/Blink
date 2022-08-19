@@ -218,7 +218,7 @@ function GameSet(props) {
               style={{
                 textAlign: "center",
                 fontColor: "red",
-                fontSize: "medium",
+                // fontSize: "medium",
               }}
             >
               축하합니다!{res}님 !!{" "}
@@ -322,13 +322,23 @@ function GameSet(props) {
                 <img
                   alt="a5"
                   src={a5}
-                  style={{ position: "absolute", width: "50px", left: "7%" }}
+                  style={{
+                    position: "absolute",
+                    width: "50px",
+                    top: "15%",
+                    left: "7%",
+                  }}
                 />
 
                 <img
                   alt="a5"
                   src={a5}
-                  style={{ position: "absolute", width: "50px", left: "83%" }}
+                  style={{
+                    position: "absolute",
+                    width: "50px",
+                    top: "15%",
+                    left: "83%",
+                  }}
                 />
 
                 <b style={{ fontSize: "30px" }}>{res}님이 확인중입니다.</b>
