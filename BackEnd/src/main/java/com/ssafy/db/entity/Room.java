@@ -1,0 +1,76 @@
+package com.ssafy.db.entity;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name ="tbl_room")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@DynamicInsert
+@DynamicUpdate
+@EntityListeners(AuditingEntityListener.class)
+
+
+public class Room {
+	
+	@Id
+	@Column(name = "room_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long roomSeq;
+	
+	@OneToOne()
+	@JoinColumn(name ="user_seq")
+	private User admin;
+	
+	@Column(name = "url")
+	private String url;
+	
+	@Column(name = "size")
+	private int size;
+	
+	@Column(name ="reg_date",updatable = false)
+	@CreatedDate
+	private LocalDateTime regDate;
+	
+	@Column(name = "out_date")
+	private LocalDateTime outDate;
+	
+	@Column(name = "couple_size")
+	private int coupleSize;
+	
+	@Column(name = "is_active")
+	private int isActive;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "room_seq")
+	private List<Player> players = new ArrayList<>();
+
+}
