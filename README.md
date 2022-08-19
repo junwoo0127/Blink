@@ -232,7 +232,9 @@
 
 ---
 
-**포팅 메뉴얼은 "여기"를 참고하세요**
+**포팅 메뉴얼은** [exec](exec) 을 참고하세요
+
+
 
 
 
@@ -280,7 +282,7 @@
 
 ---
 
-
+API 기능명세서는 [여기](https://glaze-line-578.notion.site/Blink-API-20c291b3b5e14185966f4d7411f980ce)를 참고하세요
 
 #### 화면 설계서
 
@@ -349,16 +351,14 @@ https://www.figma.com/file/ZFwXvp9pnDf8uTQIsCI8d0/%EC%99%80%EC%9D%B4%EC%96%B4%ED
 
 (지호형 도와줘)
 
-| **PORT** | **이름**                                                |
-| -------- | ------------------------------------------------------- |
-| 443      | HTTPS                                                   |
-| 80       | HTTP - HTTPS로 리다이렉트(프론트 페이지지로 리다이렉트) |
-| 8443     | Openvidu                                                |
-| 8379     | Redis                                                   |
-| 3306     | MySQL                                                   |
-| 8081     | Jenkins                                                 |
-| 8080     | Spring boot Docker Container                            |
-| 3000     | React, NginX Docker Container                           |
+| **PORT** | **이름**                     |
+| -------- | ---------------------------- |
+| 443      | React + NginX , HTTPS        |
+| 80       | NginX                        |
+| 8443     | Openvidu                     |
+| 3306     | MySQL                        |
+| 8081     | Spring boot Docker Container |
+| 4000     | socket.io                    |
 
 
 
@@ -378,24 +378,58 @@ https://www.figma.com/file/ZFwXvp9pnDf8uTQIsCI8d0/%EC%99%80%EC%9D%B4%EC%96%B4%ED
 **유재열** 
 
 - **Face-api .js을 이용한 face recognition  필터구현** 
-
 - **회원가입 CRUD API 구현**
-
 - **로그인 CRUD API 구현**
-
 - **openvidu 방 입장 백엔드 구현**
-
 - **React 로그인 회원가입 Axios 연결 , Redux 연결** 
-
 - **JWT 토큰을 이용한 로그인**
-
 - **DB설계**
 
+**김도훈**
+
+- **Room CRUD API 구현**
+- **Player CRUD API 구현**
+- **Game CRUD API 구현**
+- **JWT 토큰을 이용한 기능 관리**
+- **DB 설계 및 수정**
+- **회의록 및 피드백 문서화**
+- **Spring Security 적용**
+
+**김준우**
+
+- **OpenVidu component 설계**
+- **로비 => 최종매칭 화면(React js)** 
+- **Facemesh 활용한 Filter 구현**
+- **UCC 기획 및 제작**
+- **발표 자료 및 기획**
+
+**박지호**
+- **이메일 인증 API 구현**
+- **DB 설계**
+- **가상 서버 담당**
+
+**전민재**
+
+- **React CSS , 레이아웃 설정**
+- **로그인 React 설정**
+
+
+
+**하규진**(**팀장**)
+
+- **React CSS , 레이아웃 설정**
+
+- **Socket 게임서버 구현**
+
+- **props 을 통한  시나리오 진행**
+
+- **시나리오 별 스트림 컴포넌트 생성**
+
+- **첫인상 선택 구현 , Axios 연결**
+
+- **게임 구현 , Axios 연결**
+
+- **최종선택 구현 ,Axios 연결**
+
   
-
-#### BLINK 개발회고
-
-----
-
-
 
