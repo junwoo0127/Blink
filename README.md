@@ -8,7 +8,7 @@
 
 ----
 
-**오프라인에서 새로운 만남을 가지기 부담스러우신가요? Blink 을 통해 부담없이 새로운친구를 사귀어 보세요!!!**
+**오프라인에서 새로운 만남을 가지기 부담스러우신가요? Blink를 통해 부담없이 새로운 친구를 사귀어 보세요!!!**
 
 
 
@@ -173,20 +173,13 @@
 **Backend**
 
 - **sts-3.9.14.RELEASE**
-
 - **Gradle 6.8.3**
-
 - **Spring-boot-jpa**
-
 - **Spring Security**
-
 - **Java 8**
-
 - **mysql**
-
 - **JWT**
 
-  
 
 **Frontend**
 
@@ -244,7 +237,7 @@
 
 - **face-api.js**
 
-  **얼굴 블라인드 처리를 위해 사용한 face recognition javaScript API 입니다.**
+  **얼굴 블라인드 처리를 위해 사용한 face recognition JavaScript API 입니다.**
   
   ****
   
@@ -258,13 +251,13 @@
 
 - **WebRTC (Openvidu)**
 
-   **Openvidu 기본 기능뿐만 아니라 Openvidu  백엔드와 연결하는 과정을 통해 여러가지 기능을 커스터 마이징했습니다. 인원 수 를 지정하거나 , 컴포넌트 안에서 첫인상 선택과 , 최종선택 과 같은 부분을 백엔드와의 연동을 통해 진행 할수 있게 처리하였고 , 아이스브레이킹 을 할수있는 시간인 MBTI 을 맞추는 게임 구현을 통해  비대면 상황이지만 서로를 빠르게 알아 갈 수 있습니다.**
+   **Openvidu 기본 기능뿐만 아니라 Openvidu  백엔드와 연결하는 과정을 통해 여러가지 기능을 커스터 마이징했습니다. 인원 수를 지정하거나 , 컴포넌트 안에서 첫 인상 선택과, 최종 선택과 같은 부분을 백엔드와의 연동을 통해 진행 할 수 있게 처리하였고 , 아이스 브레이킹 을 할 수 있는 시간인 MBTI 을 맞추는 게임 구현을 통해  비대면 상황이지만 서로를 빠르게 알아 갈 수 있습니다.**
 
   
 
 - **FrontEnd**
 
-  **Reatc 와 Redux 사용을 통해 상태관리와 구현을  진행하였고 , Material-UI 을 통해 CSS 을 구성하였습니다.** 
+  **Reatc 와 Redux 사용을 통해 상태 관리와 구현을  진행하였고 , Material-UI 을 통해 CSS 을 구성하였습니다.** 
 
   **Socket.io 을 통해 게임 실시간 서버를 구현했습니다**
 
@@ -300,7 +293,6 @@ https://www.figma.com/file/ZFwXvp9pnDf8uTQIsCI8d0/%EC%99%80%EC%9D%B4%EC%96%B4%ED
 
 - Git
 - Jira
-- Notion
 - Mattermost
 - Webex
 - figma
@@ -321,17 +313,7 @@ https://www.figma.com/file/ZFwXvp9pnDf8uTQIsCI8d0/%EC%99%80%EC%9D%B4%EC%96%B4%ED
 - `develop` : 다음 출시 버전 개발하는 브랜치
 - `feature` : 기능을 개발하는 브랜치 (기능 별 생성후 병합)
 
-
-
-#### Notion
-
----
-
-협업과 모두가 봐야할  공지나 명세서를 모아 관리하고 , 주마다 기록한 회의록 , 모두가 보면 좋은 공부내용을 정리해 올렸습니다. 
-
-
-
-#### JIra
+#### Jira
 
 ----
 
@@ -418,17 +400,11 @@ https://www.figma.com/file/ZFwXvp9pnDf8uTQIsCI8d0/%EC%99%80%EC%9D%B4%EC%96%B4%ED
 **하규진**(**팀장**)
 
 - **React CSS , 레이아웃 설정**
-
 - **Socket 게임서버 구현**
-
 - **props 을 통한  시나리오 진행**
-
 - **시나리오 별 스트림 컴포넌트 생성**
-
 - **첫인상 선택 구현 , Axios 연결**
-
 - **게임 구현 , Axios 연결**
-
 - **최종선택 구현 ,Axios 연결**
 
   
