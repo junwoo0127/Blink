@@ -264,7 +264,9 @@
 
 - **FrontEnd**
 
-  **Reatc 와 Redux 사용을 통해 상태관리와 구현을  진행하였고 , Material-UI 을 통해 CSS 을 구성하였습니다.** (소켓서버내용써줘) 
+  **Reatc 와 Redux 사용을 통해 상태관리와 구현을  진행하였고 , Material-UI 을 통해 CSS 을 구성하였습니다.** 
+
+  **Socket.io 을 통해 게임 실시간 서버를 구현했습니다**
 
   
 
@@ -272,9 +274,7 @@
 
   **Spring-boot 와 Spring Security 을 이용해 백엔드를 구성했고 JPA와 JWT 토큰을 사용하였습니다.**
 
-- 배포
-
-  (배포내용 써줘)
+  
 
 
 
@@ -282,7 +282,9 @@
 
 ---
 
-API 기능명세서는 [여기](https://glaze-line-578.notion.site/Blink-API-20c291b3b5e14185966f4d7411f980ce)를 참고하세요
+**API 기능명세서는** [exec](exec) 에 Blink_API명세서 을 참고하세요
+
+
 
 #### 화면 설계서
 
@@ -347,9 +349,7 @@ https://www.figma.com/file/ZFwXvp9pnDf8uTQIsCI8d0/%EC%99%80%EC%9D%B4%EC%96%B4%ED
 
 #### EC2 포트 정리
 
-----
 
-(지호형 도와줘)
 
 | **PORT** | **이름**                     |
 | -------- | ---------------------------- |
