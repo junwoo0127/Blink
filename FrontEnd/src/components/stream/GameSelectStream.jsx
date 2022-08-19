@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./StreamComponent.css";
+import "./GameSelectStream.css";
 import OvVideoComponent from "./OvVideo";
 import OvVideo from "./OvVideo2";
 import MicOffIcon from "@mui/icons-material/MicOff";
@@ -84,7 +84,7 @@ function GameSelectStream(props) {
         ) : null}
         {props.user !== undefined &&
         props.user.getStreamManager() !== undefined ? (
-          <div className="streamComponent" id="basic">
+          <div className="streamComponent">
             <OvVideoComponent user={props.user} mutedSound={mutedSound} />
             {/* <OvVideo
               user={this.props.user}

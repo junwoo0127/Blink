@@ -16,6 +16,7 @@ export default class StreamComponent extends Component {
       nickname: this.props.user.getNickname(),
       showForm: false,
       mutedSound: false,
+      modeNum: this.props.modeNum,
     };
 
     this.toggleSound = this.toggleSound.bind(this);
@@ -29,6 +30,7 @@ export default class StreamComponent extends Component {
 
   onMouseOver() {
     this.setState({ showForm: true });
+    console.log(this.props.user.getNickname());
   }
   onMouseLeave() {
     this.setState({ showForm: false });
@@ -47,12 +49,12 @@ export default class StreamComponent extends Component {
           {this.state.showForm ? (
             <span id="nickname">{this.props.user.getNickname()}</span>
           ) : null}
-          {this.props.modeNum === 4 && this.state.showForm ? (
-            <span id="mbti">{this.props.res}</span>
+          {this.state.modeNum === 4 && this.state.showForm ? (
+            <span id="mbti">{this.props.user.getMbti()}</span>
           ) : null}
           {this.props.user !== undefined &&
           this.props.user.getStreamManager() !== undefined ? (
-            <div className="streamComponent" id="basic">
+            <div className="streamComponent">
               {/* 화면 송출 부분 ex>> id="video-str_CAM_WG4m_con_QdcVOVkZVu" */}
               <OvVideoComponent
                 user={this.props.user}

@@ -15,15 +15,7 @@ function DiscussRoom(props) {
   const localUser = props.localUser;
   const participantNum = props.participantNum;
   const [res, setRes] = useState("");
-  useEffect(() => {
-    axios
-      .get(apiURL + "/api/v1/players", {
-        params: { playerSeq: props.user.getPlayerSeq() },
-      })
-      .then((res) => {
-        setRes(res.data.mbti);
-      });
-  }, []);
+
   //function
   const setMode = (num) => {
     props.setMode(num);
@@ -39,6 +31,7 @@ function DiscussRoom(props) {
       {localUser !== undefined && localUser.getStreamManager() !== undefined && (
         <div className="OT_root OT_publisher custom-class" id="localUser9">
           <DiscussStream
+            modeNum={props.modeNum}
             res={res}
             // id={localUser.getAnswer() ? "yes" : "no"}
             user={localUser}

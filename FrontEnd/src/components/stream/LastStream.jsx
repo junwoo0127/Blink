@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./StreamComponent.css";
+import "./LastStream.css";
 import OvVideoComponent from "./OvVideoNoFilter";
 import Filter from "../Filter/Filter";
 import OvVideo from "./OvVideo2";

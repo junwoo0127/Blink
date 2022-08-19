@@ -80,6 +80,7 @@ class VideoRoomComponent extends Component {
       showFF: true,
       seq: 1,
       sec: 15,
+      quiz: false,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -99,6 +100,10 @@ class VideoRoomComponent extends Component {
     this.handleFilter = this.handleFilter.bind(this);
     this.answerChanged = this.answerChanged.bind(this);
     this.seqPlus = this.seqPlus.bind(this);
+    this.showQuiz = this.showQuiz.bind(this);
+  }
+  showQuiz() {
+    this.setState({ quiz: !this.state.quiz });
   }
   seqPlus() {
     this.setState({ seq: this.state.seq + 1 });
@@ -602,6 +607,9 @@ class VideoRoomComponent extends Component {
           micStatusChanged={this.micStatusChanged}
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
+          mode={this.state.mode}
+          showQuiz={this.showQuiz}
+          quiz={this.state.quiz}
         />
         {/* Waiting>>Introduce>>Select>>GameIntro>>Discuss>>Game>>
         LiarSelect>>FreeTalk>>FinalSelect */}
@@ -659,6 +667,8 @@ class VideoRoomComponent extends Component {
                   close={this.toggleChat}
                   messageReceived={this.checkNotification}
                   setMode={this.setMode}
+                  modeNum={this.state.mode}
+                  quiz={this.state.quiz}
                 />
               ) : this.state.mode === 5 ? (
                 <GameRoom

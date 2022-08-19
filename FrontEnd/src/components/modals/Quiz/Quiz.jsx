@@ -49,7 +49,6 @@ const style = {
 };
 
 function Game(props) {
-  const dispatch = useDispatch();
   const quiz_count = useSelector((state) => state.quiz_counter.count);
 
   //variables
@@ -60,9 +59,21 @@ function Game(props) {
   const [quizSeq, setQuizSeq] = useState(0);
   const [quiz, setQuiz] = useState({});
   //function
+  useEffect(() => {
+    axios
+      .get(apiURL + "/blink/api/v1/game/mbti", {
+        params: { quizSeq: quiz_count + 1 },
+      })
+      .then((response) => {
+        console.log(response.data);
 
-  const handleOut = () => {
-    props.handleOut();
+        console.log(quiz_count);
+        setQuiz(response.data);
+      });
+  }, []);
+
+  const showQuiz = () => {
+    props.showQuiz();
   };
 
   return (
@@ -98,14 +109,14 @@ function Game(props) {
             variant="h6"
             component="h2"
           >
-            {props.quiz_count} 번 문제!
+            {quiz_count} 번 문제!
           </Typography>
           <Typography
             style={{ textAlign: "center", fontSize: "20px" }}
             id="modal-modal-description"
             sx={{ mt: 2 }}
           >
-            {props.quiz.question}
+            {quiz.question}
           </Typography>
 
           <div
@@ -139,7 +150,7 @@ function Game(props) {
           style={{ marginLeft: "0.5vh", marginRight: "0.5vh" }}
           disabled={true}
           variant="contained"
-          onClick={handleOut}
+          onClick={showQuiz}
         >
           확인
         </ButtonCo>

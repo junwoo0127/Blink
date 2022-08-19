@@ -59,7 +59,7 @@ export default function SendButton(props) {
   return (
     <>
       <ButtonCo
-        fullWidth
+        style={{ height: "10px" }}
         variant="contained"
         onClick={onClick}
         disabled={props.disabled}

@@ -21,7 +21,7 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   // position: "absolute",
   // top: "100%",
   marginTop: "2vh",
-  left: "35%",
+  left: "38%",
   maxWidth: "30%",
   // background: "linear-gradient(45deg,#FE6B8B,#FF8E53)",
   backgroundColor: "#beaee2",

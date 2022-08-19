@@ -130,12 +130,12 @@ function LandingPage(props) {
   return (
     <div>
       <MemberPage></MemberPage>
-      <Animation />
       <Container component="main" maxWidth="xs">
+        <Animation />
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 0.00001,
+            marginTop: -22,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",

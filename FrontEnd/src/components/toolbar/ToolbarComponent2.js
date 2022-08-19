@@ -35,6 +35,9 @@ const ButtonCo = styled(Button)(({ theme }) => ({
 export default class ToolbarComponent2 extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      mode: this.props.mode,
+    };
   }
 
   render() {
@@ -106,19 +109,118 @@ export default class ToolbarComponent2 extends Component {
                       id="copy-input"
                     />
                     {/* <span class="input-group-btn"> */}
-                    <ButtonCo
-                      fullWidth
-                      variant="contained"
-                      // class="btn btn-default"
-                      type="button"
-                      id="copy-button"
-                      data-toggle="tooltip"
-                      data-placement="button"
-                      title="Copy to Clipboard"
-                    >
-                      Share URL
-                    </ButtonCo>
-                    {/* </span> */}
+                    {this.props.mode === 0 ? (
+                      <ButtonCo
+                        fullWidth
+                        variant="contained"
+                        // class="btn btn-default"
+                        type="button"
+                        id="copy-button"
+                        data-toggle="tooltip"
+                        data-placement="button"
+                        title="Copy to Clipboard"
+                      >
+                        Share URL
+                      </ButtonCo>
+                    ) : this.props.mode === 2 ? (
+                      <ButtonCo
+                        fullWidth
+                        variant="contained"
+                        // class="btn btn-default"
+                        type="button"
+                        id="copy-button"
+                        data-toggle="tooltip"
+                        data-placement="button"
+                        title="Copy to Clipboard"
+                        disabled="true"
+                      >
+                        첫인상 선택의 방
+                      </ButtonCo>
+                    ) : this.props.mode === 3 ? (
+                      <ButtonCo
+                        fullWidth
+                        variant="contained"
+                        // class="btn btn-default"
+                        type="button"
+                        id="copy-button"
+                        data-toggle="tooltip"
+                        data-placement="button"
+                        title="Copy to Clipboard"
+                        disabled="true"
+                      >
+                        MBTI 게임의 방
+                      </ButtonCo>
+                    ) : this.props.mode === 4 ? (
+                      <ButtonCo
+                        fullWidth
+                        variant="contained"
+                        // class="btn btn-default"
+                        type="button"
+                        id="copy-button"
+                        data-toggle="tooltip"
+                        data-placement="button"
+                        title="Copy to Clipboard"
+                        disabled="true"
+                      >
+                        토론의 방
+                      </ButtonCo>
+                    ) : this.props.mode === 5 ? (
+                      <ButtonCo
+                        fullWidth
+                        variant="contained"
+                        // class="btn btn-default"
+                        type="button"
+                        id="copy-button"
+                        data-toggle="tooltip"
+                        data-placement="button"
+                        title="Copy to Clipboard"
+                        disabled="true"
+                      >
+                        MBTI 게임의 방
+                      </ButtonCo>
+                    ) : this.props.mode === 6 ? (
+                      <ButtonCo
+                        fullWidth
+                        variant="contained"
+                        // class="btn btn-default"
+                        type="button"
+                        id="copy-button"
+                        data-toggle="tooltip"
+                        data-placement="button"
+                        title="Copy to Clipboard"
+                        disabled="true"
+                      >
+                        MBTI 게임의 방
+                      </ButtonCo>
+                    ) : this.props.mode === 8 ? (
+                      <ButtonCo
+                        fullWidth
+                        variant="contained"
+                        // class="btn btn-default"
+                        type="button"
+                        id="copy-button"
+                        data-toggle="tooltip"
+                        data-placement="button"
+                        title="Copy to Clipboard"
+                        disabled="true"
+                      >
+                        최종 선택의 방
+                      </ButtonCo>
+                    ) : this.props.mode === 9 ? (
+                      <ButtonCo
+                        fullWidth
+                        variant="contained"
+                        // class="btn btn-default"
+                        type="button"
+                        id="copy-button"
+                        data-toggle="tooltip"
+                        data-placement="button"
+                        title="Copy to Clipboard"
+                        disabled="true"
+                      >
+                        사랑의 방
+                      </ButtonCo>
+                    ) : null}
                   </div>
                 </form>
               </Grid>
