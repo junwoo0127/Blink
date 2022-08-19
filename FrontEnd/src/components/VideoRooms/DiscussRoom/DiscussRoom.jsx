@@ -8,8 +8,8 @@ import io from "socket.io-client";
 import E from "../../../assets/E.png";
 import I from "../../../assets/I.png";
 import axios from "axios";
-const apiURL = "http://localhost:8080/blink";
-const socket = io.connect("http://localhost:4000");
+const apiURL = "https://i7a402.p.ssafy.io:8081/blink";
+const socket = io.connect("https://i7a402.p.ssafy.io:4000");
 function DiscussRoom(props) {
   //variables
   const localUser = props.localUser;

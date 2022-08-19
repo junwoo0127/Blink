@@ -9,7 +9,7 @@ import {
   PARTICIPATE,
   MAKEROOM,
 } from "./types";
-const apiurl = "http://localhost:8080/blink";
+const apiurl = "https://i7a402.p.ssafy.io:8081/blink";
 export function loginUser(dataToSubmit) {
   const request = axios
     .post(apiurl + "/api/v1/auth/login", dataToSubmit)
@@ -60,7 +60,7 @@ export function registerUser(dataToSubmit) {
 
 export function auth(dataToSubmit) {
   const request = axios
-    .get("http://localhost:8080/blink/api/v1/users/me", {
+    .get("https://i7a402.p.ssafy.io:8081/blink/api/v1/users/me", {
       headers: {
         Authorization: dataToSubmit,
       },
@@ -74,7 +74,7 @@ export function auth(dataToSubmit) {
 
 export function check_id(dataToSubmit) {
   const request = axios
-    .post("http://localhost:8080/blink/api/v1/users/check", dataToSubmit)
+    .post("https://i7a402.p.ssafy.io:8081/blink/api/v1/users/check", dataToSubmit)
     .then((response) => response.data);
 
   return {
@@ -91,7 +91,7 @@ export function get_session() {
 
 export function getUser(dataToSubmit) {
   const request = axios
-    .get("http://localhost:8080/blink/api/v1/users/me", {
+    .get("https://i7a402.p.ssafy.io:8081/blink/api/v1/users/me", {
       headers: {
         Authorization: dataToSubmit,
       },

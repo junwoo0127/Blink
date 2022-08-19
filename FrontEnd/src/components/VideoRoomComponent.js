@@ -33,9 +33,9 @@ import FreeTalkTimer1 from "../components/Common/timer/FreeTalkTimer";
 import Grid from "@mui/material/Grid";
 
 var localUser = new UserModel();
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("https://i7a402.p.ssafy.io:4000");
 
-const apiURL = "http://localhost:8080/blink/";
+const apiURL = "https://i7a402.p.ssafy.io:8081/blink/";
 
 class VideoRoomComponent extends Component {
   constructor(props) {
@@ -44,11 +44,11 @@ class VideoRoomComponent extends Component {
 
     this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
       ? this.props.openviduServerUrl
-      : "https://" + window.location.hostname + ":4443";
+      : "https://" + window.location.hostname + ":8443";
     // this.OPENVIDU_SERVER_URL = "https://i7a402.p.ssafy.io:8443";
     this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
       ? this.props.openviduSecret
-      : "MY_SECRET";
+      : "ssafy47ssafy47";
     // this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
     // ? this.props.openviduSecret
     // : "ssafy47ssafy47";
@@ -149,7 +149,7 @@ class VideoRoomComponent extends Component {
     // $('[data-toggle="tooltip"]').tooltip();
     // Input clipboard
     $("#copy-input").val(
-      "http://localhost:3000/lobby?room=" + this.props.store.user.Room.url
+      "https://i7a402.p.ssafy.io/lobby?room=" + this.props.store.user.Room.url
     );
     $("#copy-button").bind("click", function () {
       var input = document.getElementById("copy-input");

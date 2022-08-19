@@ -14,7 +14,7 @@ import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addLiar } from "../../_reducers/selectedLiar";
 
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("https://i7a402.p.ssafy.io:4000");
 function GameSelectStream(props) {
   const dispatch = useDispatch();
   let liarArray = useSelector((state) => state.selectedLiar);

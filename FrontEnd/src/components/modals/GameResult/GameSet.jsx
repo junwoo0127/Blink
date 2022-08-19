@@ -33,8 +33,8 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   },
 }));
 
-const apiURL = "http://localhost:8080/blink";
-const socket = io.connect("http://localhost:4000");
+const apiURL = "https://i7a402.p.ssafy.io:8081/blink";
+const socket = io.connect("https://i7a402.p.ssafy.io:4000");
 const style = {
   position: "absolute",
   top: "50%",

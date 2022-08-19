@@ -6,7 +6,7 @@ import SelectStreamComponent from "../../stream/SelectStreamComponent";
 import StreamComponent from "../../stream/StreamComponent";
 import FirstSelect from "../../modals/FirstSelect/FirstSelect";
 import axios from "axios";
-const apiURL = "http://localhost:8080/blink";
+const apiURL = "https://i7a402.p.ssafy.io:8081/blink";
 function SelectRoom(props) {
   //variables
 

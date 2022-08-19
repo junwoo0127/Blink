@@ -60,7 +60,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const apiURL = "http://localhost:8080/blink";
+const apiURL = "https://i7a402.p.ssafy.io:8081/blink";
 function FinalSelectResult(props) {
   //variables
   const [res, setRes] = useState("");

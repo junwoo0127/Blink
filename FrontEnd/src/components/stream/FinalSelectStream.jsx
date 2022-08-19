@@ -13,8 +13,8 @@ import OvVideo from "./OvVideo2";
 import FinalSelectResult from "../modals/FinalSelectResult/FinalSelectResult";
 import axios from "axios";
 import { useRef } from "react";
-const socket = io.connect("http://localhost:4000");
-const apiURL = "http://localhost:8080/blink";
+const socket = io.connect("https://i7a402.p.ssafy.io:4000");
+const apiURL = "https://i7a402.p.ssafy.io:8081/blink";
 
 function SelectStreamComponent(props) {
   const [showForm, setShowForm] = useState(false);

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const padNumber = (num, length) => {
   return String(num).padStart(length, "0");
 };
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("https://i7a402.p.ssafy.io:4000");
 const Timer = (props) => {
   // 아무것도 입력하지 않으면 undefined가 들어오기 때문에 유효성 검사부터..
   const tempMin = props.min ? parseInt(props.min) : 0;

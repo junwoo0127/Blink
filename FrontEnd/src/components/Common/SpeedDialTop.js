@@ -68,7 +68,7 @@ export default class ToolbarComponent extends Component {
   render() {
     const mySessionId = this.props.sessionId;
     const localUser = this.props.user;
-    const url = "http://localhost:3000/";
+    const url = "https://i7a402.p.ssafy.io/";
     const shareLink = (e) => {
       console.log();
       navigator.clipboard.writeText(url + "lobby?room=" + mySessionId);

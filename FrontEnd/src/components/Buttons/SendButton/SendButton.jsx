@@ -28,10 +28,10 @@ const ButtonCo = styled(Button)(({ theme }) => ({
   },
 }));
 
-const apiURL = "http://localhost:8080/blink";
+const apiURL = "https://i7a402.p.ssafy.io:8081/blink";
 export default function SendButton(props) {
   const [open, setOpen] = useState(false);
-  const socket = io.connect("http://localhost:4000");
+  const socket = io.connect("https://i7a402.p.ssafy.io:4000");
   const onClick = () => {
     props.onClose();
     socket.emit("gameSet");
